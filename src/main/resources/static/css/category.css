@@ -1,0 +1,27 @@
+/* ===============================
+   📂 카테고리 버튼
+================================= */
+.category-section {
+  padding: 1rem 0;
+}
+
+.category-list {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.category-btn {
+  background-color: #ffe3e3;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.category-btn:hover {
+  background-color: #ffc0cb;
+}

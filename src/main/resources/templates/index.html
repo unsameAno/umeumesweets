@@ -5,19 +5,35 @@
   <title>UmeUmeSweets | 한국 디저트 셀렉트샵</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <script th:src="@{/js/header.js}" defer></script>
 </head>
 <body>
   <!-- 헤더 -->
   <header>
     <div class="container header-container">
       <h1 class="logo">UmeUmeSweets</h1>
-<nav>
-  <a href="#" class="nav-link">홈</a>
-  <a href="#" class="nav-link">카페</a>
-  <a href="#" class="nav-link">카테고리</a>
-  <a href="#" class="nav-link">리뷰</a>
-  <a th:href="@{/login}" class="nav-link login-btn">로그인</a>
-</nav>
+
+      <!-- 로그인 여부에 따라 사용자 영역 처리 -->
+      <div class="user-info" th:if="${loginUser == null}">
+        <a th:href="@{/login}" class="nav-link login-btn">로그인</a>
+      </div>
+
+      <div class="user-info" th:if="${loginUser != null}">
+        <span th:text="${loginUser.name + '님'}">사용자이름</span>
+        <a href="#"><img src="/images/languege-icon.svg" alt="언어변경" /></a>
+        <a href="/cart"><img src="/images/cart-icon.svg" alt="장바구니" /></a>
+
+        <div class="user-menu-wrapper">
+          <a href="#" id="user-icon-toggle">
+            <img src="/images/user-icon.svg" alt="회원정보" class="user-icon" />
+          </a>
+          <div class="user-dropdown" id="user-dropdown">
+            <a href="/user/profile">회원정보</a>
+            <a href="/orders">주문 내역</a>
+            <a href="/logout">로그아웃</a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -33,9 +49,12 @@
     <div class="container category-list">
       <button class="category-btn">모든 디저트</button>
       <button class="category-btn">케이크</button>
-      <button class="category-btn">마카롱</button>
+      <button class="category-btn">초콜렛</button>
+      <button class="category-btn">빙수</button>
       <button class="category-btn">푸딩</button>
-      <button class="category-btn">도라야끼</button>
+      <button class="category-btn">마카롱</button>
+      <button class="category-btn">스콘</button>
+      <button class="category-btn">베이글 </button>
     </div>
   </section>
 
@@ -44,7 +63,7 @@
     <div class="container dessert-grid">
       <!-- Thymeleaf 반복 영역 -->
       <div class="dessert-card" th:each="dessert : ${desserts}">
-        <img th:src="@{${dessert.imageUrl}}" alt="디저트 이미지" />
+        <img th:src="${dessert.imageUrl}" alt="디저트 이미지" />
         <h3 th:text="${dessert.name}">디저트 이름</h3>
         <p th:text="${dessert.cafeName}">카페명</p>
         <p th:text="${dessert.price} + '원'">가격</p>

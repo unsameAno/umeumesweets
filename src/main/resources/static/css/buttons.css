@@ -1,0 +1,25 @@
+/* ===============================
+   🔘 버튼 공통 스타일
+================================= */
+.btn {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-search {
+  background-color: #f08a8a;
+  color: white;
+  padding: 0 1.5rem;
+  margin-top: 0;
+}
+
+.btn-submit {
+  background-color: #f08a8a;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+}

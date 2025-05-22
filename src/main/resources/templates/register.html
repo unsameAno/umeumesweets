@@ -5,22 +5,67 @@
   <meta charset="UTF-8" />
   <title>회원가입 | 우메우메스이츠</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script th:src="@{/js/register.js}"></script>
 </head>
 <body th:with="page='other'">
-  <div th:replace="fragments/header :: header"></div>
+<form id="registerForm" th:action="@{/register}" method="post">
+  <div th:replace="~{fragments/header :: header}"></div>
 
   <div class="container login-container">
     <h2>회원가입</h2>
-    <form th:action="@{/register}" method="post">
-      <input type="text" name="username" placeholder="아이디" required />
-      <input type="password" name="password" placeholder="비밀번호" required />
-      <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required />
-      <input type="text" name="name" placeholder="이름" required />
-      <input type="email" name="email" placeholder="이메일" required />
-      <input type="text" name="phone" placeholder="핸드폰 번호" required />
-      <input type="text" name="address" placeholder="주소" required />
-      <button type="submit">회원가입</button>
-    </form>
+<div>
+  <label for="username" style="display: block; text-align: left;">아이디</label>
+  <input type="text" id="username" name="username" required />
+</div>
+
+<div>
+  <label for="password" style="display: block; text-align: left;">비밀번호</label>
+  <input type="password" id="password" name="password" required />
+</div>
+
+<div>
+  <label for="confirmPassword" style="display: block; text-align: left;">비밀번호 확인</label>
+  <input type="password" id="confirmPassword" required />
+</div>
+
+<div>
+  <label for="name" style="display: block; text-align: left;">이름</label>
+  <input type="text" id="name" name="name" required />
+</div>
+
+<div>
+  <label for="email" style="display: block; text-align: left;">이메일</label>
+  <input type="email" id="email" name="email" required />
+</div>
+
+
+      <!-- 전화번호 3칸 -->
+<div>
+  <label style="display: block; text-align: left;">전화번호</label>
+  <div style="display: flex; gap: 8px;">
+    <input type="text" name="phone1" maxlength="3" required style="width: 30%;" />
+    <input type="text" name="phone2" maxlength="4" required style="width: 40%;" />
+    <input type="text" name="phone3" maxlength="4" required style="width: 40%;" />
+  </div>
+</div>
+
+<!-- 주소 -->
+<div class="form-group">
+  <label class="form-label">주소</label>
+  <div class="form-zip">
+    <input type="text" id="postcode" name="zipcode" class="form-input zip" readonly required />
+    <button type="button" onclick="execDaumPostcode()" class="btn btn-search">주소 검색</button>
+  </div>
+  <input type="text" id="roadAddress" name="address" class="form-input" placeholder="도로명 주소" readonly required />
+  <input type="text" id="detailAddress" name="detailAddress" class="form-input" placeholder="상세 주소 입력" />
+</div>
+
+      <!-- 숨겨진 폰 필드 (JS로 병합해서 전송) -->
+  <input type="hidden" name="phone" id="fullPhone" />
+
+  <button type="submit">회원가입</button>
+</form>
 
     <div class="login-links">
       <a th:href="@{/login}">이미 계정이 있으신가요? 로그인</a>

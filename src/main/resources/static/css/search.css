@@ -1,0 +1,16 @@
+/* ===============================
+   🔍 검색 바
+================================= */
+.search-section {
+  padding: 1.5rem 0;
+  background-color: #fff5f8;
+  text-align: center;
+}
+
+.search-section input {
+  width: 60%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  font-size: 1rem;
+}

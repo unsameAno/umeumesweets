@@ -1,4 +1,4 @@
-package com.umeume.umeumesweets.domain;
+package com.umeume.umeumesweets.entity;
  
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +32,11 @@ public class User {
     private String phone;
 
     @Column(nullable = false)
+    private String zipcode;
+
+    @Column(nullable = false)
     private String address;
+
+    @Column
+    private String detailAddress;
 }

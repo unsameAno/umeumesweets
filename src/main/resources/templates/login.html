@@ -7,10 +7,17 @@
   <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 <body th:with="page='other'">
-  <div th:replace="fragments/header :: header"></div>
+  <div th:replace="~{fragments/header :: header}"></div>
 
   <div class="container login-container">
     <h2>로그인</h2>
+
+    <!-- ✅ 에러 메시지 표시 -->
+    <div th:if="${loginError}" class="login-error">
+      <p th:text="${loginError}">아이디 또는 비밀번호가 틀렸습니다.</p>
+    </div>
+
+    <!-- ✅ form은 하나만 사용 -->
     <form th:action="@{/login}" method="post">
       <input type="text" name="username" placeholder="아이디" required />
       <input type="password" name="password" placeholder="비밀번호" required />

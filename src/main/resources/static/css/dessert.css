@@ -1,0 +1,37 @@
+/* ===============================
+   🍩 디저트 상품 카드
+================================= */
+.dessert-grid-section {
+  padding: 2rem 0;
+}
+
+.dessert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.dessert-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 1rem;
+  text-align: center;
+}
+
+.dessert-card img {
+  width: 100%;
+  border-radius: 0.8rem;
+  object-fit: cover;
+  height: 150px;
+}
+
+.dessert-card h3 {
+  margin: 0.8rem 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.dessert-card p {
+  font-size: 0.9rem;
+  color: #777;
+}
