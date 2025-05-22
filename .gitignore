@@ -69,3 +69,6 @@ application.properties
 
 # vscode ignore
 .vs/
+
+# 기본값이면 따로 안 건드려도 됨
+spring.web.resources.static-locations=classpath:/static/

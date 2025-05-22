@@ -1,0 +1,6 @@
+<!-- templates/fragments/header.html -->
+<div th:fragment="header">
+  <header th:class="${(page == 'index') ? 'header-left' : 'header-center'}">
+    <a th:href="@{/}" class="logo">UmeUmeSweets</a>
+  </header>
+</div>

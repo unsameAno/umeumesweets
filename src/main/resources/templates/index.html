@@ -1,31 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>우메우메스이츠 | 홈</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+  <meta charset="UTF-8" />
+  <title>UmeUmeSweets | 한국 디저트 셀렉트샵</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 <body>
-    <header>
-        <h1>🍡 우메우메스이츠</h1>
-        <nav>
-            <ul>
-                <li><a th:href="@{/}">홈</a></li>
-                <li><a th:href="@{/category}">카테고리</a></li>
-                <li><a th:href="@{/cafes}">카페 목록</a></li>
-            </ul>
-        </nav>
-    </header>
+  <!-- 헤더 -->
+  <header>
+    <div class="container header-container">
+      <h1 class="logo">UmeUmeSweets</h1>
+<nav>
+  <a href="#" class="nav-link">홈</a>
+  <a href="#" class="nav-link">카페</a>
+  <a href="#" class="nav-link">카테고리</a>
+  <a href="#" class="nav-link">리뷰</a>
+  <a th:href="@{/login}" class="nav-link login-btn">로그인</a>
+</nav>
+    </div>
+  </header>
 
-    <main>
-        <section>
-            <h2>인기 디저트</h2>
-            <p>여기에 인기 상품 카드가 들어갈 예정이에요!</p>
-        </section>
-    </main>
+  <!-- 검색 -->
+  <section class="search-section">
+    <div class="container">
+      <input type="text" placeholder="디저트를 검색해보세요 🍡" />
+    </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 우메우메스이츠</p>
-    </footer>
+  <!-- 카테고리 -->
+  <section class="category-section">
+    <div class="container category-list">
+      <button class="category-btn">모든 디저트</button>
+      <button class="category-btn">케이크</button>
+      <button class="category-btn">마카롱</button>
+      <button class="category-btn">푸딩</button>
+      <button class="category-btn">도라야끼</button>
+    </div>
+  </section>
+
+  <!-- 디저트 목록 -->
+  <section class="dessert-grid-section">
+    <div class="container dessert-grid">
+      <!-- Thymeleaf 반복 영역 -->
+      <div class="dessert-card" th:each="dessert : ${desserts}">
+        <img th:src="@{${dessert.imageUrl}}" alt="디저트 이미지" />
+        <h3 th:text="${dessert.name}">디저트 이름</h3>
+        <p th:text="${dessert.cafeName}">카페명</p>
+        <p th:text="${dessert.price} + '원'">가격</p>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
