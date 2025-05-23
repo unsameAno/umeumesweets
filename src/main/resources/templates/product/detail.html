@@ -1,0 +1,23 @@
+<!-- templates/product/detail.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${product.name} + ' | UmeUmeSweets'">디저트 상세</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+  <div class="container detail-container">
+    <h2 th:text="${product.name}">디저트 이름</h2>
+    <img th:src="@{${product.imageUrl}}" alt="상품 이미지" class="product-detail-image" />
+
+    <p><strong>카페:</strong> <span th:text="${product.shopName}">가게 이름</span></p>
+    <p><strong>카테고리:</strong> <span th:text="${product.category}">종류</span></p>
+    <p><strong>가격:</strong> <span th:text="${product.price} + '원'">가격</span></p>
+    <p><strong>설명:</strong></p>
+    <p th:text="${product.description}">상품 설명</p>
+
+    <a href="/" class="btn btn-secondary">← 메인으로</a>
+  </div>
+</body>
+</html>

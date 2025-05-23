@@ -1,0 +1,12 @@
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.admin-menu .btn {
+  padding: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
+}

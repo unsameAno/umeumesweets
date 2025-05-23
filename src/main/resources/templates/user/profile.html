@@ -9,7 +9,7 @@
   <script th:src="@{/js/profile.js}" defer></script>
 </head>
 <body th:with="page='other'">
-<form form id="profileForm"
+<form id="profileForm"
       th:action="@{/user/profile}" method="post"
       th:attr="data-current-password=${user.password}">
   <div th:replace="~{fragments/header :: header}"></div>
@@ -17,55 +17,49 @@
   <div class="container login-container">
     <h2>회원정보 수정</h2>
 
-    <!-- 아이디 (수정 불가) -->
     <div>
-      <label for="username">아이디</label>
+      <label for="username" class="form-label">아이디</label>
       <input type="text" id="username" name="username" th:value="${user.username}" readonly />
     </div>
 
-    <!-- 새 비밀번호 -->
     <div>
-      <label for="password">새 비밀번호</label>
+      <label for="password" class="form-label">새 비밀번호</label>
       <input type="password" id="password" name="password" placeholder="비밀번호 변경 시 입력하세요" />
+      <div th:if="${error}" class="form-error" th:text="${error}"></div>
     </div>
 
-    <!-- 이름 -->
     <div>
-      <label for="name">이름</label>
+      <label for="name" class="form-label">이름</label>
       <input type="text" id="name" name="name" th:value="${user.name}" required />
     </div>
 
-    <!-- 이메일 -->
     <div>
-      <label for="email">이메일</label>
+      <label for="email" class="form-label">이메일</label>
       <input type="email" id="email" name="email" th:value="${user.email}" required />
     </div>
 
-    <!-- 전화번호 3칸 -->
     <div>
-      <label>전화번호</label>
-      <div style="display: flex; gap: 8px;">
-        <input type="text" name="phone1" maxlength="3" th:value="${phone1}" required style="width: 30%;" />
-        <input type="text" name="phone2" maxlength="4" th:value="${phone2}" required style="width: 40%;" />
-        <input type="text" name="phone3" maxlength="4" th:value="${phone3}" required style="width: 40%;" />
-      </div>
+      <label for="phone" class="form-label">전화번호</label>
+      <input type="text" name="phone" id="phone" th:value="${formattedPhone}" placeholder="010-1234-5678" required />
     </div>
 
-    <!-- 주소 -->
     <div class="form-group">
-      <label>주소</label>
+      <label class="form-label">주소</label>
       <div class="form-zip">
         <input type="text" id="postcode" name="zipcode" class="form-input zip" th:value="${user.zipcode}" readonly />
+        <!-- 주소 검색 버튼 -->
         <button type="button" onclick="execDaumPostcode()" class="btn btn-search">주소 검색</button>
       </div>
       <input type="text" id="roadAddress" name="address" class="form-input" th:value="${user.address}" required />
-      <input type="text" id="detailAddress" name="detailAddress" class="form-input" th:value="${user.detailAddress}" />
+      <input type="text" id="detailAddress" name="detailAddress" class="form-input" th:value="${user.detailAddress}" required />
     </div>
 
-    <!-- 병합된 전화번호 -->
-    <input type="hidden" name="phone" id="fullPhone" />
-
-    <button type="submit">수정 완료</button>
+      <!-- 수정, 이전, 회원탈퇴 버튼 -->
+      <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">수정</button>
+      <a href="/" class="btn btn-secondary">이전</a>
+      <button type="button" onclick="confirmDelete()" class="btn btn-danger">회원 탈퇴</button>
+      </div>
   </div>
 </form>
 </body>

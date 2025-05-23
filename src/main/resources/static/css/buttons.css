@@ -3,23 +3,42 @@
 ================================= */
 .btn {
   height: 36px;
-  padding: 0 12px;
+  padding: 0 16px;
   font-size: 14px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+/* 공통 버튼 그룹 정렬 */
+.form-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* 버튼 유형별 색상 */
+.btn-primary {
+  background-color: #f08a8a;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #f08a8a;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: white;
 }
 
 .btn-search {
   background-color: #f08a8a;
   color: white;
-  padding: 0 1.5rem;
-  margin-top: 0;
-}
-
-.btn-submit {
-  background-color: #f08a8a;
-  color: white;
-  width: 100%;
-  margin-top: 20px;
 }

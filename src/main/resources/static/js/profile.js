@@ -4,26 +4,55 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!form) return;
 
   form.addEventListener("submit", (e) => {
-    // 🔐 현재 비밀번호 확인
     const currentPassword = prompt("현재 비밀번호를 입력해주세요:");
     const actualPassword = form.getAttribute("data-current-password");
 
-    if (currentPassword !== actualPassword) {
-      alert("현재 비밀번호가 일치하지 않습니다.");
-      e.preventDefault(); // 제출 중단
+    if (currentPassword === null) {
+      e.preventDefault();
       return;
     }
 
-    // 📱 전화번호 병합
-    const phone1 = document.querySelector("input[name='phone1']").value.trim();
-    const phone2 = document.querySelector("input[name='phone2']").value.trim();
-    const phone3 = document.querySelector("input[name='phone3']").value.trim();
-    const fullPhone = `${phone1}-${phone2}-${phone3}`;
-    document.getElementById("fullPhone").value = fullPhone;
+    if (currentPassword !== actualPassword) {
+      alert("현재 비밀번호가 일치하지 않습니다.");
+      e.preventDefault();
+      return;
+    }
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const roadAddress = document.getElementById("roadAddress").value.trim();
+    const detailAddress = document.getElementById("detailAddress").value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^010-\d{4}-\d{4}$/;
+
+    if (name === "") {
+      alert("이름을 입력해주세요.");
+      e.preventDefault();
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      alert("올바른 이메일을 입력해주세요.");
+      e.preventDefault();
+      return;
+    }
+
+    if (!phoneRegex.test(phone)) {
+      alert("전화번호는 010-1234-5678 형식으로 입력해주세요.");
+      e.preventDefault();
+      return;
+    }
+
+    if (roadAddress === "" || detailAddress === "") {
+      alert("주소와 상세주소를 모두 입력해주세요.");
+      e.preventDefault();
+      return;
+    }
   });
 });
 
-// 📫 주소 검색 함수
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -31,4 +60,22 @@ function execDaumPostcode() {
       document.getElementById("roadAddress").value = data.roadAddress;
     }
   }).open();
+}
+
+function confirmDelete() {
+  const password = prompt("회원 탈퇴를 위해 비밀번호를 입력해주세요:");
+  const actualPassword = document.getElementById("profileForm").getAttribute("data-current-password");
+
+  if (password === null) {
+    return;
+  }
+
+  if (password !== actualPassword) {
+    alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+
+  if (confirm("정말 탈퇴하시겠습니까? 탈퇴하면 계정 정보가 삭제됩니다.")) {
+    location.href = "/user/delete";
+  }
 }

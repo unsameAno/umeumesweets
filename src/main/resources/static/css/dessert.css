@@ -1,5 +1,5 @@
 /* ===============================
-   🍩 디저트 상품 카드
+   🍩 디저트 상품 카드(인덱스 페이지)
 ================================= */
 .dessert-grid-section {
   padding: 2rem 0;
@@ -34,4 +34,62 @@
 .dessert-card p {
   font-size: 0.9rem;
   color: #777;
+}
+
+/* ===============================
+   🍓 디저트 상세 페이지(검색 이후 페이지)
+================================= */
+.detail-container {
+  max-width: 720px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fffafc;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.product-detail-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.detail-container p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.6rem;
+}
+
+.dessert-image-wrapper {
+  position: relative;
+}
+
+.heart-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 18px;
+  color: #ff6b81;
+  cursor: not-allowed; /* 기능 없음 표시 */
+  user-select: none;
+  opacity: 0.8;
+}
+
+.heart-icon.active {
+  color: #ff3366;
+  cursor: pointer;
+}
+
+.heart-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
 }

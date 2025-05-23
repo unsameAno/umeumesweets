@@ -14,3 +14,31 @@
   border-radius: 2rem;
   font-size: 1rem;
 }
+
+/* 검색창 컨테이너 정렬 */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.search-container input[type="text"] {
+  flex: 1;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 16px;
+}
+
+.search-container .btn-search {
+  width: 15%;
+  height: 40px;
+  background-color: #f08a8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -1,0 +1,23 @@
+<!-- templates/admin/index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>관리자 홈 | 상쾌한 수박</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/buttons.css}" />
+</head>
+<body>
+  <div class="container">
+    <h2>🍉 관리자 대시보드</h2>
+    <p>원하시는 작업을 선택해주세요!</p>
+
+    <div class="admin-menu">
+      <a href="/admin/product/new" class="btn btn-primary">🍰 디저트 상품 등록</a>
+      <a href="/admin/shop/new" class="btn btn-primary">🏪 디저트 가게 등록</a>
+      <a href="/admin/product/list" class="btn btn-secondary">📋 상품 목록 관리</a>
+      <a href="/admin/shop/list" class="btn btn-secondary">📋 가게 목록 관리</a>
+    </div>
+  </div>
+</body>
+</html>

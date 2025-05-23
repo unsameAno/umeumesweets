@@ -79,3 +79,21 @@
 .form-input.zip {
   width: 100px;
 }
+
+
+.form-label {
+  display: block;
+  text-align: left;
+}
+
+.form-error,
+.login-error {
+  color: rgba(255, 0, 0, 0.609);
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-section {
+  margin-top: 20px;
+}

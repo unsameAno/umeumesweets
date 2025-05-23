@@ -8,10 +8,4 @@
 @import url('dessert.css');
 @import url('search.css');
 @import url('category.css');
-
-.login-error {
-  color: rgba(255, 0, 0, 0.609);
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 14px;
-}
+@import url('admin.css');

@@ -17,35 +17,30 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    // 🔸 회원정보 페이지 (수정 겸용)
     @GetMapping("/profile")
     public String showProfilePage(HttpSession session, Model model) {
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) return "redirect:/login";
 
-        // 전화번호 분해
-        String[] phoneParts = loginUser.getPhone().split("-");
-        String phone1 = phoneParts.length > 0 ? phoneParts[0] : "";
-        String phone2 = phoneParts.length > 1 ? phoneParts[1] : "";
-        String phone3 = phoneParts.length > 2 ? phoneParts[2] : "";
-
         model.addAttribute("user", loginUser);
-        model.addAttribute("phone1", phone1);
-        model.addAttribute("phone2", phone2);
-        model.addAttribute("phone3", phone3);
 
-        return "user/profile"; // profile.html로 이동
+        String phone = loginUser.getPhone();
+        if (phone != null && phone.length() == 11) {
+            String formatted = phone.replaceFirst("(\\d{3})(\\d{4})(\\d{4})", "$1-$2-$3");
+            model.addAttribute("formattedPhone", formatted);
+        } else {
+            model.addAttribute("formattedPhone", phone);
+        }
+
+        return "user/profile";
     }
 
-    // 🔸 회원정보 수정 처리
     @PostMapping("/profile")
     public String updateProfile(@RequestParam String username,
                                 @RequestParam(required = false) String password,
                                 @RequestParam String name,
                                 @RequestParam String email,
-                                @RequestParam String phone1,
-                                @RequestParam String phone2,
-                                @RequestParam String phone3,
+                                @RequestParam String phone,
                                 @RequestParam String address,
                                 @RequestParam(required = false) String detailAddress,
                                 HttpSession session,
@@ -59,18 +54,35 @@ public class UserController {
 
         User user = optionalUser.get();
 
+        // 🔸 비밀번호 유효성 검사 추가
         if (password != null && !password.trim().isEmpty()) {
-            user.setPassword(password); // ※ 실제 서비스에서는 BCrypt로 암호화 권장
+            if (password.length() < 8) {
+                model.addAttribute("error", "비밀번호는 최소 8자 이상이어야 합니다.");
+                model.addAttribute("user", user);
+                model.addAttribute("formattedPhone", phone);
+                return "user/profile";
+            }
+            user.setPassword(password);
         }
 
         user.setName(name);
         user.setEmail(email);
-        user.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+        user.setPhone(phone.replaceAll("-", ""));
         user.setAddress(address + " " + (detailAddress != null ? detailAddress : ""));
 
         userRepository.save(user);
-        session.setAttribute("loginUser", user); // 세션 업데이트
+        session.setAttribute("loginUser", user);
 
-        return "redirect:/user/profile"; // 자기 페이지로 리다이렉트
+        return "redirect:/user/profile";
+    }
+
+    @GetMapping("/delete")
+    public String deleteUser(HttpSession session) {
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            userRepository.deleteById(loginUser.getId());
+            session.invalidate();
+        }
+        return "redirect:/login";
     }
 }
