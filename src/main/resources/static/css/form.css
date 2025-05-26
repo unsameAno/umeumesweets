@@ -1,5 +1,22 @@
 /* ===============================
-   🆔 입력 폼 공통 스타일
+   📌 공통 레이아웃 및 타이틀
+================================= */
+body {
+  background-color: #fff7f2;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 40px;
+}
+
+h1.form-title {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* ===============================
+   🆔 로그인 컨테이너
 ================================= */
 .login-container {
   max-width: 400px;
@@ -25,7 +42,7 @@
   color: white;
   border: none;
   padding: 0.7rem 1.5rem;
-  margin-top: 1rem;
+  margin-bottom: 2px;
   border-radius: 0.5rem;
   cursor: pointer;
   font-weight: bold;
@@ -40,6 +57,9 @@
   font-size: 0.9rem;
 }
 
+/* ===============================
+   📦 입력 폼 공통 스타일
+================================= */
 .form-group {
   margin-bottom: 15px;
 }
@@ -49,41 +69,6 @@
   margin-bottom: 5px;
   text-align: left;
   font-weight: 500;
-}
-
-.form-input {
-  width: 100%;
-  height: 36px;
-  padding: 6px 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.form-phone {
-  display: flex;
-  gap: 8px;
-}
-
-.form-input.phone {
-  width: 80px;
-}
-
-.form-zip {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.form-input.zip {
-  width: 100px;
-}
-
-
-.form-label {
-  display: block;
-  text-align: left;
 }
 
 .form-error,
@@ -96,4 +81,122 @@
 
 .form-section {
   margin-top: 20px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ===============================
+   📍 주소 및 전화번호 입력 레이아웃
+================================= */
+.form-phone,
+.form-zip {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-input.phone {
+  width: 80px;
+}
+
+.form-input.zip {
+  width: 100px;
+}
+
+/* ===============================
+   🍰 디저트 가게 등록 폼
+================================= */
+.shop-form {
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.shop-form label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.shop-form button {
+  margin-top: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #ff7f50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ===============================
+   🧁 디저트 상품 등록 폼
+================================= */
+.product-form {
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.product-form section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.product-form label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   ✅ 버튼 공통 스타일
+================================= */
+.submit-btn {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #ff7a4e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  background-color: #ff5c2d;
+}
+
+/* ===============================
+   🎉 성공 메시지
+================================= */
+.form-success-msg {
+  text-align: center;
+  color: green;
 }

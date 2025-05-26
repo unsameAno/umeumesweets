@@ -8,16 +8,20 @@
   <script th:src="@{/js/header.js}" defer></script>
 </head>
 <body>
-  <!-- 헤더 -->
-  <header>
-    <div class="container header-container">
-      <h1 class="logo">UmeUmeSweets</h1>
+<!-- 헤더 -->
+<header>
+  <div class="container header-container">
+    <h1 class="logo">UmeUmeSweets</h1>
+
+    <div class="header-right">
+      <a href="#"><img src="/images/languege-icon.svg" alt="언어변경" /></a>
+
       <div class="user-info" th:if="${loginUser == null}">
         <a th:href="@{/login}" class="nav-link login-btn">로그인</a>
       </div>
+
       <div class="user-info" th:if="${loginUser != null}">
         <span th:text="${loginUser.name + '님'}">사용자이름</span>
-        <a href="#"><img src="/images/languege-icon.svg" alt="언어변경" /></a>
         <a href="/cart"><img src="/images/cart-icon.svg" alt="장바구니" /></a>
         <div class="user-menu-wrapper">
           <a href="#" id="user-icon-toggle">
@@ -31,7 +35,10 @@
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
+
+
 
   <!-- 검색 -->
   <section class="search-section">

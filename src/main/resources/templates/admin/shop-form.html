@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>디저트 가게 등록</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+</head>
+<body>
+<h1 class="form-title">디저트 가게 등록</h1>
+
+<form th:action="@{/admin/shop/new}" th:object="${shop}" method="post" enctype="multipart/form-data" class="shop-form">
+    <label>가게 이름</label>
+    <input type="text" th:field="*{shopName}" required />
+
+    <label>전화번호</label>
+    <input type="text" th:field="*{phone}" required />
+
+    <label>우편번호</label>
+    <div class="zipcode-row">
+        <input type="text" th:field="*{zipcode}" id="zipcode" required readonly style="width: 150px;" />
+        <button type="button" onclick="execDaumPostcode()">주소 검색</button>
+    </div>
+
+    <label>주소</label>
+    <input type="text" th:field="*{address}" id="address" required readonly />
+
+    <label>상세 주소</label>
+    <input type="text" th:field="*{detailAddress}" />
+
+    <label>가게 설명</label>
+    <textarea th:field="*{description}" rows="4"></textarea>
+
+    <label>대표 이미지</label>
+    <input type="file" name="image" accept="image/*" />
+
+    <button type="submit">등록하기</button>
+</form>
+
+<p th:if="${param.success}" class="form-success-msg">등록이 완료되었습니다!</p>
+
+<script>
+function execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            document.getElementById("zipcode").value = data.zonecode;
+            document.getElementById("address").value = data.roadAddress || data.jibunAddress;
+        }
+    }).open();
+}
+</script>
+
+</body>
+</html>

@@ -1,7 +1,10 @@
 package com.umeume.umeumesweets.controller;
 
 import com.umeume.umeumesweets.entity.Product;
+import com.umeume.umeumesweets.repository.DessertShopRepository;
 import com.umeume.umeumesweets.repository.ProductRepository;
+
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +17,29 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
+    private final DessertShopRepository dessertShopRepository;
+    
+
+    @PostConstruct
+    public void checkShops() {
+        System.out.println("🍰 전체 가게 수: " + dessertShopRepository.count());
+        dessertShopRepository.findAll()
+            .forEach(shop -> System.out.println("🍰 가게: " + shop.getId() + " / " + shop.getShopName()));
+    }
 
     // 🧁 상품 등록 폼
     @GetMapping("/new")
     public String showProductForm(Model model) {
-        model.addAttribute("product", new Product()); // 폼에 바인딩할 빈 Product
-        return "product/form"; // templates/product/form.html
+    System.out.println("💥 [GET] /product/new 진입!");
+
+    model.addAttribute("product", new Product());
+
+    dessertShopRepository.findAll().forEach(s -> 
+        System.out.println("🍰 가게 이름: " + s.getShopName())
+    );
+
+    model.addAttribute("shops", dessertShopRepository.findAll());
+    return "admin/product-form";
     }
 
     // 🍩 상품 저장 처리

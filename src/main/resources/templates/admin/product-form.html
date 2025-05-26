@@ -1,58 +1,69 @@
-<!-- templates/admin/product-form.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <title>상품 등록/수정 | 관리자</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <meta charset="UTF-8">
+    <title>디저트 상품 등록</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h2 th:text="${product.id == null} ? '🧁 상품 등록' : '✏️ 상품 수정'">상품 등록</h2>
+<h1 class="form-title">디저트 상품 등록</h1>
 
-    <form th:action="@{${product.id == null} ? '/admin/product/new' : '/admin/product/edit/' + ${product.id}}" 
-      th:object="${product}" method="post" enctype="multipart/form-data">
-      
-      <div>
-        <label class="form-label">상품명</label>
+<form th:action="@{/admin/product/new}" th:object="${product}" method="post" enctype="multipart/form-data" class="product-form">
+    <section>
+        <label>상품명</label>
         <input type="text" th:field="*{name}" required />
-      </div>
 
-<div>
-  <label class="form-label">카테고리</label>
-  <select th:field="*{category}" required>
-    <option value="">-- 선택하세요 --</option>
-    <option value="cake">케이크</option>
-    <option value="chocolate">초콜렛</option>
-    <option value="bingsoo">빙수</option>
-    <option value="pudding">푸딩</option>
-    <option value="macaron">마카롱</option>
-    <option value="scone">스콘</option>
-    <option value="bagel">베이글</option>
-    <option value="icecream">아이스크림</option>
-    <option value="cookie">쿠키</option>
-  </select>
-</div>
+        <label class="form-label">카테고리</label>
+        <select th:field="*{category}" required>
+        <option value="">-- 선택하세요 --</option>
+        <option value="cake">케이크</option>
+        <option value="chocolate">초콜렛</option>
+        <option value="bingsoo">빙수</option>
+        <option value="pudding">푸딩</option>
+        <option value="macaron">마카롱</option>
+        <option value="scone">스콘</option>
+        <option value="bagel">베이글</option>
+        <option value="icecream">아이스크림</option>
+        <option value="cookie">쿠키</option>
+        </select>
 
-      <div>
-        <label class="form-label">가격</label>
+        <label>가격</label>
         <input type="number" th:field="*{price}" required />
-      </div>
 
-      <div>
-        <label class="form-label">판매 가게명</label>
-        <input type="text" th:field="*{shopName}" required />
-      </div>
+        <label>판매 가게</label>
+        <select id="shopSelect" name="shop.id" required>
+            <option value="" disabled selected>가게를 검색하세요</option>
+            <option th:each="shop : ${shops}" 
+                    th:value="${shop.id}" 
+                    th:text="${shop.shopName}">
+            </option>
+        </select>
 
-<div>
-  <label class="form-label">이미지 업로드</label>
-  <input type="file" name="imageFile" accept="image/*" />
-</div>
+        <label>대표 이미지</label>
+        <input type="file" name="imageFile" accept="image/*" required />
+    </section>
 
-      <button type="submit" class="btn btn-primary" 
-              th:text="${product.id == null} ? '등록' : '수정'">저장</button>
-      <a href="/admin/product/list" class="btn btn-secondary">취소</a>
-    </form>
-  </div>
+    <section>
+        <label>상품 설명</label>
+        <textarea th:field="*{description}" rows="6" placeholder="상품의 특징, 재료, 유통기한 등을 입력하세요"></textarea>
+
+        <label>상세 이미지들</label>
+        <input type="file" name="detailImages" accept="image/*" multiple />
+
+        <label>재고 수량</label>
+        <input type="number" th:field="*{stock}" min="0" required />
+
+        <label>판매 상태</label>
+        <select th:field="*{status}">
+            <option value="AVAILABLE">판매 중</option>
+            <option value="SOLD_OUT">품절</option>
+        </select>
+    </section>
+
+    <button type="submit" class="submit-btn">등록하기</button>
+</form>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <script th:src="@{/js/admin.js}"></script>
 </body>
 </html>

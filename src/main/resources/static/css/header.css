@@ -11,7 +11,35 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 0;
 }
+
+.header-container .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e87a9b;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-right img {
+  width: 24px;
+  height: 24px;
+}
+
+.login-btn {
+  border: 1px solid #e87a9b;
+  color: #e87a9b;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
 
 .logo {
   font-size: 2rem;
@@ -65,12 +93,10 @@ header {
 
 
 .user-info {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  /* position: absolute; ❌ 삭제! */
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .user-info img {
