@@ -2,7 +2,7 @@
    🔝 Header (공통 + 페이지별 정렬)
 ================================= */
 header {
-  background-color: #fff;
+  background-color: #fff8fa;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   padding: 1rem 0;
 }
@@ -15,7 +15,7 @@ header {
 }
 
 .header-container .logo {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #e87a9b;
 }
@@ -146,8 +146,6 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
 }
 
 /* 메뉴 항목들 (디저트 상품, 카페) */
@@ -195,5 +193,12 @@ header {
 /* 호버 효과 */
 .menu li a:hover, .language a:hover {
     color: #007bff;
-    text-decoration: underline;
+}
+
+
+/*어드민 헤더*/
+.admin-header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e87a9b;
 }

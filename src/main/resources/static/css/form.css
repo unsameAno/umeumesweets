@@ -2,7 +2,7 @@
    📌 공통 레이아웃 및 타이틀
 ================================= */
 body {
-  background-color: #fff7f2;
+  background-color: #fffaf6;
   font-family: 'Noto Sans KR', sans-serif;
   margin: 0;
   padding: 40px;
@@ -246,7 +246,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     transform: translateY(-50%);
-    padding: 0 10px; /* 🔥 버튼이 양 옆에서 적당히 떨어지게 */
+    padding: 0 20px; /* 🔥 버튼이 양 옆에서 적당히 떨어지게 */
     box-sizing: border-box; /* 🔥 padding 포함해서 width 계산 */
     pointer-events: none; /* 🔥 클릭 버그 방지용 */
 }

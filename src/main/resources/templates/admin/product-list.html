@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>상품 목록 - 관리자</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:fragment="header">
+  <header th:class="${(page == 'index') ? 'header-left' : 'header-center'}">
+    <a th:href="@{/admin}" class="logo">UmeUmeSweets 관리자</a>
+  </header>
+</div>
+
+<main class="container">
+  <h2>📦 상품 목록</h2>
+  <form method="get" th:action="@{/admin/product/list}" class="search-form">
+    <input type="text" name="keyword" placeholder="상품명 또는 가게명" th:value="${keyword}" />
+    <button type="submit">검색</button>
+  </form>
+
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>가게명</th>
+        <th>⭐ 평점</th>
+      </tr>
+    </thead>
+<tbody>
+  <tr th:each="product : ${productPage.content}"
+      th:onclick="|window.location.href='/admin/product/edit/' + ${product.id}|"
+      style="cursor:pointer">
+    <td th:text="${product.id}">1</td>
+    <td th:text="${product.name}">이름</td>
+    <td th:text="${product.price}">1000</td>
+    <td th:text="${product.shop.shopName}">가게</td>
+    <td th:text="${product.averageRating}">4.5</td>
+  </tr>
+</tbody>
+
+<!-- 페이지네이션 -->
+<div class="pagination" th:if="${productPage.totalPages > 1}">
+  <a th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
+     th:href="@{/admin/product/list(keyword=${keyword}, page=${i})}"
+     th:text="${i + 1}"
+     th:classappend="${productPage.number == i} ? 'active'">
+  </a>
+</div>
+
+</main>
+</body>
+</html>

@@ -4,7 +4,6 @@ import com.umeume.umeumesweets.entity.Product;
 import com.umeume.umeumesweets.repository.DessertShopRepository;
 import com.umeume.umeumesweets.repository.ProductRepository;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,5 +51,7 @@ public String showProductDetail(@PathVariable Long id, Model model) {
     model.addAttribute("product", product);
     return "product/detail"; // templates/product/detail.html
 }
+
+
 
 }

@@ -1,6 +1,8 @@
 package com.umeume.umeumesweets.repository;
 
 import com.umeume.umeumesweets.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
@@ -13,4 +15,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // 현재 판매중인 상품만!
     List<Product> findByIsActiveTrue();
+
+    Page<Product> findByNameContainingOrShop_ShopNameContaining(String name, String shopName, Pageable pageable);
 }

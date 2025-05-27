@@ -7,27 +7,36 @@
     <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 </head>
 <body>
-<h1 class="form-title">디저트 상품 등록</h1>
+<div th:fragment="header">
+  <header th:class="${(page == 'index') ? 'header-left' : 'header-center'}">
+    <a th:href="@{/admin}" class="logo">UmeUmeSweets 관리자</a>
+  </header>
+</div>
+<h1 class="form-title">
+  <span th:text="${product.id != null ? '디저트 상품 수정' : '디저트 상품 등록'}">디저트 상품 등록</span>
+</h1>
 
-<form th:action="@{/admin/product/new}" th:object="${product}" method="post" enctype="multipart/form-data" class="product-form">
+<!-- 상품 등록/수정 처리 -->
+<form th:action="@{${product.id != null ? '/admin/product/edit/' + product.id : '/admin/product/new'}}"
+      th:object="${product}" method="post" enctype="multipart/form-data" class="product-form">
     <section>
         <label>상품명</label>
         <input type="text" th:field="*{name}" required />
 
         <label class="form-label">카테고리</label>
         <select th:field="*{category}" required>
-        <option value="">-- 선택하세요 --</option>
-        <option value="cake">케이크</option>
-        <option value="chocolate">초콜렛</option>
-        <option value="bingsoo">빙수</option>
-        <option value="pudding">푸딩</option>
-        <option value="macaron">마카롱</option>
-        <option value="scone">스콘</option>
-        <option value="bagel">베이글</option>
-        <option value="icecream">아이스크림</option>
-        <option value="cookie">쿠키</option>
-        <option value="coffee">커피</option>
-        <option value="beverage">음료</option>
+            <option value="">-- 선택하세요 --</option>
+            <option value="cake" th:selected="${product.category == 'cake'}">케이크</option>
+            <option value="chocolate" th:selected="${product.category == 'chocolate'}">초콜렛</option>
+            <option value="bingsoo" th:selected="${product.category == 'bingsoo'}">빙수</option>
+            <option value="pudding" th:selected="${product.category == 'pudding'}">푸딩</option>
+            <option value="macaron" th:selected="${product.category == 'macaron'}">마카롱</option>
+            <option value="scone" th:selected="${product.category == 'scone'}">스콘</option>
+            <option value="bagel" th:selected="${product.category == 'bagel'}">베이글</option>
+            <option value="icecream" th:selected="${product.category == 'icecream'}">아이스크림</option>
+            <option value="cookie" th:selected="${product.category == 'cookie'}">쿠키</option>
+            <option value="coffee" th:selected="${product.category == 'coffee'}">커피</option>
+            <option value="beverage" th:selected="${product.category == 'beverage'}">음료</option>
         </select>
 
         <label>가격</label>
@@ -38,12 +47,14 @@
             <option value="" disabled selected>가게를 검색하세요</option>
             <option th:each="shop : ${shops}" 
                     th:value="${shop.id}" 
-                    th:text="${shop.shopName}">
+                    th:text="${shop.shopName}" 
+                    th:selected="${product.shop != null && product.shop.id == shop.id ? true : false}">
             </option>
         </select>
 
         <label>대표 이미지</label>
-        <input type="file" name="imageFile" accept="image/*" required />
+        <input type="file" name="imageFile" accept="image/*" th:if="${product.id == null}" />
+
     </section>
 
     <section>
@@ -58,14 +69,27 @@
 
         <label>판매 상태</label>
         <select th:field="*{status}">
-            <option value="AVAILABLE">판매 중</option>
-            <option value="SOLD_OUT">품절</option>
+            <option value="AVAILABLE" th:selected="${product.status == 'AVAILABLE'}">판매 중</option>
+            <option value="SOLD_OUT" th:selected="${product.status == 'SOLD_OUT'}">품절</option>
         </select>
     </section>
 
-    <button type="submit" class="submit-btn">등록하기</button>
+    <!-- 수정/등록 버튼 분기 -->
+    <div th:if="${product.id != null}">
+        <!-- 수정폼에서 수정/삭제/목록 이동 버튼 -->
+        <button type="submit" class="submit-btn">수정하기</button>
+        <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="submit-btn delete-btn">삭제하기</a>
+        <a th:href="@{/admin/product/list}" class="submit-btn previous-btn">목록으로</a>
+    </div>
+
+    <div th:if="${product.id == null}">
+        <!-- 등록폼에서 등록하기/이전으로 버튼 -->
+        <button type="submit" class="submit-btn">등록하기</button>
+        <a th:href="@{/admin}" class="submit-btn previous-btn">이전으로</a>
+    </div>
 </form>
-    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-    <script th:src="@{/js/admin.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script th:src="@{/js/admin.js}"></script>
 </body>
 </html>
