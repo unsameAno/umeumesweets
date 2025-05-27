@@ -18,14 +18,6 @@ public class ProductController {
 
     private final ProductRepository productRepository;
     private final DessertShopRepository dessertShopRepository;
-    
-
-    @PostConstruct
-    public void checkShops() {
-        System.out.println("🍰 전체 가게 수: " + dessertShopRepository.count());
-        dessertShopRepository.findAll()
-            .forEach(shop -> System.out.println("🍰 가게: " + shop.getId() + " / " + shop.getShopName()));
-    }
 
     // 🧁 상품 등록 폼
     @GetMapping("/new")
@@ -33,10 +25,6 @@ public class ProductController {
     System.out.println("💥 [GET] /product/new 진입!");
 
     model.addAttribute("product", new Product());
-
-    dessertShopRepository.findAll().forEach(s -> 
-        System.out.println("🍰 가게 이름: " + s.getShopName())
-    );
 
     model.addAttribute("shops", dessertShopRepository.findAll());
     return "admin/product-form";

@@ -132,10 +132,68 @@ header {
 .user-dropdown a {
   display: block;
   padding: 5px 10px;
-  color: #333;
+  color: #e87a90;
   text-decoration: none;
 }
 
 .user-dropdown a:hover {
   background-color: #f2f2f2;
+}
+
+/* 상단 네비게이션 스타일링 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 메뉴 항목들 (디저트 상품, 카페) */
+.menu {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1; /* 공간 차지 */
+}
+
+.menu-items {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+}
+
+.menu li {
+    margin: 0;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #e87a90;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+}
+
+.language {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.language li {
+    margin: 0;
+}
+
+.language a {
+    text-decoration: none;
+    color: #e87a90;
+    font-weight: normal;
+    padding: 10px;
+}
+
+/* 호버 효과 */
+.menu li a:hover, .language a:hover {
+    color: #007bff;
+    text-decoration: underline;
 }

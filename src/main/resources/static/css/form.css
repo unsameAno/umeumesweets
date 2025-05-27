@@ -200,3 +200,141 @@ textarea {
   text-align: center;
   color: green;
 }
+
+
+/* 인기 카페 섹션 */
+.popular-cafes-section {
+    margin-top: 30px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.popular-cafes {
+    display: flex;
+    gap: 15px;
+    overflow: hidden; /* 가로 스크롤바 숨기기 */
+    padding-bottom: 10px;
+    transition: transform 0.3s ease-in-out; /* 스크롤 애니메이션 */
+}
+
+  .cafes-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .cafe-item {
+    flex: 0 0 47%; /* 2개씩 보이게 */
+    height: 264px;
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    box-sizing: border-box;
+  }
+
+.scroll-buttons {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 10px; /* 🔥 버튼이 양 옆에서 적당히 떨어지게 */
+    box-sizing: border-box; /* 🔥 padding 포함해서 width 계산 */
+    pointer-events: none; /* 🔥 클릭 버그 방지용 */
+}
+
+
+
+
+/* 순위 번호 (오른쪽 상단에 위치) */
+.rank-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e87a9b;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+}
+
+/* 카페 이름과 별점 (왼쪽 하단) */
+.cafe-info {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 텍스트에 그림자 효과 */
+}
+
+.cafe-info p {
+    margin: 5px 0;
+}
+
+/* 상세보기 버튼 (오른쪽 하단) */
+.detail-btn {
+    background-color: #e87a9b;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    transition: background-color 0.3s;
+}
+
+.detail-btn:hover {
+    background-color: #d0697b;
+}
+
+.prev-btn, .next-btn {
+    background-color: #e87a9b;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    pointer-events: all; /* 🔥 실제 버튼은 클릭 가능하게 */
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background-color: #d0697b;
+}
+
+/* 반응형 디자인: 화면 크기에 따라 카페 아이템 개수 조정 */
+@media (max-width: 1024px) {
+    .cafes-container {
+        flex-wrap: nowrap;
+    }
+    .cafe-item {
+        min-width: 150px; /* 모바일에서는 아이템 크기 줄이기 */
+    }
+
+    /* 스크롤 버튼을 카페 이미지 중간에 위치 */
+    .scroll-buttons {
+        top: 50%;
+    }
+
+    /* 버튼 및 텍스트 크기 조정 */
+    .detail-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
