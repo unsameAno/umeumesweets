@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>디저트 가게 목록</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+
+<!-- 헤더 -->
+<div th:fragment="header">
+  <header th:class="${(page == 'index') ? 'header-left' : 'header-center'}">
+    <a th:href="@{/admin}" class="logo">UmeUmeSweets 관리자</a>
+  </header>
+</div>
+
+<!-- 본문 -->
+<main class="container">
+  <h2>🏪 디저트 가게 목록</h2>
+
+  <!-- 검색 폼 -->
+  <form method="get" th:action="@{/admin/shop/list}" class="search-form">
+    <input type="text" name="keyword" placeholder="가게 이름 검색" th:value="${keyword}" />
+    <button type="submit">검색</button>
+  </form>
+
+  <!-- 리스트 테이블 -->
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>가게명</th>
+        <th>전화번호</th>
+        <th>주소</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="shop : ${shopPage.content}"
+          th:onclick="|window.location.href='/admin/shop/edit/' + ${shop.id}|"
+          style="cursor:pointer">
+        <td th:text="${shop.id}">1</td>
+        <td th:text="${shop.shopName}">가게이름</td>
+        <td th:text="${shop.phone}">전화번호</td>
+        <td th:text="${shop.address}">주소</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 페이지네이션 -->
+  <div class="pagination" th:if="${shopPage.totalPages > 1}">
+    <a th:each="i : ${#numbers.sequence(0, shopPage.totalPages - 1)}"
+       th:href="@{/admin/shop/list(keyword=${keyword}, page=${i})}"
+       th:text="${i + 1}"
+       th:classappend="${shopPage.number == i} ? 'active'">
+    </a>
+  </div>
+</main>
+
+</body>
+</html>

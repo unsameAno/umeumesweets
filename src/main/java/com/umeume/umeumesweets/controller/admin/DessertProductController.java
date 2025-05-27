@@ -71,12 +71,4 @@ public class DessertProductController {
         return "redirect:/admin/product/list";
     }
 
-    // 🔥 제거 or 다른 URL로 변경 요망
-    // 상품 상세 페이지 (기능이 필요 없다면 삭제해도 무방)
-    // @GetMapping("/{id}")
-    // public String showProductDetail(@PathVariable Long id, Model model) {
-    //     Product product = productService.findById(id);
-    //     model.addAttribute("product", product);
-    //     return "admin/product-form";
-    // }
 }

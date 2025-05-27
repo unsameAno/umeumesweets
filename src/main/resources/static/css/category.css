@@ -25,3 +25,22 @@
 .category-btn:hover {
   background-color: #ffc0cb;
 }
+
+.user-dropdown {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 (a 태그 위에서 아래로 쌓기) */
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 150px; /* 최소 너비 지정 (글자 줄바꿈 방지) */
+}
+
+.user-dropdown a {
+  text-decoration: none;
+  color: #d66b88;
+  font-weight: bold;
+  margin-bottom: 8px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}

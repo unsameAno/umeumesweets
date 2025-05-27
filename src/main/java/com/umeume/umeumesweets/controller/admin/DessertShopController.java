@@ -1,65 +1,71 @@
 package com.umeume.umeumesweets.controller.admin;
 
 import com.umeume.umeumesweets.entity.DessertShop;
-import com.umeume.umeumesweets.repository.DessertShopRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+import com.umeume.umeumesweets.service.DessertShopService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
-
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/shop")
 public class DessertShopController {
 
-    @Autowired
-    private DessertShopRepository dessertShopRepository;
+    private final DessertShopService dessertShopService;
 
-    private final String uploadDir;
-
-    // 경로 초기화 (톰캣에서도 인식 가능한 방식으로!)
-    public DessertShopController() throws IOException {
-        this.uploadDir = new ClassPathResource("static/images/shop/").getFile().getAbsolutePath() + File.separator;
-    }
-
+    // 가게 등록 폼
     @GetMapping("/new")
-    public String showShopForm(Model model) {
+    public String showCreateForm(Model model) {
         model.addAttribute("shop", new DessertShop());
         return "admin/shop-form";
     }
 
+    // 가게 등록 처리
     @PostMapping("/new")
-    public String saveShop(@ModelAttribute DessertShop shop,
-                           @RequestParam("image") MultipartFile imageFile) throws IOException {
+    public String createShop(@ModelAttribute DessertShop shop,
+                             @RequestParam("image") MultipartFile imageFile) {
+        dessertShopService.createShop(shop, imageFile);
+        return "redirect:/admin/shop/list?success";
+    }
 
-        // ✅ 디렉토리 없으면 생성
-        File dir = new File(uploadDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
+    // 가게 리스트 with 페이징 + 검색
+    @GetMapping("/list")
+    public String showShopList(@RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "20") int size,
+                               @RequestParam(required = false) String keyword,
+                               Model model) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<DessertShop> shopPage = dessertShopService.getShops(pageable, keyword);
+        model.addAttribute("shopPage", shopPage);
+        model.addAttribute("keyword", keyword);
+        return "admin/shop-list";
+    }
 
-        // ✅ 이미지 업로드
-        if (!imageFile.isEmpty()) {
-            String originalFilename = imageFile.getOriginalFilename();
-            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String newFilename = UUID.randomUUID() + extension;
+    // 가게 수정 폼
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute("shop", dessertShopService.findById(id));
+        return "admin/shop-form";
+    }
 
-            File destFile = new File(uploadDir + newFilename);
-            imageFile.transferTo(destFile);
+    // 가게 수정 처리
+    @PostMapping("/edit/{id}")
+    public String updateShop(@PathVariable Long id,
+                            @ModelAttribute DessertShop updatedShop,
+                            @RequestParam("image") MultipartFile imageFile) {
+        dessertShopService.updateShop(id, updatedShop, imageFile);
+        return "redirect:/admin/shop/list";
+    }
 
-            shop.setImageUrl("/images/shop/" + newFilename);
-        }
-
-        dessertShopRepository.save(shop);
-        return "redirect:/admin/shop/new?success";
+    // 가게 삭제
+    @GetMapping("/delete/{id}")
+    public String deleteShop(@PathVariable Long id) {
+        dessertShopService.deleteById(id);
+        return "redirect:/admin/shop/list";
     }
 }
