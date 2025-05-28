@@ -15,100 +15,93 @@
     <div class="header-right">
       <nav class="navbar">
         <div class="menu">
-            <ul class="menu-items">
-                <li><a href="/products">디저트 상품</a></li>
-                <li><a href="/dessert-shops">디저트 카페</a></li>
-            </ul>
-            <ul class="language">
-                <li><a href="#" class="language-toggle">Japanese</a></li>
-            </ul>
+          <ul class="menu-items">
+            <li><a href="/dessert-shops" data-translate>카페 & 디저트 추천</a></li>
+            <li><a href="/products" data-translate>디저트 상품</a></li>
+            <li><a href="/dessert-shops" data-translate>디저트 카페</a></li>
+            <li class="language-wrapper">
+              <a href="#" class="language-toggle">Language ▼</a>
+              <ul class="language-dropdown" style="display: none;">
+                <!-- 한국어/일본어로 번역을 한 이후에는 드랍다운 창이 닫히도록 설정 -->
+                <li><a href="#" onclick="toggleLanguage('ko'); return false;">한국어</a></li> 
+                <li><a href="#" onclick="toggleLanguage('ja'); return false;">日本語</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </nav>  
       <div class="user-info" th:if="${loginUser == null}">
-        <a th:href="@{/login}" class="nav-link login-btn">로그인</a>
+        <a th:href="@{/login}" class="nav-link login-btn" data-translate>로그인</a>
       </div>
       <div class="user-info" th:if="${loginUser != null}">
         <span th:text="${loginUser.name + '님'}">사용자이름</span>
+        <a href="#" data-translate>찜목록</a>
         <a href="/cart"><img src="/images/cart-icon.svg" alt="장바구니" /></a>
         <div class="user-menu-wrapper">
           <a href="#" id="user-icon-toggle">
             <img src="/images/user-icon.svg" alt="회원정보" class="user-icon" />
           </a>
           <div class="user-dropdown" id="user-dropdown">
-            <a href="/user/profile">회원정보</a>
-            <a href="/orders">주문 내역</a>
-            <a href="/logout">로그아웃</a>
+            <a href="/user/profile" data-translate>회원정보</a>
+            <a href="/orders" data-translate>주문 내역</a>
+            <a href="/logout" data-translate>로그아웃</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header>
+
 <!-- 검색 -->
 <section class="search-section">
   <div class="container search-container">
-    <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" />
-    <button type="submit" class="btn btn-search">검색</button>
+    <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" data-original-placeholder="디저트를 검색해보세요 🍡" />
+    <button type="submit" class="btn btn-search" data-translate>검색</button>
   </div>
 </section>
+
 <!-- 카테고리 -->
 <section class="category-section">
   <div class="container category-list">
-    <button class="category-btn">모든 디저트</button>
-    <button class="category-btn">케이크</button>
-    <button class="category-btn">초콜렛</button>
-    <button class="category-btn">빙수</button>
-    <button class="category-btn">푸딩</button>
-    <button class="category-btn">마카롱</button>
-    <button class="category-btn">스콘</button>
-    <button class="category-btn">베이글 </button>
-    <button class="category-btn">아이스크림 </button>
-    <button class="category-btn">쿠키 </button>
-    <button class="category-btn">커피 </button>
-    <button class="category-btn">음료 </button>
+    <button class="category-btn" data-translate>모든 디저트</button>
+    <button class="category-btn" data-translate>케이크</button>
+    <button class="category-btn" data-translate>초콜렛</button>
+    <button class="category-btn" data-translate>빙수</button>
+    <button class="category-btn" data-translate>푸딩</button>
+    <button class="category-btn" data-translate>마카롱</button>
+    <button class="category-btn" data-translate>스콘</button>
+    <button class="category-btn" data-translate>베이글</button>
+    <button class="category-btn" data-translate>아이스크림</button>
+    <button class="category-btn" data-translate>쿠키</button>
+    <button class="category-btn" data-translate>커피</button>
+    <button class="category-btn" data-translate>음료</button>
   </div>
 </section>
+
 <!-- 인기 카페 목록 (가로 스크롤) -->
 <section class="popular-cafes-section">
   <div class="container" id="cafes-section">
-    <h2>인기 디저트 카페</h2>
+    <h2 data-translate>인기 디저트 카페</h2>
     <div class="popular-cafes">
       <div class="cafes-container" id="cafesContainer">
-        <!-- 맨 뒤: 마지막 카페 복제 -->
-        <div class="cafe-item" th:if="${#lists.size(dessertShops) > 0}" th:with="last = ${dessertShops[__${#lists.size(dessertShops) - 1}__]}" th:style="'background-image: url(' + @{${last.imageUrl}} + ');'">
-          <div class="rank-number" th:text="${#lists.size(dessertShops)}">10</div>
-          <div class="cafe-info">
-            <p th:text="${last.shopName}">카페 이름</p>
-            <p th:text="'⭐ ' + ${last.averageRating}">⭐ 0.0</p>
-          </div>
-          <button class="detail-btn" th:onclick="'window.location.href=\'/dessert-shop/' + ${last.id} + '\''">상세보기</button>
-        </div>
         <!-- 반복문: 카페 목록 -->
         <div th:each="dessertShop, iterStat : ${dessertShops}" class="cafe-item" th:style="'background-image: url(' + @{${dessertShop.imageUrl}} + ');'">
           <div class="rank-number" th:text="${iterStat.index + 1}">1</div>
           <div class="cafe-info">
-            <p th:text="${dessertShop.shopName}">카페 이름</p>
+            <p th:text="${dessertShop.shopName}" data-translate>카페 이름</p>
             <p th:text="'⭐ ' + ${dessertShop.averageRating}">⭐ 0.0</p>
           </div>
-          <button class="detail-btn" th:onclick="'window.location.href=\'/dessert-shop/' + ${dessertShop.id} + '\''">상세보기</button>
-        </div>
-        <!-- 맨 앞: 첫 번째 카페 복제 -->
-        <div class="cafe-item" th:if="${#lists.size(dessertShops) > 0}" th:with="first = ${dessertShops[0]}" th:style="'background-image: url(' + @{${first.imageUrl}} + ');'">
-          <div class="rank-number" th:text="1">1</div>
-          <div class="cafe-info">
-            <p th:text="${first.shopName}">카페 이름</p>
-            <p th:text="'⭐ ' + ${first.averageRating}">⭐ 0.0</p>
-          </div>
-          <button class="detail-btn" th:onclick="'window.location.href=\'/dessert-shop/' + ${first.id} + '\''">상세보기</button>
+          <button class="detail-btn" data-translate th:onclick="'window.location.href=\'/dessert-shop/' + ${dessertShop.id} + '\''">상세보기</button>
         </div>
       </div>
     </div>
     <div class="scroll-buttons">
-      <button class="prev-btn"> ◀　 </button>
-      <button class="next-btn"> ▶　 </button>
+      <button class="prev-btn"> ◀ </button>
+      <button class="next-btn"> ▶ </button>
     </div>
   </div>
 </section>
+
 <!-- 디저트 목록 -->
 <section class="dessert-grid-section">
   <div class="container dessert-grid">
@@ -117,13 +110,20 @@
         <img th:src="${dessert.imageUrl}" alt="디저트 이미지" />
         <span class="heart-icon">🤍</span>
       </div>
-      <h3 th:text="${dessert.name}">디저트 이름</h3>
-      <p th:text="${dessert.shopName}">카페명</p>
+      <h3 th:text="${dessert.name}" data-translate>디저트 이름</h3>
+      <p th:text="${dessert.shopName}" data-translate>카페명</p>
       <p th:text="${dessert.price + '원'}">가격</p>
       <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(dessert.averageRating, 1, 1)}">⭐ 0.0</p>
     </div>
   </div>
 </section>
+<script>
+  async function toggleLanguage(targetLang) {
+    const dropdown = document.querySelector('.language-dropdown');
+    if (dropdown) dropdown.style.display = 'none';
+    // 나머지 번역 로직은 header.js에 있음
+  }
+</script>
 <script src="/js/main.js" defer></script>
 </body>
 </html>
