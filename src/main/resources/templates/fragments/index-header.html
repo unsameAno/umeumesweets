@@ -1,0 +1,53 @@
+<!-- templates/fragments/index-header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>UmeUmeSweets | Header</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <script th:src="@{/js/header.js}" defer></script>
+</head>
+<body>
+  <header th:fragment="header">
+    <div class="container header-container">
+      <h1 class="logo">UmeUmeSweets</h1>
+      <div class="header-right">
+        <nav class="navbar">
+          <div class="menu">
+            <ul class="menu-items">
+              <li><a href="#" data-translate>카페 & 디저트 추천</a></li>
+              <li><a href="/products/product-list">디저트 상품</a></li>
+              <li><a href="/shops/shop-list" data-translate>디저트 카페</a></li>
+              <li class="language-wrapper">
+                <a href="#" class="language-toggle">Language ▼</a>
+                <ul class="language-dropdown" style="display: none;">
+                  <li><a href="#" onclick="toggleLanguage('ko'); return false;">한국어</a></li>
+                  <li><a href="#" onclick="toggleLanguage('ja'); return false;">日本語</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="user-info" th:if="${loginUser == null}">
+          <a th:href="@{/login}" class="nav-link login-btn" data-translate>로그인</a>
+        </div>
+        <div class="user-info" th:if="${loginUser != null}">
+          <span th:text="${loginUser.name + '님'}">사용자이름</span>
+          <a href="#" data-translate>찜목록</a>
+          <a href="/cart"><img src="/images/cart-icon.svg" alt="장바구니" /></a>
+          <div class="user-menu-wrapper">
+            <a href="#" id="user-icon-toggle">
+              <img src="/images/user-icon.svg" alt="회원정보" class="user-icon" />
+            </a>
+            <div class="user-dropdown" id="user-dropdown">
+              <a href="/user/profile" data-translate>회원정보</a>
+              <a href="/orders" data-translate>주문 내역</a>
+              <a href="/logout" data-translate>로그아웃</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</body>
+</html>

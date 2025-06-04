@@ -2,6 +2,8 @@ package com.umeume.umeumesweets.controller;
 
 import com.umeume.umeumesweets.entity.User;
 import com.umeume.umeumesweets.repository.UserRepository;
+
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,7 @@ public class UserController {
         return "user/profile";
     }
 
+    // 🔸 프로필 수정 처리
     @PostMapping("/profile")
     public String updateProfile(@RequestParam String username,
                                 @RequestParam(required = false) String password,

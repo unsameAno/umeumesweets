@@ -52,11 +52,11 @@ public class AuthController {
     }
 
     // 로그인 POST 처리
-@PostMapping("/login")
-public String login(@RequestParam String username,
-                    @RequestParam String password,
-                    HttpSession session,
-                    Model model) {
+    @PostMapping("/login")
+    public String login(@RequestParam String username,
+                        @RequestParam String password,
+                        HttpSession session,
+                        Model model) {
 
     Optional<User> optionalUser = userRepository.findByUsername(username);
 
@@ -67,7 +67,7 @@ public String login(@RequestParam String username,
 
     session.setAttribute("loginUser", optionalUser.get());
     return "redirect:/";
-}
+    }
 
 
     @GetMapping("/logout")

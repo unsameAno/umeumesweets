@@ -4,54 +4,41 @@ import com.umeume.umeumesweets.entity.Product;
 import com.umeume.umeumesweets.repository.DessertShopRepository;
 import com.umeume.umeumesweets.repository.ProductRepository;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductRepository productRepository;
     private final DessertShopRepository dessertShopRepository;
 
-    // 🧁 상품 등록 폼
-    @GetMapping("/new")
-    public String showProductForm(Model model) {
-    System.out.println("💥 [GET] /product/new 진입!");
-
-    model.addAttribute("product", new Product());
-
-    model.addAttribute("shops", dessertShopRepository.findAll());
-    return "admin/product-form";
-    }
-
-    // 🍩 상품 저장 처리
-    @PostMapping
-    public String saveProduct(@ModelAttribute Product product) {
-        productRepository.save(product);
-        return "redirect:/product/list";
-    }
-
-    // 🍡 상품 목록 페이지
-    @GetMapping("/list")
-    public String showProductList(Model model) {
-        List<Product> productList = productRepository.findAll();
-        model.addAttribute("products", productList);
-        return "product/list"; // templates/product/list.html
-    }
-
-    @GetMapping("/{id}")
-public String showProductDetail(@PathVariable Long id, Model model) {
-    Product product = productRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
-    model.addAttribute("product", product);
-    return "product/detail"; // templates/product/detail.html
+@PostConstruct
+public void init() {
+    System.out.println("✅ ProductController Loaded!");
 }
 
+    // ✅ 사용자용 상품 전체 리스트
+    @GetMapping("/product-list")
+    public String showProductList(Model model) {
+        List<Product> productList = productRepository.findAll();
+        model.addAttribute("desserts", productList); // 💡 템플릿에서는 ${desserts}로 받음
+        return "products/product-list"; // templates/products/product-list.html
+    }
 
-
+    // ✅ 사용자용 상품 상세 페이지
+    @GetMapping("/{id}")
+    public String showProductDetail(@PathVariable Long id, Model model) {
+        Product product = productRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+        model.addAttribute("product", product);
+        return "products/detail"; // templates/products/detail.html
+    }
 }

@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/shop")
-public class DessertShopController {
+public class ShopAdminController {
 
     private final DessertShopService dessertShopService;
 
@@ -23,7 +23,7 @@ public class DessertShopController {
     public String showCreateForm(Model model) {
         model.addAttribute("shop", new DessertShop());
         return "admin/shop-form";
-    }
+    } 
 
     // 가게 등록 처리
     @PostMapping("/new")

@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/product")
-public class DessertProductController {
+public class ProductAdminController {
 
     private final ProductService productService;
     private final DessertShopRepository dessertShopRepository;
