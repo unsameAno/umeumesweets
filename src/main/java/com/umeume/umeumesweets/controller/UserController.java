@@ -3,7 +3,6 @@ package com.umeume.umeumesweets.controller;
 import com.umeume.umeumesweets.entity.User;
 import com.umeume.umeumesweets.repository.UserRepository;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,8 +18,10 @@ public class UserController {
 
     private final UserRepository userRepository;
 
+    //회원정보 페이지
     @GetMapping("/profile")
     public String showProfilePage(HttpSession session, Model model) {
+        System.out.println("들어온다!");
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) return "redirect:/login";
 

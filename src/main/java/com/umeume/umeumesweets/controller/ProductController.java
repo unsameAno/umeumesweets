@@ -3,8 +3,7 @@ package com.umeume.umeumesweets.controller;
 import com.umeume.umeumesweets.entity.Product;
 import com.umeume.umeumesweets.repository.DessertShopRepository;
 import com.umeume.umeumesweets.repository.ProductRepository;
-
-import jakarta.annotation.PostConstruct;
+import com.umeume.umeumesweets.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,26 +18,25 @@ public class ProductController {
 
     private final ProductRepository productRepository;
     private final DessertShopRepository dessertShopRepository;
+    private final ProductService productService;
 
-@PostConstruct
-public void init() {
-    System.out.println("✅ ProductController Loaded!");
-}
+    // ✅ 상품 목록 페이지 (카테고리 + 정렬 포함)
+    @GetMapping
+    public String getProducts(
+        @RequestParam(required = false) String category,
+        @RequestParam(defaultValue = "created_desc") String sort,
+        Model model) {
 
-    // ✅ 사용자용 상품 전체 리스트
-    @GetMapping("/product-list")
-    public String showProductList(Model model) {
-        List<Product> productList = productRepository.findAll();
-        model.addAttribute("desserts", productList); // 💡 템플릿에서는 ${desserts}로 받음
-        return "products/product-list"; // templates/products/product-list.html
+        List<Product> products = productService.findSorted(category, sort);
+        model.addAttribute("desserts", products);
+        return "products/product-list";
     }
 
-    // ✅ 사용자용 상품 상세 페이지
+    // ✅ 상품 상세 페이지
     @GetMapping("/{id}")
     public String showProductDetail(@PathVariable Long id, Model model) {
-        Product product = productRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
+        Product product = productService.findById(id);
         model.addAttribute("product", product);
-        return "products/detail"; // templates/products/detail.html
+        return "products/detail";
     }
 }

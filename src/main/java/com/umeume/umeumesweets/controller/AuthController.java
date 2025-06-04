@@ -4,12 +4,15 @@ import com.umeume.umeumesweets.entity.User;
 import com.umeume.umeumesweets.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
@@ -19,6 +22,7 @@ public class AuthController {
     // 로그인 페이지 GET
     @GetMapping("/login")
     public String showLoginPage() {
+        log.info("여기야!!!!!!!");
         return "login";
     }
 

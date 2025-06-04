@@ -1,71 +1,110 @@
-  document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('#cafesContainer');
-    const cafeItems = container.querySelectorAll('.cafe-item');
-    const itemWidth = cafeItems[0].offsetWidth + 15;
+document.addEventListener('DOMContentLoaded', () => {
+  setupCarousel();
+  setupSorting();
+  setupCategoryButtons();
+  setupDessertCardClick();
+});
 
-    let index = 1; // 실제 첫 번째 아이템 위치 (0은 복제된 마지막 아이템)
-    let transitioning = false;
+// -------------------------------
+// 🔹 캐러셀 슬라이드 관련 로직
+// -------------------------------
+function setupCarousel() {
+  const container = document.querySelector('#cafesContainer');
+  if (!container) return;
 
-    // 초기 위치 (첫 번째 진짜 아이템)
-    container.style.transform = `translateX(-${index * itemWidth}px)`;
-    
-    // 마지막 카페 클론
-    const lastClone = cafeItems[cafeItems.length - 1].cloneNode(true);
-    container.insertBefore(lastClone, cafeItems[0]);
+  const cafeItems = container.querySelectorAll('.cafe-item');
+  if (cafeItems.length === 0) return;
 
-    // 첫 번째 카페 클론
-    const firstClone = cafeItems[0].cloneNode(true);
-    container.appendChild(firstClone);
+  let index = 1;
+  let transitioning = false;
 
-    function getItemWidth() {
-        const currentItem = document.querySelector('.cafe-item');
-        return currentItem.offsetWidth + 15;
-    }
+  const itemWidth = () => document.querySelector('.cafe-item').offsetWidth + 15;
 
-    function goToIndex(i) {
-        transitioning = true;
-        const itemWidth = getItemWidth(); // 📌 항상 최신 값으로 계산
-        container.style.transition = 'transform 0.4s ease';
-        container.style.transform = `translateX(-${i * itemWidth}px)`;
-        index = i;
-    }
+  // 클론 추가
+  const lastClone = cafeItems[cafeItems.length - 1].cloneNode(true);
+  const firstClone = cafeItems[0].cloneNode(true);
+  container.insertBefore(lastClone, cafeItems[0]);
+  container.appendChild(firstClone);
 
-    function jumpToIndex(i) {
-        transitioning = false;
-        const itemWidth = getItemWidth(); // 📌 항상 최신 값으로 계산
-        container.style.transition = 'none';
-        container.style.transform = `translateX(-${i * itemWidth}px)`;
-        index = i;
-    }
+  // 초기 위치
+  container.style.transform = `translateX(-${index * itemWidth()}px)`;
 
+  // 이동 함수
+  const goToIndex = (i) => {
+    if (transitioning) return;
+    transitioning = true;
+    container.style.transition = 'transform 0.4s ease';
+    container.style.transform = `translateX(-${i * itemWidth()}px)`;
+    index = i;
+  };
 
-    document.querySelector('.next-btn').addEventListener('click', function () {
-      if (transitioning) return;
-      goToIndex(index + 1);
-    });
+  const jumpToIndex = (i) => {
+    transitioning = false;
+    container.style.transition = 'none';
+    container.style.transform = `translateX(-${i * itemWidth()}px)`;
+    index = i;
+  };
 
-    document.querySelector('.prev-btn').addEventListener('click', function () {
-      if (transitioning) return;
-      goToIndex(index - 1);
-    });
+  // 버튼 이벤트
+  document.querySelector('.next-btn')?.addEventListener('click', () => goToIndex(index + 1));
+  document.querySelector('.prev-btn')?.addEventListener('click', () => goToIndex(index - 1));
 
-    container.addEventListener('transitionend', function () {
-      const itemsLength = cafeItems.length;
-      if (index === 0) {
-        jumpToIndex(itemsLength - 2); // 진짜 마지막 아이템
-      } else if (index === itemsLength - 1) {
-        jumpToIndex(1); // 진짜 첫 번째 아이템
-      } else {
-        transitioning = false;
-      }
-    });
-
-    window.addEventListener('resize', () => {
-        if (!transitioning) {
-            const itemWidth = getItemWidth();
-            container.style.transition = 'none';
-            container.style.transform = `translateX(-${index * itemWidth}px)`;
-        }
-    });
-
+  // 슬라이드 끝 처리
+  container.addEventListener('transitionend', () => {
+    const itemsLength = container.querySelectorAll('.cafe-item').length;
+    if (index === 0) jumpToIndex(itemsLength - 2);
+    else if (index === itemsLength - 1) jumpToIndex(1);
+    else transitioning = false;
   });
+
+  // 윈도우 리사이즈 시 위치 조정
+  window.addEventListener('resize', () => {
+    if (!transitioning) {
+      container.style.transition = 'none';
+      container.style.transform = `translateX(-${index * itemWidth()}px)`;
+    }
+  });
+}
+
+// -------------------------------
+// 🔹 정렬 드롭다운 이벤트
+// -------------------------------
+function setupSorting() {
+  const sortSelect = document.getElementById('sortSelect');
+  if (!sortSelect) return;
+
+  sortSelect.addEventListener('change', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category') || '';
+    const sortOption = sortSelect.value;
+    window.location.href = `/products?category=${encodeURIComponent(category)}&sort=${sortOption}`;
+  });
+}
+
+// -------------------------------
+// 🔹 카테고리 버튼 필터링
+// -------------------------------
+function setupCategoryButtons() {
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-category');
+      const sortOption = document.getElementById('sortSelect')?.value || 'created_desc';
+      window.location.href = `/products?category=${encodeURIComponent(category)}&sort=${sortOption}`;
+    });
+  });
+}
+
+// -------------------------------
+// 🔹 디저트 카드 클릭 → 상세 페이지
+// -------------------------------
+function setupDessertCardClick() {
+  document.querySelectorAll('.dessert-card').forEach(card => {
+    const id = card.getAttribute('data-id');
+    if (id) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        window.location.href = `/products/${id}`;
+      });
+    }
+  });
+}

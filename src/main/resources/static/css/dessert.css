@@ -1,6 +1,4 @@
-/* ===============================
-   🍩 디저트 상품 카드(인덱스 페이지)
-================================= */
+/* 🍩 디저트 상품 카드 */
 .dessert-grid-section {
   padding: 2rem 0;
 }
@@ -17,59 +15,39 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   padding: 1rem;
   text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dessert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .dessert-card img {
   width: 100%;
-  border-radius: 0.8rem;
-  object-fit: cover;
   height: 150px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  display: block;
 }
 
 .dessert-card h3 {
   margin: 0.8rem 0 0.4rem;
   font-size: 1.1rem;
+  color: #333;
 }
 
 .dessert-card p {
   font-size: 0.9rem;
   color: #777;
-}
-
-/* ===============================
-   🍓 디저트 상세 페이지(검색 이후 페이지)
-================================= */
-.detail-container {
-  max-width: 720px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: #fffafc;
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  text-align: center;
-}
-
-.product-detail-image {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 0.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.detail-container h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.detail-container p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 0.6rem;
+  margin: 0.2rem 0;
 }
 
 .dessert-image-wrapper {
   position: relative;
+  overflow: hidden;
+  border-radius: 0.8rem;
 }
 
 .heart-icon {
@@ -78,7 +56,7 @@
   right: 8px;
   font-size: 18px;
   color: #ff6b81;
-  cursor: not-allowed; /* 기능 없음 표시 */
+  cursor: not-allowed;
   user-select: none;
   opacity: 0.8;
 }

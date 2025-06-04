@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "com.umeume.umeumesweets")
 public class UmeUmeSweetsApplication {
     public static void main(String[] args) {
+        System.out.println("출발!");
         SpringApplication.run(UmeUmeSweetsApplication.class, args);
     }
 }
