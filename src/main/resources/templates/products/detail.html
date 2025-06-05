@@ -1,23 +1,103 @@
-<!-- templates/product/detail.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title th:text="${product.name} + ' | UmeUmeSweets'">디저트 상세</title>
+  <title th:text="${product.name}">상품 상세</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <script th:src="@{/js/header.js}" defer></script>
+  <script th:src="@{/js/product-detail.js}" defer></script>
 </head>
 <body>
-  <div class="container detail-container">
-    <h2 th:text="${product.name}">디저트 이름</h2>
-    <img th:src="@{${product.imageUrl}}" alt="상품 이미지" class="product-detail-image" />
 
-    <p><strong>카페:</strong> <span th:text="${product.shopName}">가게 이름</span></p>
-    <p><strong>카테고리:</strong> <span th:text="${product.category}">종류</span></p>
-    <p><strong>가격:</strong> <span th:text="${product.price} + '원'">가격</span></p>
-    <p><strong>설명:</strong></p>
-    <p th:text="${product.description}">상품 설명</p>
+  <!-- 헤더 -->
+  <div th:replace="fragments/index-header :: header"></div>
 
-    <a href="/" class="btn btn-secondary">← 메인으로</a>
-  </div>
+  <!-- 상품 상세 영역 -->
+  <section class="detail-container">
+    <div class="detail-layout">
+      <!-- 이미지 영역 -->
+      <div class="image-wrapper">
+        <img class="product-detail-image" th:src="${product.imageUrl}" alt="상품 이미지" />
+      </div>
+
+      <!-- 정보 영역 -->
+      <div class="product-info">
+        <div class="info-content">
+          <h2 th:text="${product.name}">상품 이름</h2>
+          <p class="shop-name" th:text="${product.shop.shopName}">카페 이름</p>
+          <p class="rating">★★★★★ <span th:text="${#numbers.formatDecimal(product.averageRating, 1, 2)}">0.00</span></p>
+          <p class="price" th:text="${product.price + '원'}">가격</p>
+
+          <div class="description-wrapper" id="descWrapper">
+            <p class="description" id="descText" th:text="${product.description}">상품 설명</p>
+            <button class="btn-more" id="toggleBtn">더보기</button>
+          </div>
+        </div>
+
+        <!-- 버튼 영역 (하단 고정) -->
+        <div class="buy-section">
+          <select class="qty-select">
+            <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">1</option>
+          </select>
+          <button class="btn btn-secondary">장바구니</button>
+          <button class="btn btn-primary">바로구매</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 탭 버튼 -->
+    <div class="tab-buttons">
+      <button class="tab-button active" data-target="detail">상세정보</button>
+      <button class="tab-button" data-target="review">리뷰</button>
+    </div>
+
+    <!-- 탭 내용 -->
+    <div class="tab-content">
+      <div id="detail" class="tab-panel active">
+        <p th:text="${product.description}">상세페이지 내용</p>
+      </div>
+    <div id="review" class="tab-panel">
+      <!-- 리뷰 작성 폼 -->
+      <form th:action="@{/reviews/new}" method="post">
+        <input type="hidden" name="productId" th:value="${product.id}" />
+        
+        <label>평점: 
+          <select name="rating">
+            <option value="5">⭐ 5</option>
+            <option value="4">⭐ 4</option>
+            <option value="3">⭐ 3</option>
+            <option value="2">⭐ 2</option>
+            <option value="1">⭐ 1</option>
+          </select>
+        </label><br/>
+        
+        <textarea name="content" placeholder="리뷰를 입력하세요" required></textarea><br/>
+        
+        <button type="submit" class="btn btn-primary">리뷰 작성</button>
+      </form>
+
+      <!-- 리뷰 목록 -->
+      <div class="review-list" th:if="${#lists.isEmpty(reviews)} == false">
+        <div th:each="review : ${reviews}" class="review-item">
+          <div class="review-content-wrapper">
+            <div>
+              <p>
+                <strong th:text="${review.user.username}">닉네임</strong>
+                <span th:text="'⭐ ' + ${review.rating}">⭐ 5</span>
+              </p>
+              <p th:text="${review.content}">리뷰 내용</p>
+            </div>
+            <button class="delete-review-btn"
+                    th:if="${loginUser != null and loginUser.id == review.user.id}"
+                    th:attr="data-id=${review.id}">❌</button>
+          </div>
+        </div>
+      </div>
+      <div th:if="${#lists.isEmpty(reviews)}" class="no-reviews">
+        <p>아직 리뷰가 없습니다. 첫 리뷰를 남겨주세요!</p>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>

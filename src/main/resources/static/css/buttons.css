@@ -38,7 +38,55 @@
   color: white;
 }
 
+.search-container form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-container input[type="text"] {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .btn-search {
+  height: 36px;
   background-color: #f08a8a;
   color: white;
+  padding: 0 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search-container form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn {
+  padding: 1rem 1.5rem;
+  font-size: 16px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  border-bottom: 2px solid #f08a8a;
+  color: #333;
+  font-weight: bold;
+}
+
+.tab-content {
+  padding-top: 1.5rem;
 }

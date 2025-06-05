@@ -14,8 +14,13 @@
 <!-- 검색 -->
 <section class="search-section">
   <div class="container search-container">
-    <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" data-original-placeholder="디저트를 검색해보세요 🍡" />
-    <button type="submit" class="btn btn-search" data-translate>검색</button>
+    <form th:action="@{/products/search}" method="get">
+      <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" />
+      <button type="submit" class="btn btn-search">검색</button>
+    </form>
+  </div>
+  <div th:if="${#lists.isEmpty(desserts)}" class="no-result">
+    <p>검색 결과가 없습니다 😢</p>
   </div>
 </section>
 
@@ -83,6 +88,6 @@
     // 나머지 번역 로직은 header.js에 있음
   }
 </script>
-<script src="/js/main.js" defer></script>
+<script th:src="@{/js/main.js}" defer></script>
 </body>
 </html>

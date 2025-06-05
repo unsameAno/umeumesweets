@@ -17,6 +17,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findByNameContainingOrShop_ShopNameContaining(String name, String shopName, Pageable pageable);
 
+    // interface ProductRepository
+    List<Product> findByNameContainingIgnoreCaseOrShop_ShopNameContainingIgnoreCase(String keyword1, String keyword2);
+
     // 🔥 추가된 인기순 20개 조회
     List<Product> findTop20ByOrderByLikeCountDesc();
 

@@ -107,4 +107,17 @@ function setupDessertCardClick() {
       });
     }
   });
+
+  // 로그인 후 리뷰 작성 안내
+  document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    const message = params.get("message");
+
+    console.log("Parsed message:", message); // 디버깅 추가
+
+    if (message === "login_required") {
+      alert("리뷰 작성은 로그인 후 이용 가능합니다.");
+    }
+  });
+
 }

@@ -16,8 +16,13 @@
 <!-- 검색 -->
 <section class="search-section">
   <div class="container search-container">
-    <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" />
-    <button type="submit" class="btn btn-search">검색</button>
+    <form th:action="@{/products/search}" method="get">
+      <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" />
+      <button type="submit" class="btn btn-search">검색</button>
+    </form>
+  </div>
+  <div th:if="${#lists.isEmpty(desserts)}" class="no-result">
+    <p>검색 결과가 없습니다 😢</p>
   </div>
 </section>
 
@@ -59,7 +64,7 @@
 <!-- 디저트 목록 -->
 <section class="dessert-grid-section">
   <div class="container dessert-grid"> <!-- 📌 추가 -->
-    <div th:each="dessert : ${desserts}" class="dessert-card" th:attr="data-id=${dessert.id}">
+    <div th:each="dessert : ${desserts}" class="dessert-card" th:attr="data-id=${dessert.id}" th:onclick="|location.href='/${dessert.id}'|">
       <div class="dessert-image-wrapper">
         <img th:src="${dessert.imageUrl}" alt="디저트 이미지" />
         <span class="heart-icon">🤍</span>

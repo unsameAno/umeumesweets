@@ -21,7 +21,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     // -------------------
-    // 🔸 파일 업로드
+    // 파일 업로드
     // -------------------
 
     public String saveProductImage(MultipartFile imageFile) throws IOException {
@@ -33,7 +33,7 @@ public class ProductService {
     }
 
     // -------------------
-    // 🔸 상품 CRUD
+    // 상품 CRUD
     // -------------------
 
     public void createProduct(Product product, MultipartFile imageFile) {
@@ -84,7 +84,7 @@ public class ProductService {
     }
 
     // -------------------
-    // 🔸 상품 조회
+    // 상품 조회
     // -------------------
 
     public List<Product> getAllProducts() {
@@ -100,7 +100,7 @@ public class ProductService {
     }
 
     // -------------------
-    // 🔸 필터 + 정렬 처리
+    // 필터 + 정렬 처리
     // -------------------
 
     public List<Product> findSorted(String category, String sortOption) {
@@ -126,4 +126,15 @@ public class ProductService {
             return productRepository.findByCategory(category, sort);
         }
     }
+
+    // -------------------
+    // 상품 검색
+    // -------------------
+    public List<Product> searchByKeyword(String keyword) {
+    if (keyword != null && keyword.trim().length() >= 2) {
+        return productRepository.findByNameContainingIgnoreCaseOrShop_ShopNameContainingIgnoreCase(keyword, keyword);
+    } else {
+        return productRepository.findAll();
+    }
+}
 }
