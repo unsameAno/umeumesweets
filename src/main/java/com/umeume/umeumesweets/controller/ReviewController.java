@@ -72,7 +72,7 @@ public class ReviewController {
         review.setRating(rating);
         review.setContent(content);
 
-        reviewRepository.save(review);
+        reviewService.createReview(productId, user.getId(), rating, content);
 
         return "redirect:/reviews/product/" + productId + "?tab=review";
     }

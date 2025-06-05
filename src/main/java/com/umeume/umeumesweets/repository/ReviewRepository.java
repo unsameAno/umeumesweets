@@ -15,8 +15,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Long countByProduct(Product product);
 
-    List<Review> findByProductId(Long productId);
-
     List<Review> findByProductIdOrderByCreatedAtDesc(Long productId);
     
+    List<Review> findAllByProduct_Id(Long productId);
 }

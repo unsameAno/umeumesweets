@@ -24,13 +24,29 @@ public class ReviewService {
     public Review createReview(Long productId, Long userId, int rating, String content) {
         Product product = getProductOrThrow(productId);
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
+                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+
         Review review = new Review();
         review.setProduct(product);
         review.setUser(user);
         review.setRating(rating);
         review.setContent(content);
-        return reviewRepository.save(review);
+
+        reviewRepository.save(review);
+
+        // 리뷰 통계 업데이트
+        List<Review> reviews = reviewRepository.findAllByProduct_Id(productId);
+        int totalRating = reviews.stream().mapToInt(Review::getRating).sum();
+        int reviewCount = reviews.size();
+        double averageRating = (double) totalRating / reviewCount;
+
+        product.setAverageRating(averageRating);
+        product.setRatingCount(reviewCount);
+        System.out.println(">>> 평균 별점 계산됨: " + averageRating);
+        System.out.println(">>> 저장 직전 product ID: " + product.getId());
+        productRepository.save(product);  // 꼭 저장해야 DB 반영됨
+
+        return review;
     }
 
     @Transactional(readOnly = true)
