@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>디저트 카페 | UmeUmeSweets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <script th:src="@{/js/header.js}" defer></script>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div th:replace="fragments/index-header :: header"></div>
+
+<!-- 타이틀 -->
+<section class="category-section">
+  <div class="container">
+    <h2 class="section-title">디저트 카페 목록</h2>
+  </div>
+</section>
+
+<!-- 카페 목록 -->
+<section class="dessert-grid-section">
+  <div class="container dessert-grid">
+    <div th:each="shop : ${dessertShops}" class="dessert-card" th:attr="data-id=${shop.id}" th:onclick="|location.href='/shops/' + ${shop.id}|">
+      <div class="dessert-image-wrapper">
+        <img th:src="${shop.imageUrl}" alt="카페 이미지" />
+        <span class="heart-icon">🤍</span>
+      </div>
+      <h3 th:text="${shop.shopName}">카페 이름</h3>
+      <p th:text="${#strings.abbreviate(shop.description, 50)}">카페 설명</p>
+      <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(shop.averageRating, 1, 1)}">⭐ 0.0</p>
+    </div>
+  </div>
+</section>
+<script th:src="@{/js/header.js}" defer></script>
+</body>
+</html>

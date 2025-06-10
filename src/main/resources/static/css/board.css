@@ -1,0 +1,250 @@
+/* board.css */
+/* 게시판 전체 영역 */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 제목 */
+.container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #cc5a5a;
+  font-weight: bold;
+}
+
+/* 글쓰기 버튼 */
+.board-actions {
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.board-actions .btn-primary {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 8px 18px;
+  background-color: #f08a8a;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.board-actions .btn-primary:hover {
+  background-color: #f89fa5;
+}
+
+/* 테이블 기본 스타일 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(255, 210, 210, 0.2);
+}
+
+.board-table th,
+.board-table td {
+  padding: 14px 18px;
+  font-size: 15px;
+  text-align: left;
+}
+
+.board-table th {
+  background-color: #ffecef;
+  color: #c75c5c;
+  font-weight: 600;
+  border-bottom: 1px solid #f5dada;
+}
+
+.board-table td {
+  border-bottom: 1px solid #f9e2e2;
+  color: #333;
+}
+
+.board-table td a {
+  color: #d64f4f;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.board-table td a:hover {
+  text-decoration: underline;
+}
+
+/* 페이지네이션 */
+.pagination {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #b17a7a;
+}
+
+.pagination a {
+  color: #d86767;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+}
+
+/* board-detail.html */
+/* 게시글 상세 테이블 */
+.post-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  font-size: 16px;
+  background-color: #fffdfd;
+  border: 1px solid #e0cfcf;
+}
+
+.post-detail-table th,
+.post-detail-table td {
+  padding: 15px 20px;
+  border: 1px solid #f0dede;
+  text-align: left;
+}
+
+.post-detail-table th {
+  background-color: #fdf3f3;
+  font-weight: bold;
+  color: #c85a5a;
+  width: 120px;
+}
+
+/* 수정/삭제 버튼 */
+.form-buttons {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.form-buttons .btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-left: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: #ffe2e2;
+  color: #b94a4a;
+  border: 1px solid #f5c2c2;
+}
+
+.btn-danger {
+  background-color: #fda4a4;
+  color: #fff;
+  border: none;
+}
+
+/* 댓글 작성 폼 */
+.comment-form {
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid #f0dede;
+  background-color: #fff6f6;
+  border-radius: 8px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #e5caca;
+  border-radius: 4px;
+}
+
+.comment-form .comment-submit {
+  display: block;
+  width: 100%;
+  background-color: #f88f8f;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 댓글 리스트 */
+.comment-list {
+  margin-top: 30px;
+}
+
+.comment-item {
+  padding: 15px 20px;
+  background-color: #fffafa;
+  border: 1px solid #f0dede;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.comment-text {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+
+/* 댓글 삭제 버튼 */
+.comment-delete-form {
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.comment-delete-btn {
+  background: none;
+  border: none;
+  color: #d9534f;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 비회원 비밀번호 입력 */
+.comment-password-box {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+}
+
+.comment-password-box input {
+  flex: 1;
+  padding: 6px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.comment-password-box button {
+  padding: 6px 10px;
+  font-size: 13px;
+  background-color: #ffbaba;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* board-form.css */

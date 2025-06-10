@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>게시판</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+  <div th:replace="~{fragments/index-header :: header}"></div>
+
+  <div class="container">
+
+    <div class="board-actions">
+      <a th:href="@{/board/new}" class="btn btn-primary">글쓰기</a>
+    </div>
+
+    <table class="board-table">
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>카테고리</th>
+          <th>작성자</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="post : ${postPage.content}">
+            <td>
+                <a th:href="@{'/board/' + ${post.id}}" th:text="${post.title}">제목</a>
+            </td>
+            <td th:text="${post.category}">카테고리</td>
+            <td>
+                <span th:if="${post.user != null}" th:text="${post.user.name + ' 님'}">작성자</span>
+                <span th:if="${post.user == null}" th:text="${post.guestName + ' 님'}">작성자</span>
+            </td>
+            <td th:with="dateStr=${#temporals.format(post.createdAt, 'yyyy-MM-dd')},
+                        todayStr=${#temporals.format(T(java.time.LocalDateTime).now(), 'yyyy-MM-dd')}">
+            <span th:text="${dateStr + (dateStr == todayStr ? ' 🔥' : '')}">날짜</span>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+      <a th:if="${postPage.hasPrevious()}" th:href="@{'/board?page=' + ${postPage.number - 1}}">&laquo; 이전</a>
+      <span th:text="${postPage.number + 1} + ' / ' + ${postPage.totalPages}">1 / 1</span>
+      <a th:if="${postPage.hasNext()}" th:href="@{'/board?page=' + ${postPage.number + 1}}">다음 &raquo;</a>
+    </div>
+  </div>
+  <script th:src="@{/js/header.js}" defer></script>
+</body>
+</html>

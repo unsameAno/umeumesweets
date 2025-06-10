@@ -30,7 +30,7 @@ public class DessertShop extends BaseTimeEntity {
     @Column
     private String detailAddress;
 
-    @Column
+    @Column(length = 2000)
     private String description;
 
     @Column

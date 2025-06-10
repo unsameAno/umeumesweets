@@ -45,7 +45,7 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews); // 리뷰 목록 전달
 
-        return "products/detail";
+        return "products/product-detail";
     }
 
     // 상품 검색

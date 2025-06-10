@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${post.title} + ' | 게시글 상세'">게시글 상세</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/board.css}" />
+</head>
+<body>
+  <!-- 공통 헤더 -->
+  <div th:replace="~{fragments/index-header :: header}"></div>
+
+  <div class="container">
+    <h2 th:text="${post.title}">게시글 제목</h2>
+
+    <!-- 게시글 정보 테이블 -->
+    <table class="post-detail-table">
+      <tr>
+        <th>카테고리</th>
+        <td th:text="${post.category}">카테고리</td>
+      </tr>
+      <tr>
+        <th>작성자</th>
+        <td>
+          <span th:if="${post.user != null}" th:text="${post.user.name}">회원</span>
+          <span th:if="${post.user == null}" th:text="${post.guestName}">비회원</span>
+        </td>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <td th:text="${post.content}">내용</td>
+      </tr>
+    </table>
+
+    <!-- 수정/삭제 버튼 -->
+    <div class="form-buttons" th:if="${isAuthor}">
+      <a th:href="@{'/board/' + ${post.id} + '/edit'}" class="btn btn-secondary">수정</a>
+      <form th:action="@{'/board/' + ${post.id} + '/delete'}" method="post" style="display:inline">
+        <button type="submit" class="btn btn-danger">삭제</button>
+      </form>
+    </div>
+
+    <!-- 댓글 작성 폼 -->
+    <div class="comment-form">
+      <form th:action="@{'/board/' + ${post.id} + '/comment'}" method="post">
+        <div th:if="${loginUser != null}">
+          <input type="text" th:value="${loginUser.name}" readonly class="comment-author" />
+        </div>
+        <div th:if="${loginUser == null}">
+          <input type="text" name="guestName" placeholder="닉네임" required class="comment-author" />
+          <input type="password" name="guestPassword" placeholder="비밀번호" required class="comment-password" />
+        </div>
+        <textarea name="content" placeholder="댓글을 입력하세요" required class="comment-content"></textarea>
+        <button type="submit" class="comment-submit">댓글 등록</button>
+      </form>
+    </div>
+
+    <!-- 댓글 리스트 -->
+    <div class="comment-list">
+      <div th:each="comment : ${post.comments}" class="comment-item">
+        <div class="comment-header">
+          <strong th:text="${comment.user != null ? comment.user.name : comment.guestName}">작성자</strong>
+          <span th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">작성일시</span>
+        </div>
+
+        <p th:text="${comment.content}" class="comment-text">댓글 내용</p>
+
+        <!-- 로그인 유저 본인 댓글 삭제 -->
+        <form th:if="${canDeleteMap != null and canDeleteMap[comment.id]}" 
+              th:action="@{'/board/' + ${post.id} + '/comment/' + ${comment.id} + '/delete'}" 
+              method="post" class="comment-delete-form">
+          <button type="submit" class="comment-delete-btn">❌</button>
+        </form>
+
+        <!-- 비회원 댓글 비번 입력 후 삭제 -->
+        <div class="comment-delete-form">
+            <button type="button" class="comment-delete-btn" data-toggle-password>❌</button>
+            <form th:action="@{'/board/' + ${post.id} + '/comment/' + ${comment.id} + '/delete'}" 
+                    method="post" class="comment-password-box">
+                <input type="password" name="password" placeholder="비밀번호 입력" class="comment-password-input" required />
+                <button type="submit" class="comment-delete-btn">확인</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script th:src="@{/js/header.js}" defer></script>
+  <script th:src="@{/js/board.js}" defer></script>
+</body>
+</html>

@@ -20,10 +20,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // interface ProductRepository
     List<Product> findByNameContainingIgnoreCaseOrShop_ShopNameContainingIgnoreCase(String keyword1, String keyword2);
 
-    // 🔥 추가된 인기순 20개 조회
+    // 추가된 인기순 20개 조회
     List<Product> findTop20ByOrderByLikeCountDesc();
 
     List<Product> findByCategory(String category, Sort sortBy);
 
-    
+    List<Product> findByShopId(Long shopId);
 }

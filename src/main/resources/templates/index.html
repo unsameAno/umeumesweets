@@ -45,7 +45,6 @@
 <!-- 인기 카페 목록 (가로 스크롤) -->
 <section class="popular-cafes-section">
   <div class="container" id="cafes-section">
-    <h2 data-translate>인기 디저트 카페</h2>
     <div class="popular-cafes">
       <div class="cafes-container" id="cafesContainer">
         <!-- 반복문: 카페 목록 -->
@@ -55,7 +54,7 @@
             <p th:text="${dessertShop.shopName}" data-translate>카페 이름</p>
             <p th:text="'⭐ ' + ${dessertShop.averageRating}">⭐ 0.0</p>
           </div>
-          <button class="detail-btn" data-translate th:onclick="'window.location.href=\'/dessert-shop/' + ${dessertShop.id} + '\''">상세보기</button>
+          <button class="detail-btn" data-translate th:onclick="'window.location.href=\'/shops/' + ${dessertShop.id} + '\''">상세보기</button>
         </div>
       </div>
     </div>

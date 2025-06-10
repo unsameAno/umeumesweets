@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${post.id == null ? '게시글 등록' : '게시글 수정'}">게시글 등록</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+  <div th:replace="~{fragments/index-header :: header}"></div>
+
+  <div class="container">
+    <h2 th:text="${post.id == null ? '게시글 등록' : '게시글 수정'}">게시글 등록</h2>
+
+    <!-- 폼 action은 등록/수정 분기 -->
+    <form th:action="@{${post.id == null} ? '/board' : '/board/' + ${post.id} + '/edit'}"
+          th:object="${post}" method="post" class="board-form">
+
+      <table>
+        <tr>
+          <th>제목</th>
+          <td><input type="text" th:field="*{title}" required /></td>
+        </tr>
+
+        <tr>
+          <th>카테고리</th>
+          <td>
+            <select th:field="*{category}" required>
+              <option value="디저트 추천">디저트 추천</option>
+              <option value="카페 추천">카페 추천</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th>작성자</th>
+          <td>
+            <!-- 로그인 유저일 경우 이름 표시 -->
+            <span th:if="${loginUser != null}" th:text="${loginUser.name + ' 님'}">회원 작성자</span>
+
+            <!-- 비회원일 경우 닉네임 입력 (글 수정일 때는 read-only로 표시) -->
+            <input th:if="${loginUser == null}" type="text" name="guestName"
+                   th:value="${post.guestName}" placeholder="닉네임을 입력하세요"
+                   th:readonly="${post.id != null}" required />
+          </td>
+        </tr>
+
+        <!-- 비회원만 비밀번호 입력 (수정 시에도 필요) -->
+        <tr th:if="${loginUser == null}">
+          <th>비밀번호</th>
+          <td><input type="password" name="guestPassword" placeholder="비밀번호" required /></td>
+        </tr>
+
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea th:field="*{content}" rows="10" required></textarea>
+          </td>
+        </tr>
+      </table>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-primary" 
+                th:text="${post.id == null ? '등록' : '수정'}">등록</button>
+        <a th:href="@{/board}" class="btn btn-secondary">이전</a>
+      </div>
+    </form>
+  </div>
+
+  <script th:src="@{/js/header.js}" defer></script>
+</body>
+</html>

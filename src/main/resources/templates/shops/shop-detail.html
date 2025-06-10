@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${shop.shopName} + ' | 디저트 카페 상세'">카페 상세</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/shop-detail.css}" />
+</head>
+<body>
+
+<!-- 헤더 -->
+<div th:replace="~{fragments/index-header :: header}"></div>
+
+<!-- 카페 상세 정보 -->
+<section class="shop-detail-container">
+  <div class="shop-detail-flex">
+
+      <!-- 왼쪽: 이미지 -->
+      <div class="shop-image-wrapper square-image-box">
+        <img th:src="${shop.imageUrl}" alt="카페 이미지" class="shop-detail-image" />
+      </div>
+
+      <!-- 오른쪽: 정보 -->
+      <div class="shop-info">
+        <h2 th:text="${shop.shopName}">카페 이름</h2>
+        <p th:text="${shop.phone}">전화번호</p>
+
+      <!-- 설명 + 더보기 버튼 래퍼 -->
+      <div id="descWrapper" class="desc-wrapper">
+        <p class="description" th:text="${shop.description}">카페 설명</p>
+        <button class="btn-more" id="toggleBtn">더보기</button>
+      </div>
+
+      <p th:text="${shop.address + ' ' + shop.detailAddress}">주소</p>
+      <p class="shop-label" th:text="${shop.getName()}">식별 이름</p>
+
+      <!-- 지도 -->
+      <div id="map" class="kakao-map" th:attr="data-address=${shop.address + ' ' + shop.detailAddress}"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 카페 상품 목록 -->
+<section class="shop-products-section">
+  <div class="container">
+    <h3>카페 상품</h3>
+    <div class="dessert-grid">
+      <div th:each="product : ${products}" class="dessert-card" th:onclick="|location.href='/products/${product.id}'|">
+        <div class="dessert-image-wrapper">
+          <img th:src="${product.imageUrl}" alt="디저트 이미지" />
+        </div>
+        <h4 th:text="${product.name}">상품 이름</h4>
+        <p th:text="${product.price + '원'}">가격</p>
+        <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(product.averageRating, 1, 1)}">⭐ 0.0</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b6fc6ee40c6ed118d4c005a621698e5a&autoload=false&libraries=services"></script>
+<script th:src="@{/js/shop-detail.js}"></script>
+<script th:src="@{/js/header.js}" defer></script>
+</body>
+</html>

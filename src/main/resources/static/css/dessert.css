@@ -237,6 +237,159 @@
   cursor: pointer;
 }
 
+/* shop-detail.html */
+/* 전체 박스 */
+.shop-detail-container {
+  max-width: 1024px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fffafc;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* 좌우 배치 레이아웃 */
+.shop-detail-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* 왼쪽: 이미지 wrapper (정사각형 유지) */
+.square-image-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 420px;
+  flex: 0 0 45%;
+}
+
+/* 정사각형 안에 이미지 맞춤 */
+.shop-detail-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+/* 오른쪽 정보 섹션 */
+.shop-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  /* 핵심! 이미지 높이에 맞게 맞춰줌 */
+  flex: 1;
+}
+
+/* 설명창 상세설정 */
+.desc-wrapper {
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+}
+
+.desc-wrapper.expanded {
+  max-height: none;
+}
+
+.btn-more {
+  background: none;
+  border: none;
+  color: #f08a8a;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  text-align: left;
+}
+
+/* 지도 */
+.kakao-map {
+  width: 100%;
+  height: 200px;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  align-self: flex-end;
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+  .shop-detail-flex {
+    flex-direction: column;
+  }
+
+  .square-image-box,
+  .shop-info {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+
+/* 하단 상품 영역 */
+.shop-products-section {
+  margin-top: 3rem;
+}
+
+.shop-products-section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.dessert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.dessert-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.dessert-card:hover {
+  transform: translateY(-4px);
+}
+
+.dessert-card img {
+  width: 100%;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.dessert-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.dessert-card p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.2rem;
+}
+
+
+/* shop-list.html */
+.shop-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.3rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* 2줄 제한 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* 📱 모바일 대응 */
 @media (max-width: 600px) {
   .buy-section .btn {

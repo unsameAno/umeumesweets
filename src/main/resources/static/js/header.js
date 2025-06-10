@@ -63,3 +63,21 @@ async function toggleLanguage(targetLang) {
 
   currentLang = targetLang;
 }
+
+// 회원정보 드롭다운 토글
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("user-icon-toggle");
+    const dropdown = document.getElementById("user-dropdown");
+
+    toggleBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // 링크 기본 동작 막기
+      dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    });
+
+    // 바깥 클릭 시 드롭다운 닫기
+    document.addEventListener("click", function (e) {
+      if (!toggleBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  });

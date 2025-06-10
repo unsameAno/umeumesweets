@@ -1,38 +1,28 @@
-/* ===============================
-   🔍 검색 바
-================================= */
-.search-section {
-  padding: 1.5rem 0;
-  text-align: center;
-}
 
-.search-section input {
-  width: 60%;
-  padding: 0.7rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 2rem;
-  font-size: 1rem;
-}
-
-/* 검색창 컨테이너 정렬 */
 .search-container {
+  width: 85%;
+  max-width: 85%;
+}
+
+.search-container form {
+  margin-top: 10px;
   display: flex;
-  align-items: center;
-  gap: 8px;
   width: 100%;
+  align-items: center;
+  gap: 3px;
 }
 
 .search-container input[type="text"] {
-  flex: 1;
+  flex: 1; /* 💡 퍼센트보다 유연함 */
   height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
   padding: 0 12px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 .search-container .btn-search {
-  width: 15%;
+  width: 90px; /* 💡 고정값 추천 */
   height: 40px;
   background-color: #f08a8a;
   color: white;
@@ -40,4 +30,5 @@
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 5px;
 }
