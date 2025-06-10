@@ -49,7 +49,6 @@
       <div class="cafes-container" id="cafesContainer">
         <!-- 반복문: 카페 목록 -->
         <div th:each="dessertShop, iterStat : ${dessertShops}" class="cafe-item" th:style="'background-image: url(' + @{${dessertShop.imageUrl}} + ');'">
-          <div class="rank-number" th:text="${iterStat.index + 1}">1</div>
           <div class="cafe-info">
             <p th:text="${dessertShop.shopName}" data-translate>카페 이름</p>
             <p th:text="'⭐ ' + ${dessertShop.averageRating}">⭐ 0.0</p>

@@ -66,18 +66,23 @@ async function toggleLanguage(targetLang) {
 
 // 회원정보 드롭다운 토글
   document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById("user-icon-toggle");
-    const dropdown = document.getElementById("user-dropdown");
+  const toggleBtn = document.getElementById("user-icon-toggle");
+  const dropdown = document.getElementById("user-dropdown");
 
+  // 요소가 모두 존재할 때만 이벤트 설정
+  if (toggleBtn && dropdown) {
     toggleBtn.addEventListener("click", function (e) {
-      e.preventDefault(); // 링크 기본 동작 막기
-      dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+      e.preventDefault();
+      const isOpen = dropdown.style.display === "block";
+      dropdown.style.display = isOpen ? "none" : "block";
     });
 
     // 바깥 클릭 시 드롭다운 닫기
     document.addEventListener("click", function (e) {
-      if (!toggleBtn.contains(e.target) && !dropdown.contains(e.target)) {
+      const isClickInside = toggleBtn.contains(e.target) || dropdown.contains(e.target);
+      if (!isClickInside) {
         dropdown.style.display = "none";
       }
     });
-  });
+  }
+}); 
