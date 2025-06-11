@@ -205,57 +205,57 @@ textarea {
 }
 
 
-/* 인기 카페 섹션 */
-.popular-cafes-section {
-    margin-top: 30px;
-    padding-bottom: 20px;
-    position: relative;
+/* 슬라이드 영역 */
+.spring-slider {
+  position: relative;
+  width: 85%;
+  padding: 40px 0;
+  overflow: visible;
 }
 
-.popular-cafes {
-    display: flex;
-    gap: 15px;
-    overflow: hidden; /* 가로 스크롤바 숨기기 */
-    padding-bottom: 10px;
-    transition: transform 0.3s ease-in-out; /* 스크롤 애니메이션 */
+.spring-slider .swiper-slide {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: #fff;
+  text-shadow: 0 0 3px rgba(0,0,0,0.4);
+  margin-top: 10px;
 }
 
-  .cafes-container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 15px;
-    width: 100%;
-  }
-
-  .cafe-item {
-    flex: 0 0 47%; /* 2개씩 보이게 */
-    height: 264px;
-    background-color: #f8f8f8;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
-    flex-shrink: 0;
-    background-size: cover;
-    background-position: center;
-    box-sizing: border-box;
-  }
-
-.scroll-buttons {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    padding: 0 20px; /* 🔥 버튼이 양 옆에서 적당히 떨어지게 */
-    box-sizing: border-box; /* 🔥 padding 포함해서 width 계산 */
-    pointer-events: none; /* 🔥 클릭 버그 방지용 */
+.spring-slider .shop-info {
+  padding: 10px;
+  border-radius: 8px;
 }
 
+.spring-slider .detail-btn {
+  margin-top: 10px;
+  background-color: #fa8b8b;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
 
-
+.spring-slider .swiper-button-prev,
+.spring-slider .swiper-button-next {
+  position: absolute;
+  top: 60%;
+  width: 30px;
+  height: 25px;
+  color: #fa8b8b;
+  z-index: 10;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
 
 /* 순위 번호 (오른쪽 상단에 위치) */
 .rank-number {
@@ -292,7 +292,7 @@ textarea {
     background-color: #e87a9b;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 8px;
     border-radius: 20px;
     font-size: 0.9rem;
     cursor: pointer;

@@ -1,8 +1,9 @@
 package com.umeume.umeumesweets.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Getter
@@ -10,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product extends BaseTimeEntity{
+public class Product extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,39 +29,35 @@ public class Product extends BaseTimeEntity{
     @Column
     private String imageUrl;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Builder.Default
     @Column(nullable = false)
-    private int stock = 0;
+    private int stock;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProductStatus status;
 
-    @Builder.Default
     @Column(nullable = false)
-    private int likeCount = 0;
+    private int likeCount;
 
-    @Builder.Default
     @Column(nullable = false)
-    private double averageRating = 0.0;
+    private double averageRating;
 
-    @Builder.Default
     @Column(nullable = false)
-    private int ratingCount = 0;
+    private int ratingCount;
 
-    @Builder.Default
     @Column(nullable = false)
-    private boolean isActive = true;
+    private boolean isActive;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private DessertShop shop;
 
+    // ★ MultipartFile은 Entity에 넣지 않는 것이 일반적 (Form/DTO에서만 처리)
     @Transient
-    private MultipartFile imageFile;
+    private transient MultipartFile imageFile;
 
     public String getShopName() {
         return shop != null ? shop.getShopName() : null;

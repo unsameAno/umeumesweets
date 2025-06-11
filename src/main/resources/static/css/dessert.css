@@ -56,7 +56,7 @@
   right: 8px;
   font-size: 18px;
   color: #ff6b81;
-  cursor: not-allowed;
+  cursor: pointer;
   user-select: none;
   opacity: 0.8;
 }

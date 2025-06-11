@@ -6,6 +6,7 @@
   <title>UmeUmeSweets | Header</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
   <script th:src="@{/js/header.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <header th:fragment="header">
@@ -34,13 +35,17 @@
           <a th:href="@{/login}" class="nav-link login-btn" data-translate>로그인</a>
         </div>
         <div class="user-info" th:if="${loginUser != null}">
-          <span th:text="${loginUser.name + '님'}">사용자이름</span>
-          <a href="#" data-translate>찜목록</a>
-          <a href="/cart"><img src="/images/cart-icon.svg" alt="장바구니" /></a>
-          <div class="user-menu-wrapper">
-            <a href="#" id="user-icon-toggle">
-              <img src="/images/user-icon.svg" alt="회원정보" class="user-icon" />
+            <a href="/favorites" data-translate>
+              <img src="https://api.iconify.design/heroicons/heart.svg" alt="찜목록" width="24" height="24" />
             </a>
+            <a href="/cart">
+              <img src="https://api.iconify.design/heroicons/shopping-cart.svg" alt="장바구니" width="24" height="24" />
+            </a>
+            <div class="user-menu-wrapper">
+              <a href="#" id="user-icon-toggle">
+                <img src="https://api.iconify.design/heroicons/user.svg" alt="회원정보" class="user-icon" width="24" height="24" />
+              </a>
+            </div>
             <div class="user-dropdown" id="user-dropdown" style="display: none;">
               <a href="/user/profile" data-translate>회원정보</a>
               <a href="/orders" data-translate>주문 내역</a>

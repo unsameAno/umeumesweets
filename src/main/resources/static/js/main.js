@@ -121,3 +121,57 @@ function setupDessertCardClick() {
   });
 
 }
+
+  const swiper = new Swiper('.spring-slider', {
+    loop: true,
+    spaceBetween: 20,
+    slidesPerView: 2,
+    grabCursor: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+      autoplay: {
+    delay: 2500,      // 🔥 3초마다
+    disableOnInteraction: false  // 사용자가 클릭해도 자동 넘김 계속
+    },
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 2.5 }
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const hearts = document.querySelectorAll(".heart-icon");
+
+  hearts.forEach((heart) => {
+    heart.addEventListener("click", async (e) => {
+      e.preventDefault(); // ✅ 페이지 이동 방지!
+      e.stopPropagation();     // ✅ 부모 이벤트 전파 막기 ← 이게 핵심
+
+      const productId = heart.dataset.id;
+      const span = heart.querySelector("span");
+
+      try {
+        const res = await fetch(`/favorites/toggle/${productId}`, {
+          method: "POST",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.liked) {
+            heart.classList.add("liked");
+            span.textContent = "❤️";
+          } else {
+            heart.classList.remove("liked");
+            span.textContent = "🤍";
+          }
+        } else if (res.status === 401) {
+          alert("로그인이 필요합니다.");
+        }
+      } catch (e) {
+        console.error("찜 처리 실패", e);
+      }
+    });
+  });
+});

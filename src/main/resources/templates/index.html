@@ -5,6 +5,8 @@
   <title>UmeUmeSweets | 한국 디저트 셀렉트샵</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <script th:src="@{/js/header.js}" defer></script>
 </head>
 <body>
@@ -42,27 +44,25 @@
   </div>
 </section>
 
-<!-- 인기 카페 목록 (가로 스크롤) -->
-<section class="popular-cafes-section">
-  <div class="container" id="cafes-section">
-    <div class="popular-cafes">
-      <div class="cafes-container" id="cafesContainer">
-        <!-- 반복문: 카페 목록 -->
-        <div th:each="dessertShop, iterStat : ${dessertShops}" class="cafe-item" th:style="'background-image: url(' + @{${dessertShop.imageUrl}} + ');'">
-          <div class="cafe-info">
-            <p th:text="${dessertShop.shopName}" data-translate>카페 이름</p>
-            <p th:text="'⭐ ' + ${dessertShop.averageRating}">⭐ 0.0</p>
-          </div>
-          <button class="detail-btn" data-translate th:onclick="'window.location.href=\'/shops/' + ${dessertShop.id} + '\''">상세보기</button>
-        </div>
+<!-- 이미지 슬라이드 부분 -->
+<div class="spring-slider swiper">
+  <div class="swiper-wrapper">
+    <div th:each="shop : ${dessertShops}" class="swiper-slide"
+         th:style="'background-image: url(' + @{${shop.imageUrl}} + ');'">
+      <div class="shop-info">
+        <p th:text="${shop.shopName}">카페 이름</p>
+        <p th:text="'⭐ ' + ${shop.averageRating}">⭐ 0.0</p>
       </div>
-    </div>
-    <div class="scroll-buttons">
-      <button class="prev-btn"> ◀ </button>
-      <button class="next-btn"> ▶ </button>
+      <button class="detail-btn"
+              th:onclick="'window.location.href=\'/shops/' + ${shop.id} + '\''">상세보기</button>
     </div>
   </div>
-</section>
+
+  <!-- 슬라이드 버튼 -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
 
 <!-- 디저트 목록 -->
 <section class="dessert-grid-section">
@@ -70,7 +70,11 @@
     <div th:each="dessert : ${desserts}" class="dessert-card" th:attr="data-id=${dessert.id}">
       <div class="dessert-image-wrapper">
         <img th:src="${dessert.imageUrl}" alt="디저트 이미지" />
-        <span class="heart-icon">🤍</span>
+        <span class="heart-icon"
+              th:classappend="${dessert.isLiked} ? ' liked' : ''"
+              th:data-id="${dessert.id}">
+            <span th:text="${dessert.isLiked} ? '❤️' : '🤍'">🤍</span>
+        </span>
       </div>
       <h3 th:text="${dessert.name}">디저트 이름</h3>
       <p th:text="${dessert.shopName}">카페명</p>
@@ -86,6 +90,9 @@
     // 나머지 번역 로직은 header.js에 있음
   }
 </script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script th:src="@{/js/main.js}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
