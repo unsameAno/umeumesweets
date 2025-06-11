@@ -59,6 +59,8 @@
   cursor: pointer;
   user-select: none;
   opacity: 0.8;
+  z-index: 10;
+  pointer-events: auto; /* 이게 있어야 클릭 가능 */
 }
 
 .heart-icon.active {

@@ -102,11 +102,15 @@ function setupDessertCardClick() {
     const id = card.getAttribute('data-id');
     if (id) {
       card.style.cursor = 'pointer';
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        // 하트 아이콘 클릭 시 상세 이동 막기
+        if (e.target.closest(".heart-icon")) return;
+
         window.location.href = `/products/${id}`;
       });
     }
   });
+}
 
   // 로그인 후 리뷰 작성 안내
   document.addEventListener("DOMContentLoaded", function () {
@@ -120,58 +124,78 @@ function setupDessertCardClick() {
     }
   });
 
-}
 
-  const swiper = new Swiper('.spring-slider', {
-    loop: true,
-    spaceBetween: 20,
-    slidesPerView: 2,
-    grabCursor: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 🔸 Swiper가 존재할 때만 실행
+  if (typeof Swiper !== "undefined" && document.querySelector(".spring-slider")) {
+    const swiper = new Swiper('.spring-slider', {
+      loop: true,
+      spaceBetween: 20,
+      slidesPerView: 2,
+      grabCursor: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
       autoplay: {
-    delay: 2500,      // 🔥 3초마다
-    disableOnInteraction: false  // 사용자가 클릭해도 자동 넘김 계속
-    },
-    breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 2.5 }
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", () => {
-  const hearts = document.querySelectorAll(".heart-icon");
-
-  hearts.forEach((heart) => {
-    heart.addEventListener("click", async (e) => {
-      e.preventDefault(); // ✅ 페이지 이동 방지!
-      e.stopPropagation();     // ✅ 부모 이벤트 전파 막기 ← 이게 핵심
-
-      const productId = heart.dataset.id;
-      const span = heart.querySelector("span");
-
-      try {
-        const res = await fetch(`/favorites/toggle/${productId}`, {
-          method: "POST",
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          if (data.liked) {
-            heart.classList.add("liked");
-            span.textContent = "❤️";
-          } else {
-            heart.classList.remove("liked");
-            span.textContent = "🤍";
-          }
-        } else if (res.status === 401) {
-          alert("로그인이 필요합니다.");
-        }
-      } catch (e) {
-        console.error("찜 처리 실패", e);
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 2.5 }
       }
     });
+  }
+
+  // 👉 여기에 찜 이벤트 관련 코드도 계속됨
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.querySelector(".dessert-grid");
+  if (!grid) return; // 💥 요소가 없으면 종료
+
+  grid.addEventListener("click", async (e) => {
+    const heart = e.target.closest(".heart-icon");
+    if (!heart) return;
+
+    e.preventDefault();
+
+    const productId = heart.dataset.id;
+    const span = heart.querySelector("span");
+
+    try {
+      const res = await fetch(`/favorites/toggle/${productId}`, {
+        method: "POST",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.liked) {
+          heart.classList.add("liked");
+          span.textContent = "❤️";
+        } else {
+          heart.classList.remove("liked");
+          span.textContent = "🤍";
+        }
+      } else if (res.status === 401) {
+        Swal.fire({
+          icon: "warning",
+          title: "로그인이 필요합니다",
+          text: "찜 기능은 로그인 후 이용해주세요",
+        });
+      }
+    } catch (err) {
+      console.error("찜 실패", err);
+      Swal.fire({
+        icon: "error",
+        title: "에러 발생",
+        text: "찜 처리 중 오류가 발생했어요! 다시 시도해 주세요.",
+      });
+    }
   });
 });
+
+
+
