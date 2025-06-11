@@ -1,0 +1,156 @@
+/* cart.css */
+
+body {
+  background-color: #fff7f3;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 40px auto;
+  gap: 40px;
+}
+
+/* 왼쪽 영역: 상품 리스트 */
+.cart-left {
+  flex: 1.5;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+#selectAllBtn {
+  background-color: #ff8585;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.cart-item img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.item-info {
+  flex-grow: 1;
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.item-cafe {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.item-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* 오른쪽 영역: 결제 요약 */
+.cart-summary {
+  flex: 1;
+  max-width: 300px;
+  background-color: #fff;
+  border: 1px solid #ffdcdc;
+  border-radius: 12px;
+  padding: 20px;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  box-shadow: 0 2px 10px rgba(255, 210, 210, 0.3);
+  margin-top: 10%;
+}
+
+.cart-summary label {
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  color: #666;
+}
+
+.cart-summary input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+#totalPrice {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #c75c5c;
+  text-align: right;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #ff8585;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background-color: #f56a6a;
+}
+
+.total-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.total-price-row #totalPrice {
+  font-size: 18px;
+  font-weight: bold;
+  color: #c75c5c;
+}

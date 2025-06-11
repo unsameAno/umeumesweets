@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>장바구니</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <script defer th:src="@{/js/cart.js}"></script>
+</head>
+<body>
+  <div th:replace="~{fragments/index-header :: header}"></div>
+
+  <section class="cart-container">
+    <div class="cart-left">
+      <div class="cart-header">
+        <h2>장바구니</h2>
+        <button id="deleteSelectedBtn">선택삭제</button>
+        <button id="selectAllBtn">전체선택</button>
+      </div>
+
+      <form id="checkoutForm" th:action="@{/order}" method="post">
+        <div class="cart-item" th:each="item : ${cartItems}">
+          <input type="checkbox" class="cart-checkbox" name="selectedIds" th:value="${item.id}" checked />
+          
+          <img th:src="@{${item.product.imageUrl}}" width="140" height="140" />
+          
+          <div class="item-info">
+            <div class="item-name" th:text="${item.product.name}">상품명</div>
+            <div class="item-cafe" th:text="${item.product.shop.shopName}">디저트 가게명</div>
+            <div>수량: <span th:text="${item.quantity}">1</span></div>
+          </div>
+          
+          <div class="item-price">
+            <div th:text="${#numbers.formatInteger(item.product.price * item.quantity, 0)} + '원'"></div>
+            <div class="trash-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                <path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"/>
+                </svg>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="cart-summary">
+      <label>쿠폰</label>
+      <input type="text" disabled />
+      <label>포인트</label>
+      <input type="text" disabled />
+      <div class="total-price-row">
+        <span>총 결제 금액:</span>
+        <span id="totalPrice">0원</span>
+      </div>
+      <button type="submit" form="checkoutForm" class="checkout-btn">결제하기</button>
+    </div>
+  </section>
+    <script th:src="@{/js/main.js}" defer></script>
+  <script th:src="@{/js/header.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -10,6 +10,7 @@
 @import url('category.css');
 @import url('admin.css');
 @import url('board.css');
+@import url('cart.css');
 
 header a {
   text-decoration: none;

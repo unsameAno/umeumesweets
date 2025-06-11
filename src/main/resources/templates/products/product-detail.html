@@ -37,10 +37,13 @@
 
         <!-- 버튼 영역 (하단 고정) -->
         <div class="buy-section">
-          <select class="qty-select">
-            <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">1</option>
-          </select>
-          <button class="btn btn-secondary">장바구니</button>
+          <form th:action="@{/cart/add}" method="post">
+            <input type="hidden" name="productId" th:value="${product.id}" />
+            <select name="quantity" class="qty-select">
+              <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">1</option>
+            </select>
+            <button type="submit" class="btn btn-secondary">장바구니</button>
+          </form>
           <button class="btn btn-primary">바로구매</button>
         </div>
       </div>
@@ -89,8 +92,8 @@
               <p th:text="${review.content}">리뷰 내용</p>
             </div>
             <button class="delete-review-btn"
-                    th:if="${loginUser != null and loginUser.id == review.user.id}"
-                    th:attr="data-id=${review.id}">❌</button>
+                   th:if="${loginUser != null and loginUser.id == review.user.id}"
+                   th:attr="data-id=${review.id}">❌</button>
           </div>
         </div>
       </div>
