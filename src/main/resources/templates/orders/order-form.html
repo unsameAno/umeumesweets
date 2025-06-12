@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>주문하기</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/order.css}" />
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  
+</head>
+<body>
+  <div th:replace="~{fragments/index-header :: header}"></div>
+
+<section class="order-container">
+  <!-- 왼쪽 영역: 주문상품 + 배송정보 -->
+  <div class="order-left">
+    <!-- 주문 상품 정보 -->
+    <div class="order-items">
+      <h2>주문 상품 정보</h2>
+      <div class="item" th:each="item : ${cartItems}">
+        <img th:src="@{${item.product.imageUrl}}" width="80" height="80" />
+        <div>
+          <div th:text="${item.product.name}">상품명</div>
+          <div th:text="${item.product.price} + '원'">가격</div>
+          <div th:text="'수량: ' + ${item.quantity}">수량</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 배송 정보 -->
+    <div class="delivery-info">
+      <h2>배송 정보</h2>
+      <div class="input-row">
+        <input type="text" name="receiver" placeholder="수령인" />
+        <input type="text" name="phone" placeholder="연락처" />
+      </div>
+      <div class="input-row">
+        <input type="text" name="zipcode" placeholder="우편번호" />
+        <button type="button" onclick="execDaumPostcode()" class="btn-find-address">주소찾기</button>
+      </div>
+      <input type="text" name="address" placeholder="주소" />
+      <input type="text" name="addressDetail" placeholder="상세주소" />
+      <select name="memo">
+        <option disabled selected>배송메모를 선택해주세요.</option>
+        <option>문 앞에 놓아주세요</option>
+        <option>직접 수령할게요</option>
+        <option>경비실에 맡겨주세요</option>
+        <option>연락 후 배송해주세요</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 오른쪽 영역: 결제 요약 -->
+  <div class="order-summary">
+    <label>쿠폰</label>
+    <input type="text" disabled />
+    <label>포인트</label>
+    <input type="text" disabled />
+    <div>
+      <span>총 결제 금액:</span>
+      <span th:text="${#numbers.formatInteger(totalPrice, 0)} + '원'">0원</span>
+    </div>
+    <form th:action="@{/order}" method="post">
+      <button type="submit">결제하기</button>
+    </form>
+  </div>
+</section>
+  <script th:src="@{/js/main.js}" defer></script>
+  <script th:src="@{/js/order.js}" defer></script>
+  <script th:src="@{/js/header.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

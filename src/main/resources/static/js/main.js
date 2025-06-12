@@ -126,37 +126,27 @@ function setupDessertCardClick() {
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  // 🔸 Swiper가 존재할 때만 실행
-  if (typeof Swiper !== "undefined" && document.querySelector(".spring-slider")) {
-    const swiper = new Swiper('.spring-slider', {
-      loop: true,
-      spaceBetween: 20,
-      slidesPerView: 2,
-      grabCursor: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      },
+  const swiper = new Swiper('.spring-slider', {
+    loop: true,
+    spaceBetween: 20,
+    slidesPerView: 2,
+    grabCursor: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
       autoplay: {
-        delay: 2500,
-        disableOnInteraction: false
-      },
-      breakpoints: {
-        640: { slidesPerView: 2 },
-        1024: { slidesPerView: 2.5 }
-      }
-    });
-  }
-
-  // 👉 여기에 찜 이벤트 관련 코드도 계속됨
-});
+    delay: 2500,      // 🔥 3초마다
+    disableOnInteraction: false  // 사용자가 클릭해도 자동 넘김 계속
+    },
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 2.5 }
+    }
+  });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.querySelector(".dessert-grid");
-  if (!grid) return; // 💥 요소가 없으면 종료
-
-  grid.addEventListener("click", async (e) => {
+  document.addEventListener("click", async (e) => {
     const heart = e.target.closest(".heart-icon");
     if (!heart) return;
 
@@ -164,6 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const productId = heart.dataset.id;
     const span = heart.querySelector("span");
+
+    console.log("target:", e.target);
+    console.log("closest:", e.target.closest(".heart-icon"));
 
     try {
       const res = await fetch(`/favorites/toggle/${productId}`, {
@@ -197,5 +190,44 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const buyNowBtn = document.getElementById("buyNowBtn");
+
+  if (buyNowBtn) {
+    buyNowBtn.addEventListener("click", async () => {
+      const productId = document.querySelector("input[name='productId']").value;
+      const quantity = document.querySelector(".qty-select").value;
+
+      try {
+        const res = await fetch("/products/direct", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ productId, quantity }),
+        });
+
+        if (res.status === 401) {
+          Swal.fire({
+            icon: "warning",
+            title: "로그인이 필요합니다",
+            text: "상품 구매는 로그인 후 이용해주세요"
+          });
+          return;
+        }
+
+        const redirectUrl = await res.text();
+        window.location.href = redirectUrl;
+      } catch (err) {
+        console.error("바로구매 실패", err);
+        Swal.fire({
+          icon: "error",
+          title: "에러 발생",
+          text: "바로구매 중 문제가 발생했습니다. 다시 시도해주세요."
+        });
+      }
+    });
+  }
+});
 
 

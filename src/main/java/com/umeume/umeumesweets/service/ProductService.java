@@ -2,16 +2,17 @@ package com.umeume.umeumesweets.service;
 
 import com.umeume.umeumesweets.dto.ProductDto;
 import com.umeume.umeumesweets.entity.Product;
+import com.umeume.umeumesweets.entity.User;
 import com.umeume.umeumesweets.repository.FavoriteProductRepository;
 import com.umeume.umeumesweets.repository.ProductRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import com.umeume.umeumesweets.entity.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,27 +25,15 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final FavoriteProductRepository favoriteProductRepository;
-    
 
     public List<ProductDto> getTop20ProductsWithLikeInfo(User user) {
         List<Product> topProducts = productRepository.findTop20ByOrderByLikeCountDesc();
-        return topProducts.stream().map(product -> {
-            ProductDto dto = new ProductDto();
-            dto.setId(product.getId());
-            dto.setName(product.getName());
-            dto.setImageUrl(product.getImageUrl());
-            dto.setPrice(product.getPrice());
-            dto.setShopName(product.getShopName());
-            dto.setAverageRating((float) product.getAverageRating());
-            dto.setLiked(user != null && favoriteProductRepository.existsByUserAndProduct(user, product));
-            return dto;
-        }).toList();
+        return topProducts.stream()
+                .map(product -> toDto(product, user))
+                .toList();
     }
 
-    // -------------------
     // 파일 업로드
-    // -------------------
-
     public String saveProductImage(MultipartFile imageFile) throws IOException {
         String uploadDir = new ClassPathResource("static/images/product/").getFile().getAbsolutePath();
         String fileName = imageFile.getOriginalFilename();
@@ -53,10 +42,7 @@ public class ProductService {
         return "/images/product/" + fileName;
     }
 
-    // -------------------
     // 상품 CRUD
-    // -------------------
-
     public void createProduct(Product product, MultipartFile imageFile) {
         try {
             if (imageFile != null && !imageFile.isEmpty()) {
@@ -104,10 +90,6 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
     }
 
-    // -------------------
-    // 상품 조회
-    // -------------------
-
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -120,10 +102,7 @@ public class ProductService {
         }
     }
 
-    // -------------------
-    // 필터 + 정렬 처리
-    // -------------------
-
+    // 기존 방식 유지
     public List<Product> findSorted(String category, String sortOption) {
         String[] parts = sortOption.split("_");
         String field = parts[0];
@@ -148,21 +127,48 @@ public class ProductService {
         }
     }
 
-    // -------------------
-    // 상품 검색
-    // -------------------
-    public List<Product> searchByKeyword(String keyword) {
-    if (keyword != null && keyword.trim().length() >= 2) {
-        return productRepository.findByNameContainingIgnoreCaseOrShop_ShopNameContainingIgnoreCase(keyword, keyword);
-    } else {
-        return productRepository.findAll();
+    // ✅ 리팩토링 추가: findSorted + liked 포함
+    public List<ProductDto> findSorted(String category, String sortOption, User user) {
+        List<Product> products = findSorted(category, sortOption);
+        return products.stream()
+                .map(product -> toDto(product, user))
+                .collect(Collectors.toList());
     }
-}
 
-public List<ProductDto> getAllDessertsWithLikeInfo(User user) {
-    List<Product> products = productRepository.findAll();
+    public List<Product> searchByKeyword(String keyword) {
+        if (keyword != null && keyword.trim().length() >= 2) {
+            return productRepository.findByNameContainingIgnoreCaseOrShop_ShopNameContainingIgnoreCase(keyword, keyword);
+        } else {
+            return productRepository.findAll();
+        }
+    }
 
-    return products.stream().map(product -> {
+    // ✅ 리팩토링 추가: searchByKeyword + liked 포함
+    public List<ProductDto> searchByKeyword(String keyword, User user) {
+        List<Product> products = searchByKeyword(keyword);
+        return products.stream()
+                .map(product -> toDto(product, user))
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDto> getAllDessertsWithLikeInfo(User user) {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(product -> toDto(product, user))
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDto> getAllProductsWithLikeInfo(User user) {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(product -> toDto(product, user))
+                .toList();
+    }
+
+    // ✅ 공통 변환 로직 분리
+    private ProductDto toDto(Product product, User user) {
+        boolean liked = user != null && favoriteProductRepository.existsByUserAndProduct(user, product);
+
         ProductDto dto = new ProductDto();
         dto.setId(product.getId());
         dto.setName(product.getName());
@@ -170,30 +176,8 @@ public List<ProductDto> getAllDessertsWithLikeInfo(User user) {
         dto.setPrice(product.getPrice());
         dto.setShopName(product.getShopName());
         dto.setAverageRating((float) product.getAverageRating());
-
-        boolean liked = user != null &&
-            favoriteProductRepository.existsByUserAndProduct(user, product);
         dto.setLiked(liked);
 
         return dto;
-    }).collect(Collectors.toList());
-}
-
-public List<ProductDto> getAllProductsWithLikeInfo(User user) {
-    List<Product> products = productRepository.findAll();
-
-    return products.stream().map(product -> {
-        ProductDto dto = new ProductDto();
-        dto.setId(product.getId());
-        dto.setName(product.getName());
-        dto.setImageUrl(product.getImageUrl());
-        dto.setPrice(product.getPrice());
-        dto.setShopName(product.getShopName());
-        dto.setAverageRating((float) product.getAverageRating());
-        dto.setLiked(user != null && favoriteProductRepository.existsByUserAndProduct(user, product));
-        return dto;
-    }).toList();
-}
-
-
+    }
 }

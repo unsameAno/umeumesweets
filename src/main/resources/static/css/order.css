@@ -1,0 +1,162 @@
+/* 주문 페이지 전체 컨테이너 */
+.order-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  gap: 40px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 주문 상품 정보 영역 */
+.order-items {
+  flex: 2;
+  background-color: #fff;
+  border: 1px solid #ffecec;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(255, 213, 213, 0.3);
+}
+
+.order-items h2 {
+  font-size: 20px;
+  color: #d86a6a;
+  margin-bottom: 20px;
+}
+
+.order-items .item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+  padding: 12px 0;
+}
+
+.order-items .item:last-child {
+  border-bottom: none;
+}
+
+.order-items img {
+  border-radius: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.order-items div > div {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+/* 주문 요약 영역 */
+.order-summary {
+  flex: 1;
+  background-color: #fff7f7;
+  border: 1px solid #ffcaca;
+  border-radius: 12px;
+  padding: 20px;
+  height: fit-content;
+}
+
+.order-summary label {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #7a7a7a;
+}
+
+.order-summary input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fdfdfd;
+}
+
+.order-summary div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+}
+
+.order-summary button {
+  width: 100%;
+  background-color: #f29b9b;
+  color: white;
+  border: none;
+  padding: 12px;
+  margin-top: 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.order-summary button:hover {
+  background-color: #e77c7c;
+}
+
+.order-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.delivery-info {
+  background-color: #fff;
+  border: 1px solid #ffecec;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(255, 213, 213, 0.3);
+}
+
+.delivery-info h2 {
+  font-size: 20px;
+  color: #d86a6a;
+  margin-bottom: 20px;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.delivery-info input[type="text"],
+.delivery-info select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.delivery-info select {
+  margin-top: 12px;
+  color: #555;
+}
+
+.btn-find-address {
+  background-color: #f29b9b;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 130px;
+}
+
+.btn-find-address:hover {
+  background-color: #e27777;
+}

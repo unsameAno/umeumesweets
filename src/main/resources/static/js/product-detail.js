@@ -78,3 +78,46 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const buyNowBtn = document.getElementById("buyNowBtn");
+
+  if (buyNowBtn) {
+    buyNowBtn.addEventListener("click", async () => {
+      const productId = document.querySelector("input[name='productId']").value;
+      const quantity = document.querySelector(".qty-select").value;
+
+      try {
+        const res = await fetch("/products/direct", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ productId, quantity }),
+        });
+
+        if (res.status === 401) {
+          Swal.fire({
+            icon: "warning",
+            title: "로그인이 필요합니다",
+            text: "상품 구매는 로그인 후 이용해주세요",
+          });
+          return;
+        }
+
+        // 🔥 중요: 응답 body에서 redirect URL 텍스트로 꺼냄
+        const redirectUrl = await res.text();
+        window.location.href = redirectUrl;
+
+      } catch (err) {
+        console.error("바로구매 실패", err);
+        Swal.fire({
+          icon: "error",
+          title: "에러 발생",
+          text: "바로구매 중 문제가 발생했습니다. 다시 시도해주세요."
+        });
+      }
+    });
+  }
+});

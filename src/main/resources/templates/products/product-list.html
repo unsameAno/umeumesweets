@@ -5,8 +5,6 @@
   <title>UmeUmeSweets | 한국 디저트 셀렉트샵</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/main.css}" />
-  <script th:src="@{/js/header.js}" defer></script>
-  <script th:src="@{/js/main.js}" defer></script>
 </head>
 <body>
 
@@ -64,10 +62,17 @@
 <!-- 디저트 목록 -->
 <section class="dessert-grid-section">
   <div class="container dessert-grid"> <!-- 📌 추가 -->
-    <div th:each="dessert : ${desserts}" class="dessert-card" th:attr="data-id=${dessert.id}" th:onclick="|location.href='/${dessert.id}'|">
+    <div class="dessert-card"
+     th:each="dessert : ${desserts}"
+     th:attr="data-id=${dessert.id}"
+     onclick="if (!event.target.closest('.heart-icon')) location.href='[[/${dessert.id}]]'">
       <div class="dessert-image-wrapper">
         <img th:src="${dessert.imageUrl}" alt="디저트 이미지" />
-        <span class="heart-icon">🤍</span>
+        <span class="heart-icon"
+              th:classappend="${dessert.isLiked} ? ' liked' : ''"
+              th:data-id="${dessert.id}">
+            <span th:text="${dessert.isLiked} ? '❤️' : '🤍'">🤍</span>
+        </span>
       </div>
       <h3 th:text="${dessert.name}">디저트 이름</h3>
       <p th:text="${dessert.shopName}">카페명</p>
@@ -76,7 +81,9 @@
     </div>
   </div>
 </section>
-<script th:src="@{/js/header.js}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script th:src="@{/js/main.js}" defer></script>
+<script th:src="@{/js/product-detail.js}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
