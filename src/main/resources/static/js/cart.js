@@ -25,3 +25,45 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTotalPrice();
   });
 });
+
+document.querySelectorAll('.delete-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const cartItemId = button.getAttribute('data-id');
+
+    fetch('/cart/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `cartItemId=${cartItemId}`
+    })
+    .then(res => {
+      if (res.redirected) {
+        window.location.href = res.url; // 서버가 redirect:/cart 보내면 새로고침
+      } else {
+        location.reload();
+      }
+    })
+    .catch(err => {
+      alert("삭제 중 오류가 발생했습니다.");
+    });
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const deleteBtn = document.getElementById("deleteSelectedBtn");
+  if (deleteBtn) {
+    deleteBtn.addEventListener("click", function () {
+      const checked = document.querySelectorAll('.cart-checkbox:checked');
+      if (checked.length === 0) {
+        alert('삭제할 항목을 선택해주세요!');
+        return;
+      }
+
+      const ids = Array.from(checked).map(cb => cb.value);
+      document.getElementById("cartItemIdsInput").value = ids.join(',');
+      document.getElementById("bulkDeleteForm").submit();
+    });
+  }
+});

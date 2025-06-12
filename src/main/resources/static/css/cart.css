@@ -25,13 +25,21 @@ body {
   margin-bottom: 20px;
 }
 
+.cart-header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .cart-header h2 {
   font-size: 24px;
   font-weight: 700;
   color: #333;
 }
 
-#selectAllBtn {
+
+
+#selectAllBtn,
+#deleteSelectedBtn {
   background-color: #ff8585;
   border: none;
   padding: 6px 12px;
@@ -39,9 +47,11 @@ body {
   font-size: 14px;
   cursor: pointer;
   color: white;
+  font-weight: 500;
 }
 
 .cart-item {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 20px;
@@ -51,12 +61,51 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
+/* 체크박스 커스텀 시작 */
+.custom-checkbox {
+  position: absolute; 
+  top: 22px;
+  left: 15px;
+  z-index: 2;
+}
+
+/* 실제 체크박스 숨기기 */
+.cart-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 커스텀 박스 스타일 */
+.checkmark {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #f88b9c;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 체크 표시 스타일 */
+.cart-checkbox:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
 .cart-item img {
   width: 140px;
   height: 140px;
   object-fit: cover;
   border-radius: 8px;
   margin-right: 20px;
+  margin-left: 25px;
 }
 
 .item-info {
@@ -77,11 +126,16 @@ body {
 }
 
 .item-price {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #444;
   text-align: right;
   white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 130px; /* 이미지 높이와 비슷하게 맞춰줌 */
 }
 
 /* 오른쪽 영역: 결제 요약 */
@@ -153,4 +207,21 @@ body {
   font-size: 18px;
   font-weight: bold;
   color: #c75c5c;
+}
+
+.trash-icon {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.trash-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: #d9534f;
+}
+
+.trash-icon:hover svg {
+  fill: #b52b27;
 }

@@ -43,8 +43,25 @@ public class CartService {
         return cartItemRepository.findByUser(user);
     }
 
-    @Transactional
-    public void clearCart(User user) {
-        cartItemRepository.deleteByUser(user);
+        @Transactional
+    public void deleteItemById(User user, Long cartItemId) {
+        cartItemRepository.findById(cartItemId).ifPresent(item -> {
+            if (item.getUser().getId().equals(user.getId())) {
+                cartItemRepository.delete(item);
+            }
+        });
     }
+
+    @Transactional
+    public void deleteItemsByIds(User user, List<Long> ids) {
+        List<CartItem> items = cartItemRepository.findAllById(ids);
+        for (CartItem item : items) {
+            if (item.getUser().getId().equals(user.getId())) {
+                cartItemRepository.delete(item);
+            }
+        }
+    }
+
+
+
 }

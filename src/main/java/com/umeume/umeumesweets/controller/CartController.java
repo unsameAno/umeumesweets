@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -59,15 +61,23 @@ public class CartController {
         return "cart-list";
     }
 
-    @PostMapping("/clear")
-    public String clearCart(HttpSession session) {
+    @PostMapping("/delete")
+    public String deleteCartItem(@RequestParam Long cartItemId, HttpSession session) {
         User user = (User) session.getAttribute("loginUser");
         if (user != null) {
-            try {
-                cartService.clearCart(user);
-            } catch (Exception e) {
-                e.printStackTrace(); // 운영 시 로깅 또는 에러 페이지
-            }
+            cartService.deleteItemById(user, cartItemId);
+        }
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/deleteSelected")
+    public String deleteSelected(@RequestParam String cartItemIds, HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        if (user != null) {
+            List<Long> ids = Arrays.stream(cartItemIds.split(","))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+            cartService.deleteItemsByIds(user, ids);
         }
         return "redirect:/cart";
     }
