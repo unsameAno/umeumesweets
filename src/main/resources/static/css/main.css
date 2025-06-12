@@ -1,7 +1,6 @@
 /* main.css */
 
 @import url('reset.css');
-@import url('variables.css');   /* 있다면 공통 색상/폰트 변수 관리용 */
 @import url('header.css');
 @import url('form.css');
 @import url('buttons.css');

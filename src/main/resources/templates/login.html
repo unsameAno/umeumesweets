@@ -10,6 +10,14 @@
 <body th:with="page='other'">
   <div th:replace="~{fragments/header :: header}"></div>
 
+  <!-- 안내 문구 추가 -->
+  <div class="login-warning">
+    ※TEST용이기때문에 절대 개인정보로 가입금지※<br/>
+    생성 예시 = ID: test1234 / PW: 12345678<br/><br/> 
+    ※TEST用のため絶対個人情報での加入禁止※<br />
+    生成例 = ID:test1234 / PW:12345678
+  </div>
+
   <div class="container login-container">
     <h2>로그인</h2>
 
@@ -17,7 +25,11 @@
     <div th:if="${loginError}" class="login-error">
       <p th:text="${loginError}">아이디 또는 비밀번호가 틀렸습니다.</p>
     </div>
+    <div th:if="${loginError}" class="login-error">
+      <p th:text="${loginError}">아이디 또는 비밀번호가 틀렸습니다.</p>
+    </div>
 
+    
     <!-- form은 하나만 사용 -->
     <form th:action="@{/login}" method="post">
       <input type="text" name="username" placeholder="아이디" required />
@@ -32,14 +44,6 @@
     </div>
   </div>
 
-  <script>
-  console.log("JS inline test");
-  const params = new URLSearchParams(window.location.search);
-  const message = params.get("message");
-  if (message === "login_required") {
-    alert("리뷰 작성은 로그인 후 이용 가능합니다.");
-  }
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

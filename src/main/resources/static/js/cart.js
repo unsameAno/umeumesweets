@@ -67,3 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+    document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+    const checked = [...document.querySelectorAll('.cart-checkbox:checked')]; 
+    const ids = checked.map(cb => cb.value).join(",");
+    document.getElementById("selectedCartIds").value = ids;
+  });

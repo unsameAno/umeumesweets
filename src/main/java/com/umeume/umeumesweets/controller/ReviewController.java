@@ -40,7 +40,7 @@ public class ReviewController {
         model.addAttribute("reviews", reviews);
         model.addAttribute("loginUser", loginUser);
 
-        return "products/detail.html";
+        return "products/product-detail";
     }
 
     // 리뷰 작성 폼

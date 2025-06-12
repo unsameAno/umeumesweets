@@ -117,10 +117,15 @@ function setupDessertCardClick() {
     const params = new URLSearchParams(window.location.search);
     const message = params.get("message");
 
-    console.log("Parsed message:", message); // 디버깅 추가
+    console.log("Parsed message:", message); // 디버깅 로그 그대로 둠
 
     if (message === "login_required") {
-      alert("리뷰 작성은 로그인 후 이용 가능합니다.");
+      Swal.fire({
+        icon: 'warning',
+        title: '로그인 필요',
+        text: '리뷰 작성은 로그인 후 이용 가능합니다.',
+        confirmButtonText: '확인'
+      });
     }
   });
 

@@ -49,58 +49,92 @@
   margin-bottom: 4px;
 }
 
-/* 주문 요약 영역 */
+/* 오른쪽 영역: 결제 요약 */
 .order-summary {
   flex: 1;
-  background-color: #fff7f7;
-  border: 1px solid #ffcaca;
+  max-width: 300px;
+  background-color: #fff;
+  border: 1px solid #ffdcdc;
   border-radius: 12px;
   padding: 20px;
+  position: sticky;
+  top: 100px;
   height: fit-content;
+  box-shadow: 0 2px 10px rgba(255, 210, 210, 0.3);
+  margin-top: 10%;
 }
 
 .order-summary label {
   display: block;
-  margin-top: 10px;
   font-size: 14px;
-  color: #7a7a7a;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  color: #666;
 }
 
-.order-summary input {
+.order-summary input[type="text"] {
   width: 100%;
-  margin-top: 5px;
-  padding: 8px 10px;
+  padding: 8px;
+  font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  background-color: #fdfdfd;
 }
 
-.order-summary div {
+#totalPrice {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #c75c5c;
+  text-align: right;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #ff8585;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background-color: #f56a6a;
+}
+
+.total-price-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #444;
+  margin-bottom: 20px;
 }
 
-.order-summary button {
-  width: 100%;
-  background-color: #f29b9b;
-  color: white;
+.total-price-row #totalPrice {
+  font-size: 18px;
+  font-weight: bold;
+  color: #c75c5c;
+}
+
+.trash-icon {
+  background: none;
   border: none;
-  padding: 12px;
-  margin-top: 24px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 0;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-.order-summary button:hover {
-  background-color: #e77c7c;
+.trash-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: #d9534f;
+}
+
+.trash-icon:hover svg {
+  fill: #b52b27;
 }
 
 .order-left {

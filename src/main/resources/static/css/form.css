@@ -321,6 +321,15 @@ textarea {
     background-color: #d0697b;
 }
 
+.login-warning {
+  color: #e74c3c; /* 빨간색 */
+  text-align: center;
+  font-size: 14px;
+  margin: 40px 0 20px;
+  line-height: 1.5;
+  
+}
+
 /* 반응형 디자인: 화면 크기에 따라 카페 아이템 개수 조정 */
 @media (max-width: 1024px) {
     .cafes-container {
@@ -341,3 +350,4 @@ textarea {
         padding: 10px 12px;
     }
 }
+

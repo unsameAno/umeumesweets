@@ -56,12 +56,12 @@
     <input type="text" disabled />
     <label>포인트</label>
     <input type="text" disabled />
-    <div>
-      <span>총 결제 금액:</span>
-      <span th:text="${#numbers.formatInteger(totalPrice, 0)} + '원'">0원</span>
+    <div class="total-price-row">
+      <span >총 결제 금액:</span>
+      <span id="totalPrice" th:text="${#numbers.formatInteger(totalPrice, 0)} + '원'">0원</span>
     </div>
     <form th:action="@{/order}" method="post">
-      <button type="submit">결제하기</button>
+      <button class="checkout-btn" type="submit">결제하기</button>
     </form>
   </div>
 </section>

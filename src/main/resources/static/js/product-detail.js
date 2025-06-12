@@ -60,23 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-
-  // 리뷰 작성 후 리뷰탭 유지
-  document.addEventListener("DOMContentLoaded", function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const tab = urlParams.get("tab");
-
-  const buttons = document.querySelectorAll('.tab-button');
-  const panels = document.querySelectorAll('.tab-panel');
-
-  if (tab === "review") {
-    buttons.forEach(b => b.classList.remove('active'));
-    panels.forEach(p => p.classList.remove('active'));
-
-    document.querySelector('.tab-button[data-target="review"]').classList.add('active');
-    document.getElementById("review").classList.add('active');
-  }
-});
 });
 
 
