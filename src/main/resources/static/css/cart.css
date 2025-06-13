@@ -2,7 +2,7 @@
 
 body {
   background-color: #fff7f3;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .cart-container {
@@ -36,8 +36,6 @@ body {
   color: #333;
 }
 
-
-
 #selectAllBtn,
 #deleteSelectedBtn {
   background-color: #ff8585;
@@ -58,12 +56,12 @@ body {
   margin-bottom: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* 체크박스 커스텀 시작 */
 .custom-checkbox {
-  position: absolute; 
+  position: absolute;
   top: 22px;
   left: 15px;
   z-index: 2;
@@ -225,4 +223,3 @@ body {
 .trash-icon:hover svg {
   fill: #b52b27;
 }
-

@@ -1,6 +1,7 @@
 
 package com.umeume.umeumesweets.controller;
 
+import com.umeume.umeumesweets.dto.OrderRequestDto;
 import com.umeume.umeumesweets.entity.*;
 import com.umeume.umeumesweets.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -65,5 +66,46 @@ public String orderDirectPage(HttpSession session, Model model) {
     return "orders/order-form";
 }
 
+@PostMapping("")
+public String handleOrder(@ModelAttribute OrderRequestDto dto,
+                          HttpSession session) {
+
+    User loginUser = (User) session.getAttribute("loginUser");
+
+    if (loginUser == null) {
+        return "redirect:/login?message=login_required";
+    }
+
+    orderService.placeOrder(dto, loginUser);
+
+    return "redirect:/order/complete";
+}
+
+@GetMapping("complete")
+public String showOrderCompletePage(HttpSession session, Model model) {
+    User user = (User) session.getAttribute("loginUser"); // ✅ 세션에서 user 꺼냄
     
+    
+    if (user == null) {
+        return "redirect:/login"; // 로그인 안 했을 경우 처리
+    }
+    
+    List<CustomerOrder> orders = orderService.getOrdersByUser(user);
+    
+    // ✅ 상태값 로그 찍기
+    for (CustomerOrder order : orders) {
+        System.out.println("[DEBUG] 주문 ID: " + order.getId() + " | 상태: " + order.getStatus());
+    }
+
+    model.addAttribute("orders", orders);
+
+    return "orders/order-complete";
+}
+    
+@PostMapping("/{id}/cancel")
+public ResponseEntity<?> cancelOrder(@PathVariable Long id) {
+    orderService.cancelById(id); // soft delete or 실제 삭제
+    return ResponseEntity.ok().build();
+}
+
 }

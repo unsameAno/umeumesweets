@@ -117,8 +117,8 @@
       <th:block>
         <!-- 로그인 유저 본인 댓글만 삭제 가능 -->
         <button type="button" class="comment-delete-btn"
-                th:if="${canDeleteMap != null and canDeleteMap[comment.id]}"
-                onclick="this.nextElementSibling.submit()">❌</button>
+        th:if="${canDeleteMap != null and canDeleteMap[comment.id]}"
+        data-type="member">❌</button>
 
         <!-- 비회원: 삭제 버튼 누르면 비밀번호창 표시 -->
         <button type="button" class="comment-delete-btn"
@@ -129,9 +129,11 @@
 
     <!-- 로그인 유저 삭제용 form (hidden, dummy password) -->
     <form th:if="${canDeleteMap != null and canDeleteMap[comment.id]}"
-          th:action="@{'/board/' + ${post.id} + '/comment/' + ${comment.id} + '/delete'}"
-          method="post" style="display: none;">
-      <input type="hidden" name="password" value="dummy" />
+        th:action="@{'/board/' + ${post.id} + '/comment/' + ${comment.id} + '/delete'}"
+        method="post"
+        class="comment-delete-form-direct"
+        style="display: none;">
+    <input type="hidden" name="password" value="dummy" />
     </form>
 
     <!-- 비회원 삭제용 form (숨김, 버튼 클릭 시 표시) -->

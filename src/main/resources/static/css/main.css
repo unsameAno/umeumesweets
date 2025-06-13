@@ -1,16 +1,16 @@
 /* main.css */
 
-@import url('reset.css');
-@import url('header.css');
-@import url('form.css');
-@import url('buttons.css');
-@import url('dessert.css');
-@import url('search.css');
-@import url('category.css');
-@import url('admin.css');
-@import url('board.css');
-@import url('cart.css');
-@import url('order.css');
+@import url("reset.css");
+@import url("header.css");
+@import url("form.css");
+@import url("buttons.css");
+@import url("dessert.css");
+@import url("search.css");
+@import url("category.css");
+@import url("admin.css");
+@import url("board.css");
+@import url("cart.css");
+@import url("order.css");
 
 header a {
   text-decoration: none;

@@ -93,6 +93,9 @@ public class BoardPostController {
                                 @SessionAttribute(value = "loginUser", required = false) User loginUser,
                                 RedirectAttributes redirectAttributes) {
 
+        System.out.println("로그인 유저: " + loginUser);
+        System.out.println("입력된 비밀번호: " + password);
+
         boolean success = boardPostService.deleteComment(commentId, loginUser, password);
         if (!success) {
             redirectAttributes.addFlashAttribute("errorMessage", "댓글 삭제 권한이 없습니다.");

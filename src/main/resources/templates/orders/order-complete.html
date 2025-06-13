@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>주문 완료</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/order.css}" />
+</head>
+<body>
+  <div th:replace="~{fragments/index-header :: header}"></div>
+
+  <section class="order-complete" style="max-width: 800px; margin: 40px auto;">
+    <h2 style="font-size: 24px; margin-bottom: 24px; margin-top: 20px;">주문 내역</h2>
+
+    <div th:each="order : ${orders}" class="order-item" th:attr="id='order-' + ${order.id}">
+      <button class="cancel-btn" 
+              th:if="${order.status != 'CANCELED'}"
+              th:onclick="cancelOrder([[${order.id}]])" 
+              type="button">
+        주문취소
+      </button>
+      <!-- ✅ 처음에는 숨겨져 있다가 JS로 표시할 예정 -->
+      <span class="cancel-badge"
+      th:classappend="${order.status == 'CANCELED'} ? '' : 'hidden'">[취소완료]</span>
+      <!-- 접힌 상태 -->
+      <div class="order-summary" onclick="toggleDetails(this)">
+        <span th:text="'주문번호: #' + ${order.id} + ' / '"></span>
+        <span th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')} + ' / '"></span>
+        <span th:text="${order.totalAmount} + '원'"></span>
+      </div>
+
+      <!-- 펼쳐진 상세 -->
+        <div class="order-detail">
+          <!-- 상품 목록 -->
+          <div th:each="item : ${order.items}" class="item">
+            <div class="item-image">
+              <img th:src="@{${item.product.imageUrl}}" alt="상품 이미지" />
+            </div>
+            <div class="item-info">
+              <p th:text="'상품명: ' + ${item.productName}"></p>
+              <p th:text="'카페명: ' + ${item.shopName}"></p>
+              <p th:text="'수량: ' + ${item.quantity} + '개'"></p>
+              <p th:text="'단가: ' + ${item.price} + '원'"></p>
+              <p th:text="'합계: ' + (${item.quantity} * ${item.price}) + '원'"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 배송 정보 -->
+        <div class="delivery-info" style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;"
+            th:if="${order.recipient != null}">
+          <p th:text="'수령인: ' + ${order.recipient.receiverName}"></p>
+          <p th:text="'연락처: ' + ${order.recipient.phone}"></p>
+          <p th:text="'주소: ' + ${order.recipient.address} + ' ' + ${order.recipient.addressDetail}"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleDetails(el) {
+      const detail = el.nextElementSibling;
+      detail.style.display = detail.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+  <script th:src="@{/js/main.js}" defer></script>
+  <script th:src="@{/js/order.js}" defer></script>
+  <script th:src="@{/js/header.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+</body>
+</html>

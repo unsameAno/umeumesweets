@@ -58,11 +58,15 @@ public void saveComment(BoardComment comment) {
 
         BoardComment comment = optional.get();
 
-        if (comment.getUser() != null && comment.getUser().equals(loginUser)) {
+        // 로그인 유저의 댓글일 경우
+        if (comment.getUser() != null &&
+            loginUser != null &&
+            comment.getUser().getId().equals(loginUser.getId())) {
             boardCommentRepository.delete(comment);
             return true;
         }
 
+        // 비회원 댓글일 경우
         if (comment.getUser() == null &&
             password != null &&
             checkGuestPassword(password, comment.getGuestPassword())) {

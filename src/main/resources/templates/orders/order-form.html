@@ -13,25 +13,30 @@
 
 <section class="order-container">
   <!-- 왼쪽 영역: 주문상품 + 배송정보 -->
+<form th:action="@{/order}" method="post" style="display: flex; gap: 40px;">
   <div class="order-left">
-    <!-- 주문 상품 정보 -->
     <div class="order-items">
-      <h2>주문 상품 정보</h2>
-      <div class="item" th:each="item : ${cartItems}">
-        <img th:src="@{${item.product.imageUrl}}" width="80" height="80" />
-        <div>
+      <!-- 주문 상품 정보 -->
+      <!-- 반복문으로 장바구니 아이템들 보여줄 때 -->
+      <div th:each="item, itemStat : ${cartItems}" class="item">
+      <!-- 실제 보여지는 상품 정보 -->
+      <img th:src="@{${item.product.imageUrl}}" width="80" height="80" />
+      <div class="item-info">
           <div th:text="${item.product.name}">상품명</div>
           <div th:text="${item.product.price} + '원'">가격</div>
           <div th:text="'수량: ' + ${item.quantity}">수량</div>
-        </div>
+      </div>
+
+      <!-- ✅ 반드시 포함해야 할 숨겨진 input 필드 -->
+      <input type="hidden" th:name="|items[${itemStat.index}].productId|" th:value="${item.product.id}" />
+      <input type="hidden" th:name="|items[${itemStat.index}].quantity|" th:value="${item.quantity}" />
       </div>
     </div>
-
     <!-- 배송 정보 -->
     <div class="delivery-info">
       <h2>배송 정보</h2>
       <div class="input-row">
-        <input type="text" name="receiver" placeholder="수령인" />
+        <input type="text" name="receiverName" placeholder="수령인" />
         <input type="text" name="phone" placeholder="연락처" />
       </div>
       <div class="input-row">
@@ -51,7 +56,7 @@
   </div>
 
   <!-- 오른쪽 영역: 결제 요약 -->
-  <div class="order-summary">
+  <div class="order-summary1">
     <label>쿠폰</label>
     <input type="text" disabled />
     <label>포인트</label>
@@ -60,10 +65,9 @@
       <span >총 결제 금액:</span>
       <span id="totalPrice" th:text="${#numbers.formatInteger(totalPrice, 0)} + '원'">0원</span>
     </div>
-    <form th:action="@{/order}" method="post">
       <button class="checkout-btn" type="submit">결제하기</button>
-    </form>
   </div>
+</form>
 </section>
   <script th:src="@{/js/main.js}" defer></script>
   <script th:src="@{/js/order.js}" defer></script>

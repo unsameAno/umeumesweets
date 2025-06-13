@@ -12,7 +12,7 @@
 .dessert-card {
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 1rem;
   text-align: center;
   cursor: pointer;
@@ -177,12 +177,12 @@
 .buy-section {
   display: flex;
   gap: 1rem;
-  margin-top: auto;  /* ✅ 남는 공간 밀어내기 = 항상 하단 */
+  margin-top: auto; /* ✅ 남는 공간 밀어내기 = 항상 하단 */
 }
 
 /* 버튼 스타일 (가로 비율 + 높이 지정) */
 .buy-section .btn {
-  flex: 1 1 40%;  /* 기존: 45% → ✅ 40% */
+  flex: 1 1 40%; /* 기존: 45% → ✅ 40% */
   max-width: 220px;
   height: 44px;
   font-size: 16px;
@@ -220,7 +220,7 @@
 }
 
 .info-content {
-  flex: 1;  /* ✅ 위쪽 영역이 남는 공간 차지 */
+  flex: 1; /* ✅ 위쪽 영역이 남는 공간 차지 */
 }
 
 .review-content-wrapper {
@@ -282,7 +282,7 @@
 .shop-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;  /* 핵심! 이미지 높이에 맞게 맞춰줌 */
+  justify-content: space-between; /* 핵심! 이미지 높이에 맞게 맞춰줌 */
   flex: 1;
 }
 
@@ -335,7 +335,6 @@
   }
 }
 
-
 /* 하단 상품 영역 */
 .shop-products-section {
   margin-top: 3rem;
@@ -357,7 +356,7 @@
   background: #ffffff;
   border-radius: 1rem;
   padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease;
   cursor: pointer;
 }
@@ -384,14 +383,13 @@
   margin-bottom: 0.2rem;
 }
 
-
 /* shop-list.html */
 .shop-card p {
   font-size: 0.9rem;
   color: #666;
   margin: 0.3rem 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;  /* 2줄 제한 */
+  -webkit-line-clamp: 2; /* 2줄 제한 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -400,7 +398,7 @@
 /* 📱 모바일 대응 */
 @media (max-width: 600px) {
   .buy-section .btn {
-    flex: 1 1 100%;   /* ✅ 한 줄에 하나씩 */
+    flex: 1 1 100%; /* ✅ 한 줄에 하나씩 */
     max-width: 100%;
   }
 }

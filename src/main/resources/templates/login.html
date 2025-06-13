@@ -25,10 +25,6 @@
     <div th:if="${loginError}" class="login-error">
       <p th:text="${loginError}">아이디 또는 비밀번호가 틀렸습니다.</p>
     </div>
-    <div th:if="${loginError}" class="login-error">
-      <p th:text="${loginError}">아이디 또는 비밀번호가 틀렸습니다.</p>
-    </div>
-
     
     <!-- form은 하나만 사용 -->
     <form th:action="@{/login}" method="post">
