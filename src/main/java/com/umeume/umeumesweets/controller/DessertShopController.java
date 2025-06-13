@@ -1,5 +1,6 @@
 package com.umeume.umeumesweets.controller;
 
+import com.umeume.umeumesweets.config.KakaoMapConfig;
 import com.umeume.umeumesweets.entity.DessertShop;
 import com.umeume.umeumesweets.entity.Product;
 import com.umeume.umeumesweets.repository.DessertShopRepository;
@@ -18,6 +19,7 @@ public class DessertShopController {
 
     private final DessertShopRepository dessertShopRepository;
     private final ProductRepository productRepository;
+    private final KakaoMapConfig kakaoMapConfig;
 
     /**
      * 디저트 카페 전체 리스트 페이지
@@ -43,6 +45,7 @@ public class DessertShopController {
 
         model.addAttribute("shop", shop);
         model.addAttribute("products", productList);
+        model.addAttribute("kakaoApiKey", kakaoMapConfig.getApiKey());
         return "shops/shop-detail";
     }
 }

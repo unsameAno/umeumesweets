@@ -5,7 +5,6 @@
   <title th:text="${shop.shopName} + ' | 디저트 카페 상세'">카페 상세</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/main.css}" />
-  <link rel="stylesheet" th:href="@{/css/shop-detail.css}" />
 </head>
 <body>
 
@@ -58,7 +57,7 @@
     </div>
   </div>
 </section>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b6fc6ee40c6ed118d4c005a621698e5a&autoload=false&libraries=services"></script>
+<script th:src="'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&autoload=false&libraries=services'" defer></script>
 <script th:src="@{/js/shop-detail.js}"></script>
 <script th:src="@{/js/header.js}" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
