@@ -1,6 +1,8 @@
+skip_build_scripts: true
+
 services:
   - type: web
     name: umeumesweets
     env: java
-    buildCommand: "TERM=dumb ./gradlew build"
+    buildCommand: "./gradlew build"
     startCommand: "java -jar build/libs/umeumesweets-0.0.1-SNAPSHOT.jar"
