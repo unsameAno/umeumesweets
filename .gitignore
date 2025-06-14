@@ -63,7 +63,6 @@ Thumbs.db
 /out/
 
 # Spring Boot
-application.yml
 application.properties
 
 # vscode ignore
