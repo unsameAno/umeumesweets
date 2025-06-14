@@ -18,29 +18,29 @@
   <div class="container search-container">
     <form th:action="@{/products/search}" method="get">
       <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" />
-      <button type="submit" class="btn btn-search">검색</button>
+      <button type="submit" class="btn btn-search" data-translate>검색</button>
     </form>
   </div>
   <div th:if="${#lists.isEmpty(desserts)}" class="no-result">
-    <p>검색 결과가 없습니다 😢</p>
+    <p data-translate>검색 결과가 없습니다 😢</p>
   </div>
 </section>
 
 <!-- 카테고리 -->
 <section class="category-section">
   <div class="container category-list">
-    <button class="category-btn" data-category="">모든 디저트</button>
-    <button class="category-btn" data-category="cake">케이크</button>
-    <button class="category-btn" data-category="chocolate">초콜렛</button>
-    <button class="category-btn" data-category="shavedice">빙수</button>
-    <button class="category-btn" data-category="pudding">푸딩</button>
-    <button class="category-btn" data-category="macaron">마카롱</button>
-    <button class="category-btn" data-category="scone">스콘</button>
-    <button class="category-btn" data-category="bagel">베이글</button>
-    <button class="category-btn" data-category="icecream">아이스크림</button>
-    <button class="category-btn" data-category="cookie">쿠키</button>
-    <button class="category-btn" data-category="coffee">커피</button>
-    <button class="category-btn" data-category="beverage">음료</button>
+    <button class="category-btn" data-category="" data-translate>모든 디저트</button>
+    <button class="category-btn" data-category="cake" data-translate>케이크</button>
+    <button class="category-btn" data-category="chocolate" data-translate>초콜렛</button>
+    <button class="category-btn" data-category="shavedice" data-translate>빙수</button>
+    <button class="category-btn" data-category="pudding" data-translate>푸딩</button>
+    <button class="category-btn" data-category="macaron" data-translate>마카롱</button>
+    <button class="category-btn" data-category="scone" data-translate>스콘</button>
+    <button class="category-btn" data-category="bagel" data-translate>베이글</button>
+    <button class="category-btn" data-category="icecream" data-translate>아이스크림</button>
+    <button class="category-btn" data-category="cookie" data-translate>쿠키</button>
+    <button class="category-btn" data-category="coffee" data-translate>커피</button>
+    <button class="category-btn" data-category="beverage" data-translate>음료</button>
   </div>
 </section>
 
@@ -50,11 +50,11 @@
     <div th:each="shop : ${dessertShops}" class="swiper-slide"
          th:style="'background-image: url(' + @{${shop.imageUrl}} + ');'">
       <div class="shop-info">
-        <p th:text="${shop.shopName}">카페 이름</p>
+        <p th:text="${shop.shopName}" data-translate>카페 이름</p>
         <p th:text="'⭐ ' + ${shop.averageRating}">⭐ 0.0</p>
       </div>
       <button class="detail-btn"
-              th:onclick="'window.location.href=\'/shops/' + ${shop.id} + '\''">상세보기</button>
+              th:onclick="'window.location.href=\'/shops/' + ${shop.id} + '\''" data-translate>상세보기</button>
     </div>
   </div>
 
@@ -76,8 +76,8 @@
             <span th:text="${dessert.isLiked} ? '❤️' : '🤍'">🤍</span>
         </span>
       </div>
-      <h3 th:text="${dessert.name}">디저트 이름</h3>
-      <p th:text="${dessert.shopName}">카페명</p>
+      <h3 th:text="${dessert.name}" data-translate>디저트 이름</h3>
+      <p th:text="${dessert.shopName}" data-translate>카페명</p>
       <p th:text="${dessert.price + '원'}">가격</p>
       <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(dessert.averageRating, 1, 1)}">⭐ 0.0</p>
     </div>

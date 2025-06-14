@@ -1,53 +1,79 @@
-let currentLang = 'ko';
+// ✅ 초기 언어 설정 (기본은 'ko')
+let currentLang = getCookie("lang") || "ko";
 
-document.addEventListener("DOMContentLoaded", () => {
+// ✅ 쿠키에서 언어 읽기
+function getCookie(name) {
+  const cookies = document.cookie.split(";");
+  for (let c of cookies) {
+    const [key, val] = c.trim().split("=");
+    if (key === name) return val;
+  }
+  return null;
+}
+
+// ✅ 쿠키에 언어 저장
+function setCookie(name, value, days = 1) {
+  const expires = new Date(Date.now() + days * 86400000).toUTCString();
+  document.cookie = `${name}=${value}; path=/; expires=${expires}`;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
   // 텍스트 백업
-  document.querySelectorAll('[data-translate]').forEach(el => {
+  document.querySelectorAll("[data-translate]").forEach((el) => {
     const original = el.innerText.trim();
     if (original.length > 0) {
-      el.setAttribute('data-original', original);
+      el.setAttribute("data-original", original);
     }
   });
 
-  document.querySelectorAll('input[placeholder]').forEach(el => {
-    el.setAttribute('data-original-placeholder', el.placeholder);
+  document.querySelectorAll("input[placeholder]").forEach((el) => {
+    el.setAttribute("data-original-placeholder", el.placeholder);
   });
 
+  // ✅ 현재 언어 적용
+  if (currentLang !== "ko") {
+    await toggleLanguage(currentLang, true);
+  }
+
   // Language ▼ 토글 동작
-  const langToggle = document.querySelector('.language-toggle');
+  const langToggle = document.querySelector(".language-toggle");
   if (langToggle) {
-    langToggle.addEventListener('click', (e) => {
+    langToggle.addEventListener("click", (e) => {
       e.preventDefault();
       const dropdown = langToggle.nextElementSibling;
       if (dropdown) {
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
       }
     });
   }
 });
 
-async function toggleLanguage(targetLang) {
-  if (targetLang === currentLang) return;
+async function toggleLanguage(targetLang, force = false) {
+  if (!force && targetLang === currentLang) return;
 
-  const textElements = document.querySelectorAll('[data-translate]');
-  const inputElements = document.querySelectorAll('input[placeholder][data-original-placeholder]');
+  const textElements = document.querySelectorAll("[data-translate]");
+  const inputElements = document.querySelectorAll(
+    "input[placeholder][data-original-placeholder]"
+  );
 
-  if (targetLang === 'ko') {
-    textElements.forEach(el => {
-      el.innerText = el.getAttribute('data-original');
+  if (targetLang === "ko") {
+    textElements.forEach((el) => {
+      el.innerText = el.getAttribute("data-original");
     });
 
-    inputElements.forEach(el => {
-      el.placeholder = el.getAttribute('data-original-placeholder');
+    inputElements.forEach((el) => {
+      el.placeholder = el.getAttribute("data-original-placeholder");
     });
-
   } else {
-    const texts = Array.from(textElements).map(el => el.getAttribute('data-original'));
+    const texts = Array.from(textElements).map((el) =>
+      el.getAttribute("data-original")
+    );
 
-    const response = await fetch('/translate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ texts, target: targetLang })
+    const response = await fetch("/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ texts, target: targetLang }),
     });
 
     const translated = await response.json();
@@ -56,16 +82,17 @@ async function toggleLanguage(targetLang) {
       el.innerText = translated[i];
     });
 
-    inputElements.forEach(el => {
-      el.placeholder = '検索';
+    inputElements.forEach((el) => {
+      el.placeholder = "検索";
     });
   }
 
   currentLang = targetLang;
+  setCookie("lang", targetLang);
 }
 
 // 회원정보 드롭다운 토글
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const toggleBtn = document.getElementById("user-icon-toggle");
   const dropdown = document.getElementById("user-dropdown");
 
@@ -79,10 +106,11 @@ async function toggleLanguage(targetLang) {
 
     // 바깥 클릭 시 드롭다운 닫기
     document.addEventListener("click", function (e) {
-      const isClickInside = toggleBtn.contains(e.target) || dropdown.contains(e.target);
+      const isClickInside =
+        toggleBtn.contains(e.target) || dropdown.contains(e.target);
       if (!isClickInside) {
         dropdown.style.display = "none";
       }
     });
   }
-}); 
+});

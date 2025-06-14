@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>게시판</title>
+  <title data-translate>게시판</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 <body>
@@ -11,40 +11,40 @@
 <div class="board-list-container">
 
   <div class="board-list-actions">
-    <a th:href="@{/board/new}" class="board-btn board-btn-primary">글쓰기</a>
+    <a th:href="@{/board/new}" class="board-btn board-btn-primary" data-translate>글쓰기</a>
   </div>
 
   <table class="board-list-table">
     <thead>
       <tr>
-        <th>제목</th>
-        <th>카테고리</th>
-        <th>작성자</th>
-        <th>작성일</th>
+        <th data-translate>제목</th>
+        <th data-translate>카테고리</th>
+        <th data-translate>작성자</th>
+        <th data-translate>작성일</th>
       </tr>
     </thead>
     <tbody>
       <tr th:each="post : ${postPage.content}">
         <td>
-          <a th:href="@{'/board/' + ${post.id}}" th:text="${post.title}">제목</a>
+          <a th:href="@{'/board/' + ${post.id}}" th:text="${post.title}" data-translate>제목</a>
         </td>
-        <td th:text="${post.category}">카테고리</td>
+        <td th:text="${post.category}" data-translate>카테고리</td>
         <td>
-          <span th:if="${post.user != null}" th:text="${post.user.name + ' 님'}">회원</span>
-          <span th:if="${post.user == null}" th:text="${post.guestName + ' 님'}">비회원</span>
+          <span th:if="${post.user != null}" th:text="${post.user.name + ' 님'}" data-translate>회원</span>
+          <span th:if="${post.user == null}" th:text="${post.guestName + ' 님'}" data-translate>비회원</span>
         </td>
         <td th:with="dateStr=${#temporals.format(post.createdAt, 'yyyy-MM-dd')},
                      todayStr=${#temporals.format(T(java.time.LocalDateTime).now(), 'yyyy-MM-dd')}">
-          <span th:text="${dateStr + (dateStr == todayStr ? ' 🔥' : '')}">날짜</span>
+          <span th:text="${dateStr + (dateStr == todayStr ? ' 🔥' : '')}" data-translate>날짜</span>
         </td>
       </tr>
     </tbody>
   </table>
 
   <div class="board-list-pagination">
-    <a th:if="${postPage.hasPrevious()}" th:href="@{'/board?page=' + ${postPage.number - 1}}">&laquo; 이전</a>
+    <a th:if="${postPage.hasPrevious()}" th:href="@{'/board?page=' + ${postPage.number - 1}}" data-translate>&laquo; 이전</a>
     <span th:text="${postPage.number + 1} + ' / ' + ${postPage.totalPages}">1 / 1</span>
-    <a th:if="${postPage.hasNext()}" th:href="@{'/board?page=' + ${postPage.number + 1}}">다음 &raquo;</a>
+    <a th:if="${postPage.hasNext()}" th:href="@{'/board?page=' + ${postPage.number + 1}}" data-translate>다음 &raquo;</a>
   </div>
 </div>
 
