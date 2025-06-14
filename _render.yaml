@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: umeumesweets
-    env: java
-    preBuild:
-      command: ""
-    skipScript: true
-    buildCommand: "./gradlew build"
-    startCommand: "java -jar build/libs/umeumesweets-0.0.1-SNAPSHOT.jar"
