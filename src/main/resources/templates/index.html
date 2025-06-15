@@ -8,6 +8,8 @@
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <script th:src="@{/js/header.js}" defer></script>
+  <script th:src="@{/js/translate.js}" defer></script>
+  
 </head>
 <body>
 <!-- 헤더 -->
@@ -17,7 +19,7 @@
 <section class="search-section">
   <div class="container search-container">
     <form th:action="@{/products/search}" method="get">
-      <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" />
+      <input type="text" name="keyword" placeholder="디저트를 검색해보세요 🍡" data-placeholder-key="search"/>
       <button type="submit" class="btn btn-search" data-translate>검색</button>
     </form>
   </div>

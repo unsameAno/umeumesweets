@@ -3,7 +3,7 @@
 ================================= */
 header {
   background-color: #fff8fa;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   padding: 1rem 0;
 }
 
@@ -39,7 +39,6 @@ header {
   font-weight: bold;
   font-size: 0.9rem;
 }
-
 
 .logo {
   font-size: 2rem;
@@ -91,7 +90,6 @@ header {
   color: #fff;
 }
 
-
 .user-info {
   /* position: absolute; ❌ 삭제! */
   display: flex;
@@ -100,9 +98,9 @@ header {
 }
 
 .user-info img {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
 .user-menu-wrapper {
@@ -123,10 +121,11 @@ header {
   right: 0;
   background-color: white;
   border: 1px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   z-index: 1000;
+  margin-top: 7px;
 }
 
 .user-dropdown.show {
@@ -146,59 +145,57 @@ header {
 
 /* 상단 네비게이션 스타일링 */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
 }
 
 /* 메뉴 항목들 (디저트 상품, 카페) */
 .menu {
-    display: flex;
-    justify-content: flex-start;
-    flex-grow: 1; /* 공간 차지 */
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1; /* 공간 차지 */
 }
 
 .menu-items {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
+  list-style-type: none;
+  display: flex;
+  margin: 0;
 }
 
 .menu li {
-    margin: 0;
+  position: relative;
+  margin: 0;
 }
 
 .menu li a {
-    text-decoration: none;
-    color: #e87a90;
-    font-weight: bold;
-    padding: 10px;
-    display: block;
+  text-decoration: none;
+  color: #e87a90;
+  font-weight: bold;
+  padding: 10px;
+  display: block;
 }
 
 .language {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
-.language li {
-    margin: 0;
-}
-
-.language a {
-    text-decoration: none;
-    color: #e87a90;
-    font-weight: normal;
-    padding: 10px;
+.language-dropdown li a {
+  display: block;
+  padding: 8px 12px;
+  color: #e87a90;
+  text-decoration: none;
 }
 
 /* 호버 효과 */
-.menu li a:hover, .language a:hover {
-    color: #007bff;
+.menu li a:hover,
+.language a:hover {
+  color: #007bff;
 }
-
 
 /*어드민 헤더*/
 .admin-header {
@@ -214,11 +211,22 @@ header {
 }
 
 .language-dropdown {
-  list-style: none;
-  padding: 0;
-  margin-top: 4px;
+  display: none;
+  position: absolute;
+  list-style: none; /* ✔ 불렛 제거 */
+  top: 100%; /* Language 버튼 바로 아래 */
+  left: 0; /* 왼쪽 정렬 */
   background: white;
   border: 1px solid #ddd;
-  position: absolute;
-  z-index: 100;
+  border-radius: 8px;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-left: 18px;
+}
+
+.language:hover .language-dropdown,
+.language-dropdown.show {
+  display: block;
 }

@@ -6,6 +6,7 @@
   <title>UmeUmeSweets | Header</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
   <script th:src="@{/js/header.js}" defer></script>
+  <script th:src="@{/js/translate.js}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -45,11 +46,11 @@
               <a href="#" id="user-icon-toggle">
                 <img src="https://api.iconify.design/heroicons/user.svg" alt="회원정보" class="user-icon" width="24" height="24" />
               </a>
-            </div>
-            <div class="user-dropdown" id="user-dropdown" style="display: none;">
-              <a href="/user/profile" data-translate>회원정보</a>
-              <a href="/order/complete" data-translate>주문 내역</a>
-              <a href="/logout" data-translate>로그아웃</a>
+              <div class="user-dropdown" id="user-dropdown" style="display: none;">
+                <a href="/user/profile" data-translate>회원정보</a>
+                <a href="/order/complete" data-translate>주문 내역</a>
+                <a href="/logout" data-translate>로그아웃</a>
+              </div>
             </div>
           </div>
         </div>
