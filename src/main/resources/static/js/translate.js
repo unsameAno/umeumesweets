@@ -17,6 +17,10 @@ const placeholderMap = {
     ko: "댓글을 입력하세요",
     ja: "コメントを入力してください",
   },
+  review: {
+    ko: "리뷰를 입력하세요",
+    ja: "レビューを入力してください",
+  },
 };
 
 async function toggleLanguage(targetLang, force = false) {
@@ -24,7 +28,8 @@ async function toggleLanguage(targetLang, force = false) {
 
   const textElements = document.querySelectorAll("[data-translate]");
   const inputElements = document.querySelectorAll(
-    "input[placeholder][data-original-placeholder][data-placeholder-key]"
+    "input[placeholder][data-original-placeholder][data-placeholder-key], " +
+      "textarea[placeholder][data-original-placeholder][data-placeholder-key]"
   );
 
   if (targetLang === "ko") {

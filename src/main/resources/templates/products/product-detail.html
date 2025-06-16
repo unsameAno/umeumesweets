@@ -25,14 +25,14 @@
       <!-- 정보 영역 -->
       <div class="product-info">
         <div class="info-content">
-          <h2 th:text="${product.name}">상품 이름</h2>
-          <p class="shop-name" th:text="${product.shop.shopName}">카페 이름</p>
+          <h2 th:text="${product.name}" data-translate>상품 이름</h2>
+          <p class="shop-name" th:text="${product.shop.shopName}" data-translate>카페 이름</p>
           <p class="rating">★★★★★ <span th:text="${#numbers.formatDecimal(product.averageRating, 1, 2)}">0.00</span></p>
           <p class="price" th:text="${product.price + '원'}">가격</p>
 
           <div class="description-wrapper" id="descWrapper">
-            <p class="description" id="descText" th:text="${product.description}">상품 설명</p>
-            <button class="btn-more" id="toggleBtn">더보기</button>
+            <p class="description" id="descText" th:text="${product.description}" data-translate>상품 설명</p>
+            <button class="btn-more" id="toggleBtn" data-translate>더보기</button>
           </div>
         </div>
 
@@ -43,23 +43,23 @@
             <select name="quantity" class="qty-select">
               <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">1</option>
             </select>
-            <button type="submit" class="btn btn-secondary">장바구니</button>
+            <button type="submit" class="btn btn-secondary" data-translate>장바구니</button>
           </form>
-          <button type="button" class="btn btn-primary" id="buyNowBtn">바로구매</button>
+          <button type="button" class="btn btn-primary" id="buyNowBtn" data-translate>바로구매</button>
         </div>
       </div>
     </div>
 
     <!-- 탭 버튼 -->
     <div class="tab-buttons">
-      <button class="tab-button active" data-target="detail">상세정보</button>
-      <button class="tab-button" data-target="review">리뷰</button>
+      <button class="tab-button active" data-target="detail" data-translate>상세정보</button>
+      <button class="tab-button" data-target="review" data-translate>리뷰</button>
     </div>
 
     <!-- 탭 내용 -->
     <div class="tab-content">
       <div id="detail" class="tab-panel active">
-        <p th:text="${product.description}">상세페이지 내용</p>
+        <p th:text="${product.description}" data-translate>상세페이지 내용</p>
       </div>
     <div id="review" class="tab-panel">
       <!-- 리뷰 작성 폼 -->
@@ -76,9 +76,9 @@
           </select>
         </label><br/>
         
-        <textarea name="content" placeholder="리뷰를 입력하세요" required></textarea><br/>
+        <textarea name="content" placeholder="리뷰를 입력하세요" required data-placeholder-key="review"></textarea><br/>
         
-        <button type="submit" class="btn btn-primary">리뷰 작성</button>
+        <button type="submit" class="btn btn-primary" data-translate>리뷰 작성</button>
       </form>
 
       <!-- 리뷰 목록 -->
@@ -87,10 +87,10 @@
           <div class="review-content-wrapper">
             <div>
               <p>
-                <strong th:text="${review.user.username}">닉네임</strong>
+                <strong th:text="${review.user.username}" data-translate>닉네임</strong>
                 <span th:text="'⭐ ' + ${review.rating}">⭐ 5</span>
               </p>
-              <p th:text="${review.content}">리뷰 내용</p>
+              <p th:text="${review.content}" data-translate>리뷰 내용</p>
             </div>
             <button class="delete-review-btn"
                    th:if="${loginUser != null and loginUser.id == review.user.id}"
@@ -99,7 +99,7 @@
         </div>
       </div>
       <div th:if="${#lists.isEmpty(reviews)}" class="no-reviews">
-        <p>아직 리뷰가 없습니다. 첫 리뷰를 남겨주세요!</p>
+        <p data-translate>아직 리뷰가 없습니다. 첫 리뷰를 남겨주세요!</p>
       </div>
     </div>
   </section>

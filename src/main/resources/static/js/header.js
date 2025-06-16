@@ -26,9 +26,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  document.querySelectorAll("input[placeholder]").forEach((el) => {
-    el.setAttribute("data-original-placeholder", el.placeholder);
-  });
+  document
+    .querySelectorAll("input[placeholder], textarea[placeholder]")
+    .forEach((el) => {
+      el.setAttribute("data-original-placeholder", el.placeholder);
+    });
 
   // ✅ 현재 언어 적용
   if (currentLang !== "ko") {
