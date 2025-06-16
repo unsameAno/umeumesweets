@@ -7,14 +7,12 @@ import com.umeume.umeumesweets.repository.FavoriteProductRepository;
 import com.umeume.umeumesweets.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +23,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final FavoriteProductRepository favoriteProductRepository;
+    private final ImageUploadService imageUploadService; // ✅ Cloudinary 업로드용 서비스
 
     public List<ProductDto> getTop20ProductsWithLikeInfo(User user) {
         List<Product> topProducts = productRepository.findTop20ByOrderByLikeCountDesc();
@@ -33,20 +32,11 @@ public class ProductService {
                 .toList();
     }
 
-    // 파일 업로드
-    public String saveProductImage(MultipartFile imageFile) throws IOException {
-        String uploadDir = new ClassPathResource("static/images/product/").getFile().getAbsolutePath();
-        String fileName = imageFile.getOriginalFilename();
-        File dest = new File(uploadDir, fileName);
-        imageFile.transferTo(dest);
-        return "/images/product/" + fileName;
-    }
-
-    // 상품 CRUD
+    // ✅ 상품 등록
     public void createProduct(Product product, MultipartFile imageFile) {
         try {
             if (imageFile != null && !imageFile.isEmpty()) {
-                String imageUrl = saveProductImage(imageFile);
+                String imageUrl = imageUploadService.uploadImage(imageFile); // ✅ Cloudinary 업로드
                 product.setImageUrl(imageUrl);
             }
             productRepository.save(product);
@@ -55,6 +45,7 @@ public class ProductService {
         }
     }
 
+    // ✅ 상품 수정
     public void updateProduct(Long id, Product updated) {
         Product existing = findById(id);
         existing.setName(updated.getName());
@@ -67,7 +58,7 @@ public class ProductService {
 
         if (updated.getImageFile() != null && !updated.getImageFile().isEmpty()) {
             try {
-                String imageUrl = saveProductImage(updated.getImageFile());
+                String imageUrl = imageUploadService.uploadImage(updated.getImageFile()); // ✅ Cloudinary 업로드
                 existing.setImageUrl(imageUrl);
             } catch (IOException e) {
                 throw new RuntimeException("이미지 업로드 중 오류 발생", e);
@@ -102,7 +93,6 @@ public class ProductService {
         }
     }
 
-    // 기존 방식 유지
     public List<Product> findSorted(String category, String sortOption) {
         String[] parts = sortOption.split("_");
         String field = parts[0];
@@ -127,7 +117,6 @@ public class ProductService {
         }
     }
 
-    // ✅ 리팩토링 추가: findSorted + liked 포함
     public List<ProductDto> findSorted(String category, String sortOption, User user) {
         List<Product> products = findSorted(category, sortOption);
         return products.stream()
@@ -143,7 +132,6 @@ public class ProductService {
         }
     }
 
-    // ✅ 리팩토링 추가: searchByKeyword + liked 포함
     public List<ProductDto> searchByKeyword(String keyword, User user) {
         List<Product> products = searchByKeyword(keyword);
         return products.stream()
@@ -165,7 +153,6 @@ public class ProductService {
                 .toList();
     }
 
-    // ✅ 공통 변환 로직 분리
     private ProductDto toDto(Product product, User user) {
         boolean liked = user != null && favoriteProductRepository.existsByUserAndProduct(user, product);
 

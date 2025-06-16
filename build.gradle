@@ -34,6 +34,8 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'mysql:mysql-connector-java:8.0.33'
 	implementation 'org.springframework.security:spring-security-core:6.1.3'
+	// Cloudinary SDK 추가
+	implementation 'com.cloudinary:cloudinary-http44:1.37.0'
 }
 
 tasks.named('test') {
