@@ -36,7 +36,7 @@
           <a th:href="@{/login}" class="nav-link login-btn" data-translate>로그인</a>
         </div>
         <div class="user-info" th:if="${loginUser != null}">
-            <a href="/favorites" data-translate>
+            <a href="/favorites">
               <img src="https://api.iconify.design/heroicons/heart.svg" alt="찜목록" width="24" height="24" />
             </a>
             <a href="/cart">

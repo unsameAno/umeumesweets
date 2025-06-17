@@ -27,7 +27,7 @@
       <div class="order-summary" onclick="toggleDetails(this)">
         <span th:text="'주문번호: #' + ${order.id} + ' / '"></span>
         <span th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')} + ' / '"></span>
-        <span th:text="${order.totalAmount} + '원'"></span>
+        <span th:text="${order.totalAmount} + 'won'"></span>
       </div>
 
       <!-- 펼쳐진 상세 -->
@@ -41,8 +41,8 @@
               <p th:text="'상품명: ' + ${item.productName}"></p>
               <p th:text="'카페명: ' + ${item.shopName}"></p>
               <p th:text="'수량: ' + ${item.quantity} + '개'"></p>
-              <p th:text="'단가: ' + ${item.price} + '원'"></p>
-              <p th:text="'합계: ' + (${item.quantity} * ${item.price}) + '원'"></p>
+              <p th:text="'단가: ' + ${item.price} + 'won'"></p>
+              <p th:text="'합계: ' + (${item.quantity} * ${item.price}) + 'won'"></p>
             </div>
           </div>
         </div>

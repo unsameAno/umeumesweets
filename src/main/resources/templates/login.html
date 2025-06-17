@@ -6,6 +6,7 @@
   <title>로그인 | 우메우메스이츠</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
   <script th:src="@{/js/main.js}" defer></script>
+  <script th:src="@{/js/header.js}" defer></script>
   <script th:src="@{/js/translate.js}" defer></script>
 </head>
 <body th:with="page='other'">
@@ -20,27 +21,27 @@
   </div>
 
   <div class="container login-container">
-    <h2>로그인</h2>
+    <h2 data-translate>로그인</h2>
 
     <!-- 에러 메시지 표시 -->
     <div th:if="${loginError}" class="login-error">
-      <p th:text="${loginError}">아이디 또는 비밀번호가 틀렸습니다.</p>
+      <p th:text="${loginError}" data-translate>아이디 또는 비밀번호가 틀렸습니다.</p>
     </div>
     
     <!-- form은 하나만 사용 -->
     <form th:action="@{/login}" method="post">
-      <input type="text" name="username" placeholder="아이디" required />
-      <input type="password" name="password" placeholder="비밀번호" required />
-      <button type="submit">로그인</button>
+      <input type="text" name="username" placeholder="아이디" required data-placeholder-key="id"/>
+      <input type="password" name="password" placeholder="비밀번호" required data-placeholder-key="password"/>
+      <button type="submit" data-translate>로그인</button>
     </form>
 
     <div class="login-links">
-      <a th:href="@{/register}">회원가입</a> |
-      <a th:href="@{/find-id}">아이디 찾기</a> |
-      <a th:href="@{/find-pw}">비밀번호 찾기</a>
+      <a th:href="@{/register}" data-translate>회원가입</a> |
+      <a th:href="@{/find-id}" data-translate>아이디 찾기</a> |
+      <a th:href="@{/find-pw}" data-translate>비밀번호 찾기</a>
     </div>
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

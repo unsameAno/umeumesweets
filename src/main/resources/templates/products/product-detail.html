@@ -28,7 +28,7 @@
           <h2 th:text="${product.name}" data-translate>상품 이름</h2>
           <p class="shop-name" th:text="${product.shop.shopName}" data-translate>카페 이름</p>
           <p class="rating">★★★★★ <span th:text="${#numbers.formatDecimal(product.averageRating, 1, 2)}">0.00</span></p>
-          <p class="price" th:text="${product.price + '원'}">가격</p>
+          <p class="price" th:text="${product.price + 'won'}">가격</p>
 
           <div class="description-wrapper" id="descWrapper">
             <p class="description" id="descText" th:text="${product.description}" data-translate>상품 설명</p>

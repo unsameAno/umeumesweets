@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>디저트 카페 | UmeUmeSweets</title>
+  <title data-translate>디저트 카페 | UmeUmeSweets</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/main.css}" />
   <script th:src="@{/js/header.js}" defer></script>
@@ -16,7 +16,7 @@
 <!-- 타이틀 -->
 <section class="category-section">
   <div class="container">
-    <h2 class="section-title">디저트 카페 목록</h2>
+    <h2 class="section-title" data-translate>디저트 카페 목록</h2>
   </div>
 </section>
 
@@ -28,8 +28,8 @@
         <img th:src="${shop.imageUrl}" alt="카페 이미지" />
         <span class="heart-icon">🤍</span>
       </div>
-      <h3 th:text="${shop.shopName}">카페 이름</h3>
-      <p th:text="${#strings.abbreviate(shop.description, 50)}">카페 설명</p>
+      <h3 th:text="${shop.shopName}" data-translate>카페 이름</h3>
+      <p th:text="${#strings.abbreviate(shop.description, 50)}" data-translate>카페 설명</p>
       <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(shop.averageRating, 1, 1)}">⭐ 0.0</p>
     </div>
   </div>

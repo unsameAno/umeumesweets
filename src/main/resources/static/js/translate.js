@@ -21,6 +21,10 @@ const placeholderMap = {
     ko: "리뷰를 입력하세요",
     ja: "レビューを入力してください",
   },
+  id: {
+    ko: "아이디",
+    ja: "ID",
+  },
 };
 
 async function toggleLanguage(targetLang, force = false) {
