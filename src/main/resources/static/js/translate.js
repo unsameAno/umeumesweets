@@ -21,9 +21,25 @@ const placeholderMap = {
     ko: "리뷰를 입력하세요",
     ja: "レビューを入力してください",
   },
-  id: {
-    ko: "아이디",
-    ja: "ID",
+  addressDetail: {
+    ko: "상세주소",
+    ja: "詳細住所",
+  },
+  address: {
+    ko: "주소",
+    ja: "住所",
+  },
+  phone: {
+    ko: "연락처",
+    ja: "連絡先",
+  },
+  receiverName: {
+    ko: "수령인",
+    ja: "受領人",
+  },
+  zipcode: {
+    ko: "우편번호",
+    ja: "郵便番号",
   },
 };
 

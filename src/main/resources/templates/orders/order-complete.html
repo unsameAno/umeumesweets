@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>주문 완료</title>
+  <title data-translate>주문 완료</title>
   <link rel="stylesheet" th:href="@{/css/main.css}" />
   <link rel="stylesheet" th:href="@{/css/order.css}" />
   <script th:src="@{/js/translate.js}" defer></script>
@@ -11,18 +11,18 @@
   <div th:replace="~{fragments/index-header :: header}"></div>
 
   <section class="order-complete" style="max-width: 800px; margin: 40px auto;">
-    <h2 style="font-size: 24px; margin-bottom: 24px; margin-top: 20px;">주문 내역</h2>
+    <h2 style="font-size: 24px; margin-bottom: 24px; margin-top: 20px;" data-translate>주문 내역</h2>
 
     <div th:each="order : ${orders}" class="order-item" th:attr="id='order-' + ${order.id}">
       <button class="cancel-btn" 
               th:if="${order.status != 'CANCELED'}"
               th:onclick="cancelOrder([[${order.id}]])" 
-              type="button">
+              type="button" data-translate>
         주문취소
       </button>
       <!-- ✅ 처음에는 숨겨져 있다가 JS로 표시할 예정 -->
       <span class="cancel-badge"
-      th:classappend="${order.status == 'CANCELED'} ? '' : 'hidden'">[취소완료]</span>
+      th:classappend="${order.status == 'CANCELED'} ? '' : 'hidden'" data-translate>[취소완료]</span>
       <!-- 접힌 상태 -->
       <div class="order-summary" onclick="toggleDetails(this)">
         <span th:text="'주문번호: #' + ${order.id} + ' / '"></span>
@@ -38,11 +38,11 @@
               <img th:src="@{${item.product.imageUrl}}" alt="상품 이미지" />
             </div>
             <div class="item-info">
-              <p th:text="'상품명: ' + ${item.productName}"></p>
-              <p th:text="'카페명: ' + ${item.shopName}"></p>
-              <p th:text="'수량: ' + ${item.quantity} + '개'"></p>
-              <p th:text="'단가: ' + ${item.price} + 'won'"></p>
-              <p th:text="'합계: ' + (${item.quantity} * ${item.price}) + 'won'"></p>
+              <p th:text="'상품명: ' + ${item.productName}" data-translate></p>
+              <p th:text="'카페명: ' + ${item.shopName}" data-translate></p>
+              <p th:text="'수량: ' + ${item.quantity} + '개'" data-translate></p>
+              <p th:text="'단가: ' + ${item.price} + 'won'" data-translate></p>
+              <p th:text="'합계: ' + (${item.quantity} * ${item.price}) + 'won'" data-translate></p>
             </div>
           </div>
         </div>
@@ -50,9 +50,9 @@
         <!-- 배송 정보 -->
         <div class="delivery-info" style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;"
             th:if="${order.recipient != null}">
-          <p th:text="'수령인: ' + ${order.recipient.receiverName}"></p>
-          <p th:text="'연락처: ' + ${order.recipient.phone}"></p>
-          <p th:text="'주소: ' + ${order.recipient.address} + ' ' + ${order.recipient.addressDetail}"></p>
+          <p th:text="'수령인: ' + ${order.recipient.receiverName}" data-translate></p>
+          <p th:text="'연락처: ' + ${order.recipient.phone}" data-translate></p>
+          <p th:text="'주소: ' + ${order.recipient.address} + ' ' + ${order.recipient.addressDetail}" data-translate></p>
         </div>
       </div>
     </div>

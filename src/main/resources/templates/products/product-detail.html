@@ -26,7 +26,11 @@
       <div class="product-info">
         <div class="info-content">
           <h2 th:text="${product.name}" data-translate>상품 이름</h2>
-          <p class="shop-name" th:text="${product.shop.shopName}" data-translate>카페 이름</p>
+          <p class="shop-name">
+            <a th:href="@{/shops/{id}(id=${product.shop.id})}" class="shop-link" >
+              <span th:text="${product.shop.shopName}" data-translate>카페 이름</span> &gt;
+            </a>
+          </p>
           <p class="rating">★★★★★ <span th:text="${#numbers.formatDecimal(product.averageRating, 1, 2)}">0.00</span></p>
           <p class="price" th:text="${product.price + 'won'}">가격</p>
 
@@ -44,8 +48,8 @@
               <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">1</option>
             </select>
             <button type="submit" class="btn btn-secondary" data-translate>장바구니</button>
+            <button type="button" class="btn btn-primary" id="buyNowBtn" data-translate>바로구매</button>
           </form>
-          <button type="button" class="btn btn-primary" id="buyNowBtn" data-translate>바로구매</button>
         </div>
       </div>
     </div>

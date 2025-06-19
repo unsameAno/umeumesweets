@@ -53,7 +53,7 @@
          th:style="'background-image: url(' + @{${shop.imageUrl}} + ');'">
       <div class="shop-info">
         <p th:text="${shop.shopName}" data-translate>카페 이름</p>
-        <p th:text="'⭐ ' + ${shop.averageRating}">⭐ 0.0</p>
+        <!-- <p th:text="'⭐ ' + ${shop.averageRating}">⭐ 0.0</p> -->
       </div>
       <button class="detail-btn"
               th:onclick="'window.location.href=\'/shops/' + ${shop.id} + '\''" data-translate>상세보기</button>

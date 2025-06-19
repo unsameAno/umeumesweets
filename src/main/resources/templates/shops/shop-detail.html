@@ -53,7 +53,7 @@
         </div>
         <h4 th:text="${product.name}" data-translate>상품 이름</h4>
         <p th:text="${product.price + 'won'}" data-translate>가격</p>
-        <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(product.averageRating, 1, 1)}">⭐ 0.0</p>
+        <!-- <p class="rating" th:text="'⭐ ' + ${#numbers.formatDecimal(product.averageRating, 1, 1)}">⭐ 0.0</p> -->
       </div>
     </div>
   </div>

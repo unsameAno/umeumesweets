@@ -23,9 +23,9 @@
       <!-- 실제 보여지는 상품 정보 -->
       <img th:src="@{${item.product.imageUrl}}" width="80" height="80" />
       <div class="item-info">
-          <div th:text="${item.product.name}">상품명</div>
-          <div th:text="${item.product.price} + '원'">가격</div>
-          <div th:text="'수량: ' + ${item.quantity}">수량</div>
+          <div th:text="${item.product.name}" data-translate>상품명</div>
+          <div th:text="${item.product.price} + 'won'" data-translate>가격</div>
+          <div th:text="'수량: ' + ${item.quantity}" data-translate>수량</div>
       </div>
 
       <!-- ✅ 반드시 포함해야 할 숨겨진 input 필드 -->
@@ -37,36 +37,36 @@
     <div class="delivery-info">
       <h2>배송 정보</h2>
       <div class="input-row">
-        <input type="text" name="receiverName" placeholder="수령인" />
-        <input type="text" name="phone" placeholder="연락처" />
+        <input type="text" name="receiverName" placeholder="수령인" data-placeholder-key="receiverName"/>
+        <input type="text" name="phone" placeholder="연락처" data-placeholder-key="phone"/>
       </div>
       <div class="input-row">
-        <input type="text" name="zipcode" placeholder="우편번호" />
-        <button type="button" onclick="execDaumPostcode()" class="btn-find-address">주소찾기</button>
+        <input type="text" name="zipcode" placeholder="우편번호" data-placeholder-key="zipcode"/>
+        <button type="button" onclick="execDaumPostcode()" class="btn-find-address" data-translate>주소찾기</button>
       </div>
-      <input type="text" name="address" placeholder="주소" />
-      <input type="text" name="addressDetail" placeholder="상세주소" />
+      <input type="text" name="address" placeholder="주소" data-placeholder-key="address"/>
+      <input type="text" name="addressDetail" placeholder="상세주소" data-placeholder-key="addressDetail"/>
       <select name="memo">
-        <option disabled selected>배송메모를 선택해주세요.</option>
-        <option>문 앞에 놓아주세요</option>
-        <option>직접 수령할게요</option>
-        <option>경비실에 맡겨주세요</option>
-        <option>연락 후 배송해주세요</option>
+        <option disabled selected data-translate>배송메모를 선택해주세요.</option>
+        <option data-translate>문 앞에 놓아주세요</option>
+        <option data-translate>직접 수령할게요</option>
+        <option data-translate>경비실에 맡겨주세요</option>
+        <option data-translate>연락 후 배송해주세요</option>
       </select>
     </div>
   </div>
 
   <!-- 오른쪽 영역: 결제 요약 -->
   <div class="order-summary1">
-    <label>쿠폰</label>
+    <label data-translate>쿠폰</label>
     <input type="text" disabled />
-    <label>포인트</label>
+    <label data-translate>포인트</label>
     <input type="text" disabled />
     <div class="total-price-row">
-      <span >총 결제 금액:</span>
-      <span id="totalPrice" th:text="${#numbers.formatInteger(totalPrice, 0)} + '원'">0원</span>
+      <span data-translate>총 결제 금액:</span>
+      <span id="totalPrice" th:text="${#numbers.formatInteger(totalPrice, 0)} + 'won'" data-translate>0원</span>
     </div>
-      <button class="checkout-btn" type="submit">결제하기</button>
+      <button class="checkout-btn" type="submit" data-translate>결제하기</button>
   </div>
 </form>
 </section>

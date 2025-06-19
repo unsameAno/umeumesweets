@@ -111,7 +111,7 @@
 .product-info h2 {
   font-size: 1.8rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.4rem;
   color: #333;
 }
 
@@ -175,14 +175,13 @@
 }
 
 .buy-section {
-  display: flex;
   gap: 1rem;
   margin-top: auto; /* ✅ 남는 공간 밀어내기 = 항상 하단 */
 }
 
 /* 버튼 스타일 (가로 비율 + 높이 지정) */
 .buy-section .btn {
-  flex: 1 1 40%; /* 기존: 45% → ✅ 40% */
+  width: 40%;
   max-width: 220px;
   height: 44px;
   font-size: 16px;
@@ -393,6 +392,17 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.shop-link {
+  text-decoration: none;
+  color: #f08a8a; /* 링크 색도 텍스트처럼 자연스럽게 */
+}
+
+.shop-link,
+.shop-link:hover {
+  text-decoration: none;
+  color: #ea7272;
 }
 
 /* 📱 모바일 대응 */
