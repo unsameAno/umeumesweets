@@ -25,8 +25,8 @@ public class ProductService {
     private final FavoriteProductRepository favoriteProductRepository;
     private final ImageUploadService imageUploadService; // ✅ Cloudinary 업로드용 서비스
 
-    public List<ProductDto> getTop20ProductsWithLikeInfo(User user) {
-        List<Product> topProducts = productRepository.findTop20ByOrderByLikeCountDesc();
+    public List<ProductDto> getTop36ProductsWithLikeInfo(User user) {
+        List<Product> topProducts = productRepository.findTop36ByOrderByLikeCountDesc();
         return topProducts.stream()
                 .map(product -> toDto(product, user))
                 .toList();

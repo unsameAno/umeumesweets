@@ -25,7 +25,7 @@
       th:classappend="${order.status == 'CANCELED'} ? '' : 'hidden'" data-translate>[취소완료]</span>
       <!-- 접힌 상태 -->
       <div class="order-summary" onclick="toggleDetails(this)">
-        <span th:text="'주문번호: #' + ${order.id} + ' / '"></span>
+        <span th:text="'주문번호: #' + ${order.id} + ' / '" data-translate></span>
         <span th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')} + ' / '"></span>
         <span th:text="${order.totalAmount} + 'won'"></span>
       </div>

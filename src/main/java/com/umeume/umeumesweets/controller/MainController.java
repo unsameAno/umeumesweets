@@ -35,7 +35,7 @@ public class MainController {
         }
 
         // ✅ ProductDto로 찜 여부까지 포함해서 가져오기
-        List<ProductDto> desserts = productService.getTop20ProductsWithLikeInfo(user);
+        List<ProductDto> desserts = productService.getTop36ProductsWithLikeInfo(user);
         model.addAttribute("desserts", desserts);
 
         List<DessertShop> dessertShops = dessertShopRepository.findTop10ByOrderByAverageRatingDesc();

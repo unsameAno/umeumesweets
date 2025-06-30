@@ -72,3 +72,7 @@ application.properties
 
 # 기본값이면 따로 안 건드려도 됨
 spring.web.resources.static-locations=classpath:/static/
+
+# 다른 pc에서 접근 허용(같은 와이파이 내부일때)
+server.port=8080
+server.address=0.0.0.0
