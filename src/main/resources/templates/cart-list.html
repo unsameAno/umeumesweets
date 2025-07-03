@@ -39,7 +39,7 @@
           <div class="item-info">
             <div class="item-name" th:text="${item.product.name}" data-translate>상품명</div>
             <div class="item-cafe" th:text="${item.product.shop.shopName}" data-translate>디저트 가게명</div>
-            <div translate>수량: <span th:text="${item.quantity}">1</span></div>
+            <div>수량: <span th:text="${item.quantity}" data-translate>1</span></div>
           </div>
 
           <div class="item-price">
